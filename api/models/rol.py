@@ -16,7 +16,7 @@ class Rol(models.Model):
 
     def __str__(self):
         return self.descripcion
-
+    
 
     def delete(self, *args):
         self.activo = False

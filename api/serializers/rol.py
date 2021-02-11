@@ -10,5 +10,5 @@ class RolSerializer(serializers.ModelSerializer):
 class RolRegistroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-        fields = ('descripcion')
+        fields = ('descripcion',)
 

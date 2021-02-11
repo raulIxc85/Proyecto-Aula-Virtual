@@ -11,12 +11,13 @@ from api.serializers import RolSerializer, RolRegistroSerializer
 
 
 class RolViewset(viewsets.ModelViewSet):
-    queryset = User.objects.filter(is_active=True)
+    queryset = Rol.objects.filter(activo=True)
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_fields = ("descripcion")
+    filter_fields = ("descripcion",)
     search_fields = ("descripcion")
     ordering_fields = ("descripcion")
+    
 
     def get_serializer_class(self):
         """Define serializer for API"""

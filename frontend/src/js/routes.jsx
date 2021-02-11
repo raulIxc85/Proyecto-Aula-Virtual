@@ -22,6 +22,11 @@ import Notificaciones from './common/components/Examples/Notificaciones';
 import ExampleTabs from './common/components/Examples/Tabs/Tabs';
 require('../style/index.css');
 
+//importar componentes
+import RolListaContainer from './common/components/Rol/RolListContainer';
+import RolCrearContainer from './common/components/Rol/RolCrearContainer';
+
+
 module.exports = (
     <div>
         <div className="container__content">
@@ -34,6 +39,11 @@ module.exports = (
                 <ProtectedRoute exact path="/grids" component={Grids} />
                 <ProtectedRoute exact path="/notifications" component={Notificaciones} />
                 <ProtectedRoute exact path="/tabs" component={ExampleTabs} />
+                <ProtectedRoute exact path="/roles/crear" component={RolCrearContainer} />
+                <ProtectedRoute exact path="/roles/:id" component={RolCrearContainer} />
+                <ProtectedRoute exact path="/roles/:id/editar" component={RolCrearContainer} />
+                <ProtectedRoute exact path="/roles" component={RolListaContainer} />
+                
                 <Route component={NotFound} />
             </Switch>
         </div>
