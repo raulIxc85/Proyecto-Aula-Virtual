@@ -9,6 +9,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProfileRegistroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('nombres', 'apellidos')
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     profile = ProfileSerializer(required=False)

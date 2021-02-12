@@ -26,7 +26,7 @@ class Profile(models.Model):
     creado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
 
-    rol = models.ForeignKey(Rol, on_delete=models.CASCADE, related_name="rol")
+    rol = models.ForeignKey(Rol, on_delete=models.PROTECT, related_name="rol")
 
 
     def __unicode__(self):
