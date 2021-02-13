@@ -25,7 +25,8 @@ require('../style/index.css');
 //importar componentes
 import RolListaContainer from './common/components/Rol/RolListContainer';
 import RolCrearContainer from './common/components/Rol/RolCrearContainer';
-import Estudiante from './common/components/Estudiante/EstudianteCrear';
+import EstudianteCrearContainer from './common/components/Estudiante/EstudianteCrearContainer';
+import EstudianteListaContainer from './common/components/Estudiante/EstudianteListContainer';
 
 module.exports = (
     <div>
@@ -39,12 +40,17 @@ module.exports = (
                 <ProtectedRoute exact path="/grids" component={Grids} />
                 <ProtectedRoute exact path="/notifications" component={Notificaciones} />
                 <ProtectedRoute exact path="/tabs" component={ExampleTabs} />
+                
                 <ProtectedRoute exact path="/roles/crear" component={RolCrearContainer} />
                 <ProtectedRoute exact path="/roles/:id" component={RolCrearContainer} />
                 <ProtectedRoute exact path="/roles/:id/editar" component={RolCrearContainer} />
                 <ProtectedRoute exact path="/roles" component={RolListaContainer} />
-                <ProtectedRoute exact path="/estudiantes/crear" component={Estudiante} />
-             
+                
+                <ProtectedRoute exact path="/estudiantes/crear" component={EstudianteCrearContainer} />
+                <ProtectedRoute exact path="/estudiantes/:id" component={EstudianteCrearContainer} />
+                <ProtectedRoute exact path="/estudiantes/:id/editar" component={EstudianteCrearContainer} />
+                <ProtectedRoute exact path="/estudiantes" component={EstudianteListaContainer} />
+
                 <Route component={NotFound} />
             </Switch>
         </div>

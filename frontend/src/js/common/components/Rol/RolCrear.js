@@ -15,7 +15,6 @@ class Rol extends Component{
         
     }
     render(){
-        console.log("PROPS: ", this.props);
         const { registroRol, modificarRol } = this.props;
         const { crear } = this.state;
         

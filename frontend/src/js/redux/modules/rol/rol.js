@@ -7,7 +7,7 @@ import { api } from "api";
 const GUARDAR_LISTADO_ROLES = 'GUARDAR_LISTADO_ROLES';
 const GUARDAR_REGISTRO_ROLES = 'GUARDAR_REGISTRO_ROLES';
 
-export const lista = () => (dispatch) => {
+export const listar = () => (dispatch) => {
     api.get('/rol').then((response)=>{
         dispatch({ type: GUARDAR_LISTADO_ROLES, data: response });
     }).catch((error)=>{
@@ -81,7 +81,7 @@ export const eliminar = (id) => (dispatch) => {
             'Exito',
             3000
         );
-        dispatch(lista());
+        dispatch(listar());
     }).catch((error) => {
         console.log("error: ", error)
         NotificationManager.error(
@@ -95,7 +95,7 @@ export const eliminar = (id) => (dispatch) => {
 export const actions = {
     registroRol,
     modificarRol,
-    lista,
+    listar,
     leer,
     eliminar,
 };

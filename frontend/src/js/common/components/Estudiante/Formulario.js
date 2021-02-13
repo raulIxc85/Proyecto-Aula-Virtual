@@ -5,18 +5,31 @@ import {
     renderNumber,
     SelectField,
 } from "../Utils/renderField/renderField";
+import { validate, validatorFromFunction, validators, combine } from 'validate-redux-form';
 
-const genders = [
+const GENDERS = [
     {"label": "Masculino", "value": 0},
     {"label": "Femenino", "value": 1},
 ];
 
+const ROL = [
+    {"label": "Estudiante", "value": 3},
+];
+
 class Formulario extends Component{
     render(){
-        
+        const { handleSubmit, crear } = this.props;
+        const editar = window.location.href.includes('editar');
+        let titulo = editar ? 'Modificar Estudiante' : 'Registrar Estudiante';
+        let disabled = false;
+        if (crear == false && editar == false){
+            disabled = true;
+            titulo = 'Ver Estudiante';
+        }
+
         return(
-            <form >
-                <h3>Estudiante Registro</h3>
+            <form onSubmit={handleSubmit} >
+                <h3>{titulo}</h3>
                 <div className='w-25'>
                     <label>Carnet</label>
                     <Field name='carnet' component={renderField} />
@@ -50,22 +63,26 @@ class Formulario extends Component{
                     </div>
                     <div className='col-md-6'>
                         <label>Correo Electronico</label>
-                        <Field name='email' component={renderField} />
+                        <Field name='username' component={renderField} />
                     </div>
                     
                 </div>
                 <div className='row'>
                     <div className='col-md-6'>
                         <label>Contraseña</label>
-                        <Field name='password' component={renderField} />
+                        <Field name='password' component={renderField} type="password" />
                     </div>
                     <div className='col-md-6'>
-                        <label>Confirmación de Contraseña</label>
-                        <Field name='confirmacion' component={renderField} />
+                        <label>Confirmar Contraseña</label>
+                        <Field name='confirmacion' component={renderField} type="password" />
                     </div>   
                     <div className='col-md-6'>
                         <label>Género</label>
-                        <Field name="gender" placeholder="Género" component={SelectField} options={genders} className="form-control" />
+                        <Field name="gender" placeholder="Género" component={SelectField} options={GENDERS} className="form-control" />
+                    </div>
+                    <div className='col-md-6'>
+                        <label>Rol</label>
+                        <Field name="rol" placeholder="Rol" component={SelectField} options={ROL} className="form-control" />
                     </div> 
                 </div>
                 
@@ -78,20 +95,34 @@ class Formulario extends Component{
                         Cancelar
                     </a>
                     
-                    
-                    <button
-                        className='btn btn-sm btn-primary'
-                        type='submit'
-                    >   
-                        Registrar 
-                    </button>
-               
+                    { disabled == false &&
+                        <button
+                            className={`btn btn-sm ${editar ? 'btn-success' : 'btn-primary'}`}
+                            type='submit'
+                        >   
+                            Registrar 
+                        </button>
+                    }
                 </div>
             </form>
         );
     }
 }
 
+export const matchPassword = (pass, confirm) => validatorFromFunction(value => {
+    return pass === confirm;
+});
+
 export default reduxForm({
-    form: 'estudiante' //identificador unico del formulario
+    form: 'estudiante', //identificador unico del formulario
+    validate: (data) => {
+        return validate(data, {
+            confirmPassword: combine(
+               validators.exists()('Este campo es requerido'),
+               matchPassword(data.password, data.confirmPassword)()('Las contraseñas no coinciden')
+            ),
+            username: validators.exists()('Este campo es requerido'),
+            password: validators.exists()('Este campo es requerido'),
+        });
+    },
 })(Formulario)

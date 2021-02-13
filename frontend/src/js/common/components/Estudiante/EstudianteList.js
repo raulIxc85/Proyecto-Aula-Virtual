@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import Grid from '../Utils/Grid';
 import { standardActions } from '../Utils/Grid/StandardActions';
 
-class ListadoRol extends Component{
+class ListadoEstudiante extends Component{
     componentWillMount = () => {
         const { listar } = this.props;
         listar();
     }
     render(){
-        console.log("PROPS en listado rol: ", this.props);
+        console.log("PROPS en listado estudiante: ", this.props);
         const { data, loader, eliminar } = this.props;
         return(
             <React.Fragment>
-                <center><h3>Roles Registrados</h3></center>
+                <center><h3>Estudiantes Registrados</h3></center>
                 <div className="d-flex flex-row justify-content-start mb-2">
                     <a
-                        href='/#/roles/crear'
+                        href='/#/estudiantes/crear'
                         className='btn btn-primary'
                     >
-                        Crear Rol
+                        Crear Estudiante
                     </a>
                 </div>
                 <Grid hover striped 
@@ -29,19 +29,21 @@ class ListadoRol extends Component{
                 >
                     <TableHeaderColumn
                         isKey
-                        dataField="descripcion"
+                        dataField="carnet"
                         dataSort
                     >
-                        Rol
+                        Carnet
                     </TableHeaderColumn>
+                    
                     <TableHeaderColumn
                         dataField="id"
                         dataAlign="center"
                         dataSort
                         dataFormat={standardActions({ 
-                            editar: "roles", 
-                            ver: "roles", 
-                            eliminar: eliminar })}
+                            editar: "estudiantes", 
+                            ver: "estudiantes",
+                            eliminar: eliminar })} 
+                        
                     >
                         Acciones
                     </TableHeaderColumn>
@@ -51,4 +53,4 @@ class ListadoRol extends Component{
     }
 }
 
-export default ListadoRol;
+export default ListadoEstudiante;

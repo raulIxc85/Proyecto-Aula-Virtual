@@ -36,7 +36,7 @@ class Formulario extends Component{
                         >   
                             {editar ? 'Modificar' : 'Registrar' } 
                         </button>
-                }
+                    }
                 </div>
             </form>
         );

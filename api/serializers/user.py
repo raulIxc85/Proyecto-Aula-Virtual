@@ -1,38 +1,23 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from api.models import Profile
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = '__all__'
-
-
-class ProfileRegistroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ('nombres', 'apellidos')
+from api.serializers.profile import ProfileRegistroSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
 
-    profile = ProfileSerializer(required=False)
-
+    profile = ProfileRegistroSerializer()
+      
     class Meta:
         model = User
         fields = (
             'username',
-            'first_name',
-            'last_name',
-            'profile',
-            'password'
+            'password',
+            'profile'
         )
 
 
 class UserReadSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(required=False)
-
+  
     class Meta:
         model = User
         fields = (
