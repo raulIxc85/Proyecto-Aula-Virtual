@@ -7,12 +7,12 @@ import {
 } from "../Utils/renderField/renderField";
 import { validate, validatorFromFunction, validators, combine } from 'validate-redux-form';
 
-const GENDERS = [
+const genders = [
     {"label": "Masculino", "value": 0},
     {"label": "Femenino", "value": 1},
 ];
 
-const ROL = [
+const rol = [
     {"label": "Estudiante", "value": 3},
 ];
 
@@ -22,9 +22,15 @@ class Formulario extends Component{
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Estudiante' : 'Registrar Estudiante';
         let disabled = false;
+        let hidden = '';
+        let contra = 'Contraseña'
+        let confContra = 'Confirmar Contraseña'
         if (crear == false && editar == false){
             disabled = true;
             titulo = 'Ver Estudiante';
+            hidden='hidden'
+            contra = '';
+            confContra = '';
         }
 
         return(
@@ -35,16 +41,16 @@ class Formulario extends Component{
                     <Field name='carnet' component={renderField} disabled={disabled} />
                 </div>
                 <label>Nombres</label>
-                <Field name='nombres' component={renderField} disabled={disabled}  />
+                <Field name='perfil.nombres' component={renderField} disabled={disabled}  />
                 <label>Apellidos</label>
-                <Field name='apellidos' component={renderField} disabled={disabled} />
+                <Field name='perfil.apellidos' component={renderField} disabled={disabled} />
                 <label>Direccion</label>
-                <Field name='direccion' component={renderField} disabled={disabled} />
+                <Field name='perfil.direccion' component={renderField} disabled={disabled} />
                 <div className='w-25'>
                     <label>Telefono</label>
                     <Field
                         numberFormat={"+(502) ####-####"}
-                        name='telefono' 
+                        name='perfil.telefono' 
                         component={renderNumber} 
                         disabled={disabled} 
                     />
@@ -65,26 +71,51 @@ class Formulario extends Component{
                     </div>
                     <div className='col-md-6'>
                         <label>Correo Electronico</label>
-                        <Field name='username' component={renderField} disabled={disabled} />
+                        <Field name='perfil.user.username' component={renderField} disabled={disabled} />
                     </div>
                     
                 </div>
                 <div className='row'>
                     <div className='col-md-6'>
-                        <label>Contraseña</label>
-                        <Field name='password' component={renderField} type="password" disabled={disabled} />
+                        <label>{contra}</label>
+                        <Field 
+                            name='password' 
+                            component={renderField} 
+                            type="password" 
+                            disabled={disabled}
+                            type={hidden}    
+                        />
                     </div>
                     <div className='col-md-6'>
-                        <label>Confirmar Contraseña</label>
-                        <Field name='confirmacion' component={renderField} type="password" disabled={disabled} />
+                        <label>{confContra}</label>
+                        <Field 
+                            name='confirmacion' 
+                            component={renderField} 
+                            type="password" 
+                            disabled={disabled} 
+                            type={hidden} 
+                        />
                     </div>   
                     <div className='col-md-6'>
                         <label>Género</label>
-                        <Field name="gender" placeholder="Género" component={SelectField} options={GENDERS} className="form-control" />
+                        <Field 
+                            name="perfil.gender"
+                            placeholder="Seleccionar..." 
+                            options={genders} 
+                            component={SelectField} 
+                            className="form-control" 
+                            disabled={disabled}
+                        />
                     </div>
                     <div className='col-md-6'>
                         <label>Rol</label>
-                        <Field name="rol" placeholder="Rol" component={SelectField} options={ROL} className="form-control" />
+                        <Field 
+                            name="perfil.rol" 
+                            component={SelectField} 
+                            options={rol} 
+                            className="form-control" 
+                            disabled={disabled}
+                        />
                     </div> 
                 </div>
                 

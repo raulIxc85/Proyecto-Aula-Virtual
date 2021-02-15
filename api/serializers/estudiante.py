@@ -2,8 +2,17 @@
 from rest_framework import serializers
 from api.models import Estudiante
 from api.models import Profile
+from django.contrib.auth.models import User
+
+class UserSerializerEstudiante(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'username',
+        )
 
 class ProfileSerializerEstudiante(serializers.ModelSerializer):
+    user = UserSerializerEstudiante()
     class Meta:
         model = Profile
         fields = (
@@ -11,12 +20,13 @@ class ProfileSerializerEstudiante(serializers.ModelSerializer):
             'apellidos',
             'direccion',
             'telefono',
-            'gender'
+            'gender',
+            'rol',
+            'user'
         )
 
 class EstudianteSerializer(serializers.ModelSerializer):
     perfil = ProfileSerializerEstudiante()
-    
     class Meta:
         model = Estudiante
         fields = (
