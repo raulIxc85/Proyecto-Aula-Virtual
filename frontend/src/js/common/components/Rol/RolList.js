@@ -21,31 +21,35 @@ class ListadoRol extends Component{
                         Crear Rol
                     </a>
                 </div>
-                <Grid hover striped 
-                    data={data} 
-                    loading={loader} 
-                    //onPageChange={onPageChange} 
-                    //onSortChange={onSortChange} 
-                >
-                    <TableHeaderColumn
-                        isKey
-                        dataField="descripcion"
-                        dataSort
+                {data &&
+                    <Grid 
+                        hover 
+                        striped 
+                        data={data} 
+                        loading={loader} 
+                        onPageChange={listar} 
+                        //onSortChange={onSortChange} 
                     >
-                        Rol
-                    </TableHeaderColumn>
-                    <TableHeaderColumn
-                        dataField="id"
-                        dataAlign="center"
-                        dataSort
-                        dataFormat={standardActions({ 
-                            editar: "roles", 
-                            ver: "roles", 
-                            eliminar: eliminar })}
-                    >
-                        Acciones
-                    </TableHeaderColumn>
-                </Grid>
+                        <TableHeaderColumn
+                            isKey
+                            dataField="descripcion"
+                            dataSort
+                        >
+                            Rol
+                        </TableHeaderColumn>
+                        <TableHeaderColumn
+                            dataField="id"
+                            dataAlign="center"
+                            dataSort
+                            dataFormat={standardActions({ 
+                                editar: "roles", 
+                                ver: "roles", 
+                                eliminar: eliminar })}
+                        >
+                            Acciones
+                        </TableHeaderColumn>
+                    </Grid>
+                }
             </React.Fragment>
         );
     }

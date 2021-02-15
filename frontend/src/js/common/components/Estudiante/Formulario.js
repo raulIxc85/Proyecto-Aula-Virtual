@@ -32,26 +32,27 @@ class Formulario extends Component{
                 <h3>{titulo}</h3>
                 <div className='w-25'>
                     <label>Carnet</label>
-                    <Field name='carnet' component={renderField} />
+                    <Field name='carnet' component={renderField} disabled={disabled} />
                 </div>
                 <label>Nombres</label>
-                <Field name='nombres' component={renderField} />
+                <Field name='nombres' component={renderField} disabled={disabled}  />
                 <label>Apellidos</label>
-                <Field name='apellidos' component={renderField} />
+                <Field name='apellidos' component={renderField} disabled={disabled} />
                 <label>Direccion</label>
-                <Field name='direccion' component={renderField} />
+                <Field name='direccion' component={renderField} disabled={disabled} />
                 <div className='w-25'>
                     <label>Telefono</label>
                     <Field
                         numberFormat={"+(502) ####-####"}
                         name='telefono' 
                         component={renderNumber} 
+                        disabled={disabled} 
                     />
                 </div>
                 <label>Nombre Contacto</label>
-                <Field name='nombreContacto' component={renderField} />
+                <Field name='nombreContacto' component={renderField} disabled={disabled}  />
                 <label>Direccion de Contacto</label>
-                <Field name='direccionContacto' component={renderField} />
+                <Field name='direccionContacto' component={renderField} disabled={disabled} />
                 <div className='row'>
                     <div className='col-md-6'>
                         <label>Telefono de Contacto</label>
@@ -59,22 +60,23 @@ class Formulario extends Component{
                             numberFormat={"+(502) ####-####"}
                             name='telefonoContacto' 
                             component={renderNumber} 
+                            disabled={disabled}
                         />
                     </div>
                     <div className='col-md-6'>
                         <label>Correo Electronico</label>
-                        <Field name='username' component={renderField} />
+                        <Field name='username' component={renderField} disabled={disabled} />
                     </div>
                     
                 </div>
                 <div className='row'>
                     <div className='col-md-6'>
                         <label>Contraseña</label>
-                        <Field name='password' component={renderField} type="password" />
+                        <Field name='password' component={renderField} type="password" disabled={disabled} />
                     </div>
                     <div className='col-md-6'>
                         <label>Confirmar Contraseña</label>
-                        <Field name='confirmacion' component={renderField} type="password" />
+                        <Field name='confirmacion' component={renderField} type="password" disabled={disabled} />
                     </div>   
                     <div className='col-md-6'>
                         <label>Género</label>

@@ -21,9 +21,9 @@ class EstudianteViewset(viewsets.ModelViewSet):
     search_fields = ("carnet")
     ordering_fields = ("carnet")
 
-
+ 
     def get_serializer_class(self):
-        """Define serializer for API listar"""
+            #Define serializer for API listar
         if self.action == 'list' or self.action == 'retrieve':
             return EstudianteSerializer
     

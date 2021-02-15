@@ -8,7 +8,10 @@ class ProfileSerializerEstudiante(serializers.ModelSerializer):
         model = Profile
         fields = (
             'nombres',
-            'apellidos'
+            'apellidos',
+            'direccion',
+            'telefono',
+            'gender'
         )
 
 class EstudianteSerializer(serializers.ModelSerializer):
@@ -17,7 +20,11 @@ class EstudianteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estudiante
         fields = (
+            'id',
             'carnet',
+            'nombreContacto',
+            'direccionContacto',
+            'telefonoContacto',
             'perfil'
         )
 

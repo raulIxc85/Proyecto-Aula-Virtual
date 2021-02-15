@@ -58,8 +58,8 @@ export const renderTextArea = ({
 };
 
 export const renderNumber = ({
-                                 input, decimalScale, placeholder, meta: { touched, error }, prefix="", suffix="", numberFormat,
-                             }) => {
+            input, decimalScale, placeholder, meta: { touched, error }, prefix="", suffix="", numberFormat, disabled = false,
+            }) => {
     const invalid = touched && error;
     return (
         <div>
@@ -73,6 +73,7 @@ export const renderNumber = ({
                 thousandSeparator
                 prefix={prefix}
                 suffix={suffix}
+                disabled={disabled}
                 onValueChange={(values) => {
                     input.onChange(values.value);
                 }}

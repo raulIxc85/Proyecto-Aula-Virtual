@@ -22,7 +22,6 @@ export const listar = () => (dispatch) => {
 
 export const leer = (id) => (dispatch) => {
     api.get(`/rol/${id}`).then((response) => {
-        console.log("Response: ", response);
         dispatch({type: GUARDAR_REGISTRO_ROLES, lectura: response });
         dispatch(initializeForm('rol', response ));
     }).catch((error)=>{

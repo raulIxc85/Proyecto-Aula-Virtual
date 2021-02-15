@@ -7,7 +7,8 @@ import { api } from "api";
 const GUARDAR_LISTADO_ESTUDIANTES = 'GUARDAR_LISTADO_ESTUDIANTES';
 const GUARDAR_REGISTRO_ESTUDIANTES = 'GUARDAR_REGISTRO_ESTUDIANTES';
 
-export const listar = () => (dispatch) => {
+export const listar = () => (dispatch, getStore) => {
+    console.log("getStore", getStore());
     api.get('/estudiante').then((response)=>{
         dispatch({ type: GUARDAR_LISTADO_ESTUDIANTES, data: response });
     }).catch((error)=>{
@@ -22,7 +23,6 @@ export const listar = () => (dispatch) => {
 
 export const leer = (id) => (dispatch) => {
     api.get(`/estudiante/${id}`).then((response) => {
-        console.log("Response: ", response);
         dispatch({type: GUARDAR_REGISTRO_ESTUDIANTES, lectura: response });
         dispatch(initializeForm('estudiante', response ));
     }).catch((error)=>{
@@ -54,8 +54,6 @@ export const registroEstudiante = () => (dispatch, getStore) => {
                 telefonoContacto: data.telefonoContacto
             }
         }
-        
-        
     }
     api.post('/estudiante', formData).then((response) => {
         NotificationManager.success(
@@ -75,7 +73,7 @@ export const registroEstudiante = () => (dispatch, getStore) => {
 }
 
 export const modificarEstudiante = () => (dispatch, getStore) => {
-    const formData = getStore().form.rol.values;
+    const formData = getStore().form.estudiante.values;
     const id = formData.id;
     api.put(`/estudiante/${id}`, formData).then((response) => {
         NotificationManager.success(
