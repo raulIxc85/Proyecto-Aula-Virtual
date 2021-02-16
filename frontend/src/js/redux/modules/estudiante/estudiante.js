@@ -38,15 +38,15 @@ export const leer = (id) => (dispatch) => {
 export const registroEstudiante = () => (dispatch, getStore) => {
     const data = getStore().form.estudiante.values;
     const formData = {
-        username: data.username,
+        username: data.perfil.user.username,
         password: data.password,
         profile: {
-            nombres: data.nombres,
-            apellidos: data.apellidos,
-            direccion: data.direccion,
-            telefono: data.telefono,
-            gender: data.gender,
-            rol: data.rol,
+            nombres: data.perfil.nombres,
+            apellidos: data.perfil.apellidos,
+            direccion: data.perfil.direccion,
+            telefono: data.perfil.telefono,
+            gender: data.perfil.gender,
+            rol: data.perfil.rol,
             estudiante: {
                 carnet: data.carnet,
                 nombreContacto: data.nombreContacto,
@@ -73,8 +73,29 @@ export const registroEstudiante = () => (dispatch, getStore) => {
 }
 
 export const modificarEstudiante = () => (dispatch, getStore) => {
-    const formData = getStore().form.estudiante.values;
-    const id = formData.id;
+    const datos = getStore().form.estudiante.values;
+    const id = datos.id;
+    const formData = {
+        id: datos.perfil.user.id,
+        idEs: datos.id,
+        username: datos.perfil.user.username,
+        password: datos.password,
+        profile: {
+            nombres: datos.perfil.nombres,
+            apellidos: datos.perfil.apellidos,
+            direccion: datos.perfil.direccion,
+            telefono: datos.perfil.telefono,
+            gender: datos.perfil.gender,
+            rol: datos.perfil.rol,
+            estudiante: {
+                carnet: datos.carnet,
+                nombreContacto: datos.nombreContacto,
+                direccionContacto: datos.direccionContacto,
+                telefonoContacto: datos.telefonoContacto
+            }
+        }
+    }
+    
     api.put(`/estudiante/${id}`, formData).then((response) => {
         NotificationManager.success(
             'Estudiante modificado correctamente',

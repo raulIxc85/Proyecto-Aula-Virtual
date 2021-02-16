@@ -70,6 +70,37 @@ class EstudianteViewset(viewsets.ModelViewSet):
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 
+    def update(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                datos = request.data
+                #Modificar datos Usuario
+                usuario = User.objects.get(pk=datos.get("id"))
+                usuario.username = datos.get("username")
+                #encriptar contraseña
+                usuario.set_password(datos.get("password"))
+                usuario.save()
+                #Modificar datos Profile
+                profile = Profile.objects.get(user=datos.get("id"))
+                profile.nombres = datos.get("profile").get("nombres")
+                profile.apellidos = datos.get("profile").get("apellidos")
+                profile.direccion = datos.get("profile").get("direccion")
+                profile.telefono = datos.get("profile").get("telefono")
+                profile.gender = datos.get("profile").get("gender")
+                profile.save()
+                #Modificar datos Estudiante
+                estudiante = Estudiante.objects.get(pk=datos.get("idEs"))
+                estudiante.nombreContacto = datos.get("profile").get("estudiante").get("nombreContacto")
+                estudiante.direccionContacto = direccionContacto = datos.get("profile").get("estudiante").get("direccionContacto")
+                estudiante.telefonoContacto = telefonoContacto = datos.get("profile").get("estudiante").get("telefonoContacto")
+                estudiante.save()
+
+            return Response({'registro modificado'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
     def get_permissions(self):
         """" Define permisos para este recurso """
         permission_classes = [IsAuthenticated]

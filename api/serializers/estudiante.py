@@ -8,7 +8,8 @@ class UserSerializerEstudiante(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'username',
+            'id',
+            'username'
         )
 
 class ProfileSerializerEstudiante(serializers.ModelSerializer):

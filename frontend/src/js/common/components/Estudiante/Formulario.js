@@ -22,15 +22,23 @@ class Formulario extends Component{
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Estudiante' : 'Registrar Estudiante';
         let disabled = false;
+        let carnetBloq = false;
         let hidden = '';
         let contra = 'Contraseña'
         let confContra = 'Confirmar Contraseña'
         if (crear == false && editar == false){
             disabled = true;
+            carnetBloq = true;
             titulo = 'Ver Estudiante';
             hidden='hidden'
             contra = '';
             confContra = '';
+        }else{
+            if (editar==true){
+                carnetBloq = true;
+                hidden = 'password';
+            }
+            hidden='password';
         }
 
         return(
@@ -38,7 +46,7 @@ class Formulario extends Component{
                 <h3>{titulo}</h3>
                 <div className='w-25'>
                     <label>Carnet</label>
-                    <Field name='carnet' component={renderField} disabled={disabled} />
+                    <Field name='carnet' component={renderField} disabled={carnetBloq} />
                 </div>
                 <label>Nombres</label>
                 <Field name='perfil.nombres' component={renderField} disabled={disabled}  />
@@ -81,7 +89,6 @@ class Formulario extends Component{
                         <Field 
                             name='password' 
                             component={renderField} 
-                            type="password" 
                             disabled={disabled}
                             type={hidden}    
                         />
@@ -91,7 +98,6 @@ class Formulario extends Component{
                         <Field 
                             name='confirmacion' 
                             component={renderField} 
-                            type="password" 
                             disabled={disabled} 
                             type={hidden} 
                         />
