@@ -18,29 +18,32 @@ const rol = [
 
 class Formulario extends Component{
     render(){
-        const { handleSubmit, crear } = this.props;
+        const { handleSubmit, crear, profesion } = this.props;
+        console.log("consulta Profesion Formulario: ", profesion);
+        const _listaProfesion = [];
+        Array.prototype.forEach.call(profesion.results, child => {
+            _listaProfesion.push({"label": child.descripcion, "value": child.id})
+        
+          })
+        console.log(_listaProfesion);
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Catedrático' : 'Registrar Catedrático';
         let disabled = false;
-        let carnetBloq = false;
         let hidden = '';
         let contra = 'Contraseña'
         let confContra = 'Confirmar Contraseña'
         if (crear == false && editar == false){
             disabled = true;
-            carnetBloq = true;
             titulo = 'Ver Catedrático';
             hidden='hidden'
             contra = '';
             confContra = '';
         }else{
             if (editar==true){
-                carnetBloq = true;
                 hidden = 'password';
             }
             hidden='password';
         }
-
         return(
             <form onSubmit={handleSubmit} >
                 <h3>{titulo}</h3>
@@ -68,7 +71,7 @@ class Formulario extends Component{
                             name="profesion" 
                             placeholder="Seleccionar..." 
                             component={SelectField} 
-                            options={rol} 
+                            options={_listaProfesion} 
                             className="form-control" 
                             disabled={disabled}
                         />
@@ -122,7 +125,7 @@ class Formulario extends Component{
                 <br />
                 <div className='d-flex flex-row justify-content-end mt-3'> 
                     <a
-                        href='/#/estudiantes'
+                        href='/#/catedraticos'
                         className='btn btn-secondary btn-sm mr-2'
                     >
                         Cancelar

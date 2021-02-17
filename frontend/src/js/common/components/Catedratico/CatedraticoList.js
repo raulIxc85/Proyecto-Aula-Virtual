@@ -7,7 +7,6 @@ class ListadoCatedratico extends Component{
     componentWillMount = () => {
         const { listar } = this.props;
         listar();
-        
     }
     render(){
         console.log("PROPS en listado catedratico: ", this.props);

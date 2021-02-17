@@ -6,6 +6,7 @@ import { api } from "api";
 
 const GUARDAR_LISTADO_CATEDRATICOS = 'GUARDAR_LISTADO_CATEDRATICOS';
 const GUARDAR_REGISTRO_CATEDRATICOS = 'GUARDAR_REGISTRO_CATEDRATICOS';
+const GUARDAR_LISTADO_PROFESIONES = 'GUARDAR_LISTADO_PROFESIONES';
 
 export const listar = () => (dispatch, getStore) => {
     console.log("getStore", getStore());
@@ -125,12 +126,27 @@ export const eliminar = (id) => (dispatch) => {
     })
 }
 
+export const listarProfesiones = () => (dispatch) => {
+    api.get('/profesion').then((response)=>{
+        dispatch({ type: GUARDAR_LISTADO_PROFESIONES, lecturaProfesion: response });
+    }).catch((error)=>{
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar las profesiones',
+            'Error',
+            0
+        );
+    })
+}
+
+
 export const actions = {
     registroCatedratico,
     modificarCatedratico,
     listar,
     leer,
     eliminar,
+    listarProfesiones
 };
 
 export const reducers = {
@@ -146,12 +162,19 @@ export const reducers = {
             lectura,
         };
     },
+    [GUARDAR_LISTADO_PROFESIONES]: (state, { lecturaProfesion }) => {
+        return {
+            ...state,
+            lecturaProfesion,
+        };
+    },
 };
 
 export const initialState = {
     loader: false,
     data: null,
     lectura: null,
+    lecturaProfesion: null,
 };
 
 export default handleActions(reducers, initialState)
