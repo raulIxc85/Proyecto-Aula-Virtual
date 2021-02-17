@@ -4,7 +4,7 @@ from rest_framework import status, filters, viewsets
 from django.db import transaction
 from django.contrib.auth.models import User
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from api.models import Estudiante
@@ -96,6 +96,27 @@ class EstudianteViewset(viewsets.ModelViewSet):
                 estudiante.save()
 
             return Response({'registro modificado'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+   
+    def destroy(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                #Cambio de estado
+                estudiante = self.get_object()
+                estudiante.activo = False
+                estudiante.save()
+
+                profile = Profile.objects.get(pk = estudiante.perfil_id)
+                profile.activo = False
+                profile.save()
+
+                user = User.objects.get(pk = profile.user_id)
+                user.is_active = False
+                user.save()
+
+            return Response({'registro borrado'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
