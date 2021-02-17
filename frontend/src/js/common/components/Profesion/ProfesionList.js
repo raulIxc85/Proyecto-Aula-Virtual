@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { listar } from '../../../redux/modules/profesion/profesion';
 import Grid from '../Utils/Grid';
 import { standardActions } from '../Utils/Grid/StandardActions';
 
@@ -28,7 +29,7 @@ class ListadoProfesion extends Component{
                         striped 
                         data={data} 
                         loading={loader} 
-                        //onPageChange={listar} 
+                        onPageChange={listar} 
                         //onSortChange={onSortChange} 
                     >
                         <TableHeaderColumn

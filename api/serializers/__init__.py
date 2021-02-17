@@ -3,3 +3,4 @@ from .profile import ProfileSerializer, ProfileRegistroSerializer
 from .rol import RolSerializer, RolRegistroSerializer
 from .estudiante import EstudianteSerializer, EstudianteRegistroSerializer, ProfileSerializerEstudiante, UserSerializerEstudiante
 from .profesion import ProfesionSerializer, ProfesionRegistroSerializer
+from .catedratico import CatedraticoSerializer, CatedraticoRegistroSerializer, ProfileSerializerCatedratico, UserSerializerCatedratico

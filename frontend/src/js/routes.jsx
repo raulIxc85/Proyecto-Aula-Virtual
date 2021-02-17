@@ -29,6 +29,8 @@ import EstudianteCrearContainer from './common/components/Estudiante/EstudianteC
 import EstudianteListaContainer from './common/components/Estudiante/EstudianteListContainer';
 import ProfesionCrearContainer from './common/components/Profesion/ProfesionCrearContainer';
 import ProfesionListaContainer from './common/components/Profesion/ProfesionListContainer';
+import CatedraticoCrearContainer from './common/components/Catedratico/CatedraticoCrearContainer';
+import CatedraticoListaContainer from './common/components/Catedratico/CatedraticoListContainer';
 
 
 module.exports = (
@@ -58,6 +60,11 @@ module.exports = (
                 <ProtectedRoute exact path="/profesiones/:id" component={ProfesionCrearContainer} />
                 <ProtectedRoute exact path="/profesiones/:id/editar" component={ProfesionCrearContainer} />
                 <ProtectedRoute exact path="/profesiones" component={ProfesionListaContainer} />
+
+                <ProtectedRoute exact path="/catedraticos/crear" component={CatedraticoCrearContainer} />
+                <ProtectedRoute exact path="/catedraticos/:id" component={CatedraticoCrearContainer} />
+                <ProtectedRoute exact path="/catedraticos/:id/editar" component={CatedraticoCrearContainer} />
+                <ProtectedRoute exact path="/catedraticos" component={CatedraticoListaContainer} />
 
                 <Route component={NotFound} />
             </Switch>

@@ -10,6 +10,7 @@ import notificaciones from './modules/notificaciones/notificaciones';
 import rol from './modules/rol/rol';
 import estudiante from './modules/estudiante/estudiante';
 import profesion from './modules/profesion/profesion';
+import catedratico from './modules/catedratico/catedratico';
 
 export default combineReducers({
     form: formReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
     rol,
     estudiante,
     profesion,
+    catedratico
 });

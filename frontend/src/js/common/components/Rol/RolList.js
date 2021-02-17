@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { listar } from '../../../redux/modules/rol/rol';
 import Grid from '../Utils/Grid';
 import { standardActions } from '../Utils/Grid/StandardActions';
 
