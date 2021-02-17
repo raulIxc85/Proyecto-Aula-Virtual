@@ -4,7 +4,7 @@ from rest_framework import status, filters, viewsets
 from django.db import transaction
 from django.contrib.auth.models import User
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from api.models import Estudiante

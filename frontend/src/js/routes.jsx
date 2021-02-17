@@ -27,6 +27,9 @@ import RolListaContainer from './common/components/Rol/RolListContainer';
 import RolCrearContainer from './common/components/Rol/RolCrearContainer';
 import EstudianteCrearContainer from './common/components/Estudiante/EstudianteCrearContainer';
 import EstudianteListaContainer from './common/components/Estudiante/EstudianteListContainer';
+import ProfesionCrearContainer from './common/components/Profesion/ProfesionCrearContainer';
+import ProfesionListaContainer from './common/components/Profesion/ProfesionListContainer';
+
 
 module.exports = (
     <div>
@@ -50,6 +53,11 @@ module.exports = (
                 <ProtectedRoute exact path="/estudiantes/:id" component={EstudianteCrearContainer} />
                 <ProtectedRoute exact path="/estudiantes/:id/editar" component={EstudianteCrearContainer} />
                 <ProtectedRoute exact path="/estudiantes" component={EstudianteListaContainer} />
+
+                <ProtectedRoute exact path="/profesiones/crear" component={ProfesionCrearContainer} />
+                <ProtectedRoute exact path="/profesiones/:id" component={ProfesionCrearContainer} />
+                <ProtectedRoute exact path="/profesiones/:id/editar" component={ProfesionCrearContainer} />
+                <ProtectedRoute exact path="/profesiones" component={ProfesionListaContainer} />
 
                 <Route component={NotFound} />
             </Switch>

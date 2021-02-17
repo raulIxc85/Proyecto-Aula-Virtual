@@ -9,6 +9,7 @@ import notificaciones from './modules/notificaciones/notificaciones';
 
 import rol from './modules/rol/rol';
 import estudiante from './modules/estudiante/estudiante';
+import profesion from './modules/profesion/profesion';
 
 export default combineReducers({
     form: formReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
     notificaciones,
     rol,
     estudiante,
+    profesion,
 });
