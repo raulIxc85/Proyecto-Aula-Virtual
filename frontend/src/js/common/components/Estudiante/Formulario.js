@@ -23,6 +23,7 @@ class Formulario extends Component{
         let titulo = editar ? 'Modificar Estudiante' : 'Registrar Estudiante';
         let disabled = false;
         let carnetBloq = false;
+        let correo = true;
         let hidden = '';
         let contra = 'Contraseña'
         let confContra = 'Confirmar Contraseña'
@@ -40,6 +41,7 @@ class Formulario extends Component{
                 confContra = '';
             }
             if (crear==true){
+                correo = false;
                 hidden='password';
             }
         }
@@ -82,7 +84,11 @@ class Formulario extends Component{
                     </div>
                     <div className='col-md-6'>
                         <label>Correo Electronico</label>
-                        <Field name='perfil.user.username' component={renderField} disabled={disabled} />
+                        <Field 
+                            name='perfil.user.username' 
+                            component={renderField} 
+                            disabled={correo} 
+                        />
                     </div>
                     
                 </div>

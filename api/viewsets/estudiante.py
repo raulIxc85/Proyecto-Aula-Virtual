@@ -74,12 +74,7 @@ class EstudianteViewset(viewsets.ModelViewSet):
         try:
             with transaction.atomic():
                 datos = request.data
-                #Modificar datos Usuario
-                usuario = User.objects.get(pk=datos.get("id"))
-                usuario.username = datos.get("username")
-                #encriptar contraseña
-                usuario.set_password(datos.get("password"))
-                usuario.save()
+               
                 #Modificar datos Profile
                 profile = Profile.objects.get(user=datos.get("id"))
                 profile.nombres = datos.get("profile").get("nombres")

@@ -77,8 +77,6 @@ export const modificarCatedratico = () => (dispatch, getStore) => {
     const formData = {
         id: datos.perfil.user.id,
         idCa: datos.id,
-        username: datos.perfil.user.username,
-        password: datos.password,
         profile: {
             nombres: datos.perfil.nombres,
             apellidos: datos.perfil.apellidos,

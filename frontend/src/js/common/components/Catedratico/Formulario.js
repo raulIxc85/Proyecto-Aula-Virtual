@@ -28,12 +28,13 @@ class Formulario extends Component{
         let titulo = editar ? 'Modificar Catedrático' : 'Registrar Catedrático';
         let disabled = false;
         let hidden = '';
-        let contra = 'Contraseña'
-        let confContra = 'Confirmar Contraseña'
+        let correo = true;
+        let contra = 'Contraseña';
+        let confContra = 'Confirmar Contraseña';
         if (crear == false && editar == false){
             disabled = true;
             titulo = 'Ver Catedrático';
-            hidden='hidden'
+            hidden='hidden';
             contra = '';
             confContra = '';
         }else{
@@ -43,6 +44,7 @@ class Formulario extends Component{
                 confContra = '';
             }
             if (crear==true){
+                correo = false;
                 hidden='password';
             }
             
@@ -81,7 +83,11 @@ class Formulario extends Component{
                 </div>
                 <div className='w-25'>
                     <label>Correo Electronico</label>
-                    <Field name='perfil.user.username' component={renderField} disabled={disabled} />
+                    <Field 
+                        name='perfil.user.username' 
+                        component={renderField} 
+                        disabled={correo} 
+                    />
                 </div>
                 <div className='row'>
                     <div className='col-md-6'>
@@ -90,7 +96,7 @@ class Formulario extends Component{
                             name='password' 
                             component={renderField} 
                             disabled={disabled}
-                            type={hidden}    
+                            type={hidden}                               
                         />
                     </div>
                     <div className='col-md-6'>
@@ -99,7 +105,7 @@ class Formulario extends Component{
                             name='confirmacion' 
                             component={renderField} 
                             disabled={disabled} 
-                            type={hidden} 
+                            type={hidden}                        
                         />
                     </div>   
                     <div className='col-md-6'>
@@ -154,7 +160,7 @@ export const matchPassword = (pass, confirm) => validatorFromFunction(value => {
 
 export default reduxForm({
     form: 'catedraticoForm', //identificador unico del formulario
-    validate: (data) => {
+    /*validate: (data) => {
         return validate(data, {
             confirmPassword: combine(
                validators.exists()('Este campo es requerido'),
@@ -163,5 +169,5 @@ export default reduxForm({
             username: validators.exists()('Este campo es requerido'),
             password: validators.exists()('Este campo es requerido'),
         });
-    },
+    },*/
 })(Formulario)

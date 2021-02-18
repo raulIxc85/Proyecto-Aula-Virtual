@@ -72,12 +72,7 @@ class CatedraticoViewset(viewsets.ModelViewSet):
         try:
             with transaction.atomic():
                 datos = request.data
-                #Modificar datos Usuario
-                usuario = User.objects.get(pk=datos.get("id"))
-                usuario.username = datos.get("username")
-                #encriptar contraseña
-                #usuario.set_password(datos.get("password"))
-                usuario.save()
+               
                 #Modificar datos Profile
                 profile = Profile.objects.get(user=datos.get("id"))
                 profile.nombres = datos.get("profile").get("nombres")
@@ -88,7 +83,7 @@ class CatedraticoViewset(viewsets.ModelViewSet):
                 profile.save()
                 #Modificar datos Estudiante
                 catedratico = Catedratico.objects.get(pk=datos.get("idCa"))
-                catedratico.profesion = datos.get("profile").get("catedratico").get("profesion")
+                catedratico.profesion = Profesion.objects.get(pk = datos.get("profile").get("catedratico").get("profesion"))
                 catedratico.save()
 
             return Response({'registro modificado'}, status=status.HTTP_200_OK)
@@ -104,7 +99,7 @@ class CatedraticoViewset(viewsets.ModelViewSet):
                 catedratico.activo = False
                 catedratico.save()
 
-                profile = Profile.objects.get(pk = estudiante.perfil_id)
+                profile = Profile.objects.get(pk = catedratico.perfil_id)
                 profile.activo = False
                 profile.save()
 

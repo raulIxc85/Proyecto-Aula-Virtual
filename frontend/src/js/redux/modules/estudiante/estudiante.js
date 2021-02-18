@@ -78,8 +78,6 @@ export const modificarEstudiante = () => (dispatch, getStore) => {
     const formData = {
         id: datos.perfil.user.id,
         idEs: datos.id,
-        username: datos.perfil.user.username,
-        password: datos.password,
         profile: {
             nombres: datos.perfil.nombres,
             apellidos: datos.perfil.apellidos,
