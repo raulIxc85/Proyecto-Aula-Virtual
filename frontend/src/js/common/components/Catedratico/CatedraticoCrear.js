@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { listarProfesiones } from '../../../redux/modules/catedratico/catedratico';
 import Formulario from './Formulario';
 
 class Catedratico extends Component{
@@ -20,7 +19,7 @@ class Catedratico extends Component{
         console.log("PROPS: ", this.props);
         const { registroCatedratico, modificarCatedratico, lecturaProfesion } = this.props;
         const { crear } = this.state;
-        const  profesion  = lecturaProfesion;
+        const profesion  = lecturaProfesion;
         const funcionEnvio = crear ? registroCatedratico : modificarCatedratico;
        
         return(

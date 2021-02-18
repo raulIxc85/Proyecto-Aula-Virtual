@@ -35,10 +35,13 @@ class Formulario extends Component{
             confContra = '';
         }else{
             if (editar==true){
-                carnetBloq = true;
-                hidden = 'password';
+                hidden = 'hidden';
+                contra = '';
+                confContra = '';
             }
-            hidden='password';
+            if (crear==true){
+                hidden='password';
+            }
         }
 
         return(

@@ -2,6 +2,7 @@
 from rest_framework import serializers
 from api.models import Profile
 from api.serializers.estudiante import EstudianteRegistroSerializer
+from api.serializers.catedratico import CatedraticoRegistroSerializer
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,5 +23,22 @@ class ProfileRegistroSerializer(serializers.ModelSerializer):
             'telefono',
             'gender',
             'estudiante',
+            'rol'
+        )
+
+
+class ProfileRegistroSerializerCatedratico(serializers.ModelSerializer):
+    
+    catedratico = CatedraticoRegistroSerializer()
+
+    class Meta:
+        model = Profile
+        fields = (
+            'nombres', 
+            'apellidos',
+            'direccion',
+            'telefono',
+            'gender',
+            'catedratico',
             'rol'
         )

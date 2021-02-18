@@ -34,17 +34,16 @@ class ListadoCatedratico extends Component{
                     >
                         <TableHeaderColumn
                             isKey
-                            dataField="activo"
+                            dataField="id"
                             dataSort
                         >
-                            Carnet
+                            Codigo
                         </TableHeaderColumn>
 
                         <TableHeaderColumn
                             dataField="perfil"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                console.log("datos",row);
                                 return cell.nombres;
                             }}
                         >

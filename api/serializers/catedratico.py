@@ -32,7 +32,8 @@ class CatedraticoSerializer(serializers.ModelSerializer):
         model = Catedratico
         fields = (
             'id',
-            'perfil'
+            'perfil',
+            'profesion'
         )
 
 

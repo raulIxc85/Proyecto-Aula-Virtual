@@ -1,5 +1,5 @@
-from .user import UserSerializer, UserReadSerializer
-from .profile import ProfileSerializer, ProfileRegistroSerializer
+from .user import UserSerializer, UserReadSerializer, UserSerializerCatedratico
+from .profile import ProfileSerializer, ProfileRegistroSerializer,ProfileRegistroSerializerCatedratico
 from .rol import RolSerializer, RolRegistroSerializer
 from .estudiante import EstudianteSerializer, EstudianteRegistroSerializer, ProfileSerializerEstudiante, UserSerializerEstudiante
 from .profesion import ProfesionSerializer, ProfesionRegistroSerializer

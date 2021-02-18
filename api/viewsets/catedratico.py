@@ -12,7 +12,7 @@ from api.models import Profile
 from api.models import Rol
 from api.models import Profesion
 from api.serializers import CatedraticoSerializer
-from api.serializers import UserSerializer
+from api.serializers import UserSerializerCatedratico
 
 class CatedraticoViewset(viewsets.ModelViewSet):
     queryset = Catedratico.objects.filter(activo=True).select_related("perfil")
@@ -34,10 +34,10 @@ class CatedraticoViewset(viewsets.ModelViewSet):
             with transaction.atomic():
                 user = request.user
                 datos = request.data
-
+                
                 #validacion de los datos al serializer
-                serializer = UserSerializer(data=datos)
-
+                serializer = UserSerializerCatedratico(data=datos)
+                
                 if serializer.is_valid():
                     #insertar los datos luego de validar
                     user = User.objects.create(
@@ -57,9 +57,9 @@ class CatedraticoViewset(viewsets.ModelViewSet):
                         rol = Rol.objects.get(pk = datos.get("profile").get("rol"))
                     )
                     catedratico = Catedratico.objects.create(
-                        perfil = profile,
+                            perfil = profile,
                             profesion = Profesion.objects.get(pk = datos.get("profile").get("catedratico").get("profesion"))
-                        )
+                    )
                 else:
                     print("error en la validacion de datos")
             
@@ -76,7 +76,7 @@ class CatedraticoViewset(viewsets.ModelViewSet):
                 usuario = User.objects.get(pk=datos.get("id"))
                 usuario.username = datos.get("username")
                 #encriptar contraseña
-                usuario.set_password(datos.get("password"))
+                #usuario.set_password(datos.get("password"))
                 usuario.save()
                 #Modificar datos Profile
                 profile = Profile.objects.get(user=datos.get("id"))
@@ -87,7 +87,7 @@ class CatedraticoViewset(viewsets.ModelViewSet):
                 profile.gender = datos.get("profile").get("gender")
                 profile.save()
                 #Modificar datos Estudiante
-                catedratico = Catedratico.objects.get(pk=datos.get("idEs"))
+                catedratico = Catedratico.objects.get(pk=datos.get("idCa"))
                 catedratico.profesion = datos.get("profile").get("catedratico").get("profesion")
                 catedratico.save()
 

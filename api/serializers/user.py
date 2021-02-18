@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from api.serializers.profile import ProfileRegistroSerializer
+from api.serializers.profile import ProfileRegistroSerializer, ProfileRegistroSerializerCatedratico
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -14,6 +14,20 @@ class UserSerializer(serializers.ModelSerializer):
             'password',
             'profile'
         )
+
+
+class UserSerializerCatedratico(serializers.ModelSerializer):
+
+    profile = ProfileRegistroSerializerCatedratico()
+      
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'password',
+            'profile'
+        )
+
 
 
 class UserReadSerializer(serializers.ModelSerializer):

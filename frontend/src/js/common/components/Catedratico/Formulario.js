@@ -19,13 +19,11 @@ const rol = [
 class Formulario extends Component{
     render(){
         const { handleSubmit, crear, profesion } = this.props;
-        console.log("consulta Profesion Formulario: ", profesion);
         const _listaProfesion = [];
         Array.prototype.forEach.call(profesion.results, child => {
             _listaProfesion.push({"label": child.descripcion, "value": child.id})
         
-          })
-        console.log(_listaProfesion);
+        })
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Catedrático' : 'Registrar Catedrático';
         let disabled = false;
@@ -40,9 +38,14 @@ class Formulario extends Component{
             confContra = '';
         }else{
             if (editar==true){
-                hidden = 'password';
+                hidden = 'hidden';
+                contra = '';
+                confContra = '';
             }
-            hidden='password';
+            if (crear==true){
+                hidden='password';
+            }
+            
         }
         return(
             <form onSubmit={handleSubmit} >

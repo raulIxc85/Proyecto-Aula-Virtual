@@ -37,7 +37,7 @@ export const leer = (id) => (dispatch) => {
 }
 
 export const registroCatedratico = () => (dispatch, getStore) => {
-    const data = getStore().form.catedratico.values;
+    const data = getStore().form.catedraticoForm.values;
     const formData = {
         username: data.perfil.user.username,
         password: data.password,
@@ -53,6 +53,7 @@ export const registroCatedratico = () => (dispatch, getStore) => {
             }
         }
     }
+    console.log("envio: ", formData);
     api.post('/catedratico', formData).then((response) => {
         NotificationManager.success(
             'Catedrático creado',
@@ -71,11 +72,11 @@ export const registroCatedratico = () => (dispatch, getStore) => {
 }
 
 export const modificarCatedratico = () => (dispatch, getStore) => {
-    const datos = getStore().form.catedratico.values;
+    const datos = getStore().form.catedraticoForm.values;
     const id = datos.id;
     const formData = {
         id: datos.perfil.user.id,
-        idEs: datos.id,
+        idCa: datos.id,
         username: datos.perfil.user.username,
         password: datos.password,
         profile: {
