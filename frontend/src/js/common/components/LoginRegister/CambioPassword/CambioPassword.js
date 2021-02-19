@@ -4,8 +4,8 @@ import Formulario from './Formulario';
 class CambioPassword extends Component {
    
     render() {
-        const { cambiarPass, me } = this.props;
-        console.log(this.props);
+        const { cambiarPass, me, borrarToken } = this.props;
+        const borrar = borrarToken;
         const datos = me; 
         return (
             <div className="blue-gradient-bg">
@@ -17,7 +17,8 @@ class CambioPassword extends Component {
                     <div className="card card-login col-lg-3 col-md-4 col-11">
                         <h5 className="text-center pv">Usuario: {datos.username}</h5>
                         <Formulario
-                            onSubmit={cambiarPass}
+                            borrar = {borrar}
+                            onSubmit = {cambiarPass}
                         />
                     </div>
                 </div>

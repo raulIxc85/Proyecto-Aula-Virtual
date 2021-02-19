@@ -30,9 +30,17 @@ export const cambiarPass = () => (dispatch, getStore) => {
     })
 }
 
+export const borrarToken = () => (dispatch) => {
+    api.post('/user/logout').then(() => {
+    }).catch(() => {
+    }).finally(() => {});
+    localStorage.removeItem('token');
+};
+
+
 export const actions = {
     cambiarPass,
-     
+    borrarToken,
 };
 
 export const reducers = {

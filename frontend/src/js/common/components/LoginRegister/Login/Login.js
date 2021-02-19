@@ -16,9 +16,7 @@ class Login extends Component {
 
     render() {
         const { onSubmit, loader } = this.props;
-        if (localStorage.getItem('token')) {
-            return (<Redirect to="/" />);
-        }
+        
         return (
             <div className="blue-gradient-bg">
                 <div className="d-flex flex-column align-items-center pt-3 bienvenida">

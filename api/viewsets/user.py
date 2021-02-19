@@ -9,6 +9,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
+from datetime import datetime
 
 from api.models import Profile
 from api.serializers import UserSerializer, UserReadSerializer
@@ -127,7 +128,10 @@ class UserViewset(viewsets.ModelViewSet):
         try:
             usuario = User.objects.get(pk=request.user.id)
             usuario.set_password(request.data["password"])
+            usuario.last_login = datetime.now()
             usuario.save()
+            token = Token.objects.get(user=request.user)
+            token.delete()
             return Response({"detail","registro modificado"}, status=status.HTTP_200_OK)
         except KeyError as e:
             return Response({"detail": "session not found"}, status=status.HTTP_404_NOT_FOUND)

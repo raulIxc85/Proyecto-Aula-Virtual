@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from "react-router-dom";
 import { validate, validatorFromFunction, validators, combine } from 'validate-redux-form';
 import { renderField } from '../../Utils/renderField';
 
 
 const Formulario = (props) => {
-    const { handleSubmit} = props;
+    const { handleSubmit, borrar } = props;
     
     return (
         <form className="form-validate mb-lg" onSubmit={handleSubmit}>
@@ -31,6 +32,13 @@ const Formulario = (props) => {
             </div>
             <div className="buttons-box">
                 <button type="submit" className="btn btn-primary m-1 align-self-center">Cambiar Contraseña</button>
+                <Link to="/login" 
+                    onClick={borrar} 
+                    className="btn btn-secondary btn-sm mr-2 align-self-center"
+                >
+                    Cancelar
+                </Link>
+                
             </div>
         </form>
        
