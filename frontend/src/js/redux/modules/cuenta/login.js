@@ -34,9 +34,17 @@ export const onSubmit = (data = {}) => (dispatch, getStore) => {
     dispatch(setLoader(true));
     api.post('user/token', data).then((response) => {
         localStorage.setItem('token', response.token);
-        dispatch(initializeForm('profile', response.user));
-        dispatch(setMe(response.user));
-        dispatch(push("/"));
+    
+        if (response.user.last_login === null){
+            dispatch(initializeForm('cambioPassForm', response.user));
+            dispatch(setMe(response.user))
+            dispatch(push("/cambio-password"));
+        }else{
+            dispatch(initializeForm('profile', response.user));
+            dispatch(setMe(response.user));
+            dispatch(push("/"));
+        }
+        
     }).catch(() => {
         NotificationManager.error('Credenciales incorrectas, vuelva a intentar', 'ERROR', 0);
     }).finally(() => {

@@ -9,6 +9,9 @@ import { NotificationContainer } from 'react-notifications';
 import {Login, Profile, Registro} from './common/components/LoginRegister';
 import Demo from './common/components/Demo/Demo';
 import ProtectedRoute from './ProtectedRoute';
+//cambio de password
+import ProtectedRoutePass from './ProtectedRoutePass';
+
 import Examples from './common/components/Examples/Basic';
 import NotFound from './common/components/layout/NotFound/NotFound';
 
@@ -31,7 +34,7 @@ import ProfesionCrearContainer from './common/components/Profesion/ProfesionCrea
 import ProfesionListaContainer from './common/components/Profesion/ProfesionListContainer';
 import CatedraticoCrearContainer from './common/components/Catedratico/CatedraticoCrearContainer';
 import CatedraticoListaContainer from './common/components/Catedratico/CatedraticoListContainer';
-
+import CambioPasswordContainer from './common/components/LoginRegister/CambioPassword/CambioPasswordContainer';
 
 module.exports = (
     <div>
@@ -45,6 +48,8 @@ module.exports = (
                 <ProtectedRoute exact path="/grids" component={Grids} />
                 <ProtectedRoute exact path="/notifications" component={Notificaciones} />
                 <ProtectedRoute exact path="/tabs" component={ExampleTabs} />
+                
+                <ProtectedRoutePass exact path="/cambio-password" component={CambioPasswordContainer} />
                 
                 <ProtectedRoute exact path="/roles/crear" component={RolCrearContainer} />
                 <ProtectedRoute exact path="/roles/:id" component={RolCrearContainer} />

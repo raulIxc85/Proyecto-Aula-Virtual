@@ -119,3 +119,17 @@ class UserViewset(viewsets.ModelViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Token.DoesNotExist:
             return Response({"detail": "session not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+    #cambiar password
+    @action(methods=["put"], detail=False)
+    def editar(self, request, *args, **kwargs):
+        try:
+            usuario = User.objects.get(pk=request.user.id)
+            usuario.set_password(request.data["password"])
+            usuario.save()
+            return Response({"detail","registro modificado"}, status=status.HTTP_200_OK)
+        except KeyError as e:
+            return Response({"detail": "session not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        
