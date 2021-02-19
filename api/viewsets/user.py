@@ -48,8 +48,10 @@ class UserViewset(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+
     def perform_create(self, serializer):
         serializer.save()
+
 
     def get_success_headers(self, data):
         try:
@@ -57,45 +59,30 @@ class UserViewset(viewsets.ModelViewSet):
         except (TypeError, KeyError):
             return {}
 
+
     @action(methods=["put"], detail=False)
     def update_me(self, request, *args, **kwargs):
         data = request.data
         try:
-            avatar = data.get("avatar")
-            data = json.loads(data["data"])
             user = request.user
-            if user.username != data["username"]:
-                try:
-                    User.objects.get(username=data["username"])
-                    return Response(
-                        {"detail": "the chosen username in not available, please pick another"},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-                except User.DoesNotExist:
-                    pass
-            user.username = data["username"]
-            user.first_name = data["first_name"]
-            user.last_name = data["last_name"]
-            perfil, created = Profile.objects.get_or_create(user=user)
-            if avatar is not None:
-                perfil.avatar = File(avatar)
-            profile = data.get("profile")
-            if profile is not None:
-                perfil.phone = profile.get("phone", perfil.phone)
-                perfil.address = profile.get("address", perfil.address)
-                perfil.gender = profile.get("gender", perfil.gender)
-            user.save()
-            perfil.save()
-            serializer = UserReadSerializer(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            profile = Profile.objects.get(user=user)
+            profile.nombres = data.get("profile").get("nombres")
+            profile.apellidos = data.get("profile").get("apellidos")
+            profile.direccion = data.get("profile").get("direccion")
+            profile.telefono = data.get("profile").get("telefono")
+            profile.gender = data.get("profile").get("gender")
+            profile.save()
+            return Response({"detail": {"Perfil modificado"}}, status=status.HTTP_200_OK)
         except KeyError as e:
             return Response({"detail": "{} is a required field".format(str(e))}, status=status.HTTP_400_BAD_REQUEST)
+
 
     @action(methods=["get"], detail=False)
     def me(self, request, *args, **kwargs):
         user = request.user
         serializer = UserReadSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 
     @action(methods=["post"], detail=False)
     def token(self, request, *args, **kwargs):
@@ -111,6 +98,7 @@ class UserViewset(viewsets.ModelViewSet):
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
         except KeyError as e:
             return Response({"detail": "{} is a required field".format(str(e))}, status=status.HTTP_400_BAD_REQUEST)
+
 
     @action(methods=["post"], detail=False)
     def logout(self, request, *args, **kwargs):

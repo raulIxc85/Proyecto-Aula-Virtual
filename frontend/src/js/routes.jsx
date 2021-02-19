@@ -36,6 +36,7 @@ import CatedraticoCrearContainer from './common/components/Catedratico/Catedrati
 import CatedraticoListaContainer from './common/components/Catedratico/CatedraticoListContainer';
 import CambioPasswordContainer from './common/components/LoginRegister/CambioPassword/CambioPasswordContainer';
 
+
 module.exports = (
     <div>
         <div className="container__content">
@@ -44,7 +45,7 @@ module.exports = (
                 <Route exact path="/registro" component={Registro} />
                 <ProtectedRoute exact path="/" component={Demo} />
                 <ProtectedRoute exact path="/page2" component={Examples} />
-                <ProtectedRoute exact path="/user-profile" component={Profile} />
+                <ProtectedRoute exact path="/edit-user-profile" component={Profile} />
                 <ProtectedRoute exact path="/grids" component={Grids} />
                 <ProtectedRoute exact path="/notifications" component={Notificaciones} />
                 <ProtectedRoute exact path="/tabs" component={ExampleTabs} />

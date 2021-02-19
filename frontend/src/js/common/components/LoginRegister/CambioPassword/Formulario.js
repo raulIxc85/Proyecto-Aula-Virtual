@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from "react-router-dom";
 import { validate, validatorFromFunction, validators, combine } from 'validate-redux-form';

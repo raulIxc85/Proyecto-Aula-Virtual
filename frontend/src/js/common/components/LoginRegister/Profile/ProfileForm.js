@@ -10,40 +10,33 @@ const genders = [
 
 const ProfileForm = (props) => {
     const { handleSubmit, me, setAvatar } = props;
+    
     return (
             <form action="" onSubmit={handleSubmit} className="py-4">
-                <h2>PERFIL</h2>
+                <h3>Editar Perfil</h3>
                 <div className="mb-4 card card-small">
-                    <div className="border-bottom card-header"><h6 className="m-0">{me.first_name} {me.last_name}</h6></div>
+                    <div className="border-bottom card-header"><h6 className="m-0">{me.profile.nombres} {me.profile.apellidos}</h6></div>
                     <div className="p-0 pt-3 d-flex flex-column flex-md-row">
-                        <div className="form-group has-feedback flex-1 mx-3">
-                            <label htmlFor="avatar">Avatar</label>
-                            <Field photo={me.profile && me.profile.avatar ? me.profile.avatar : null} setFile={setAvatar} name="avatar" component={renderFilePicker} />
-                        </div>
                         <div className="d-flex flex-column flex-1 mx-3">
+                            
                             <div className="form-group has-feedback">
-                                <label htmlFor="username">Username</label>
-                                <Field name="username" placeholder="Username" component={renderField} type="text" className="form-control" />
+                                <label htmlFor="profile.nombres">Nombres</label>
+                                <Field name="profile.nombres" placeholder="Nombre" component={renderField} type="text" className="form-control" />
                             </div>
 
                             <div className="form-group has-feedback">
-                                <label htmlFor="first_name">Nombre</label>
-                                <Field name="first_name" placeholder="Nombre" component={renderField} type="text" className="form-control" />
-                            </div>
-
-                            <div className="form-group has-feedback">
-                                <label htmlFor="last_name">Apellido</label>
-                                <Field name="last_name" placeholder="Nombre" component={renderField} type="text" className="form-control" />
+                                <label htmlFor="profile.apellidos">Apellidos</label>
+                                <Field name="profile.apellidos" placeholder="Nombre" component={renderField} type="text" className="form-control" />
                             </div>
                         </div>
                     </div>
                     <div className="p-0 pt-3 d-flex flex-column flex-md-row">
                         <div className="form-group has-feedback flex-1 mx-3">
                             <div className="form-group has-feedback">
-                                <label htmlFor="profile.phone">Teléfono</label>
+                                <label htmlFor="profile.telefono">Teléfono</label>
                                 <Field
                                     numberFormat={"+(502) ####-####"}
-                                    name="profile.phone"
+                                    name="profile.telefono"
                                     placeholder="Teléfono"
                                     component={renderNumber}
                                     className="form-control"
@@ -56,13 +49,19 @@ const ProfileForm = (props) => {
                         </div>
                         <div className="form-group has-feedback flex-1 mx-3">
                             <div className="form-group has-feedback">
-                                <label htmlFor="profile.address">Dirección</label>
-                                <Field name="profile.address" placeholder="Dirección" component={renderField} type="text" className="form-control" />
+                                <label htmlFor="profile.direccion">Dirección</label>
+                                <Field name="profile.direccion" placeholder="Dirección" component={renderField} type="text" className="form-control" />
                             </div>
                         </div>
                     </div>
-                    <div className="d-flex">
-                        <button className="btn btn-primary mx-auto mb-3">Guardar</button>
+                    <div className="d-flex justify-content-center mt-3">
+                        <button className="btn btn-primary mr-3 mb-3">Guardar Cambios</button>
+                        <a
+                            href='/#/'
+                            className='btn btn-secondary mb-3'
+                        >
+                            Cancelar
+                        </a>
                     </div>
                 </div>
             </form>
