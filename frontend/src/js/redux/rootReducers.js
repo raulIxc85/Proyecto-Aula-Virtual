@@ -12,6 +12,7 @@ import estudiante from './modules/estudiante/estudiante';
 import profesion from './modules/profesion/profesion';
 import catedratico from './modules/catedratico/catedratico';
 import cambioPassword from './modules/cuenta/cambioPassword';
+import nivel from './modules/nivel/nivel';
 
 export default combineReducers({
     form: formReducer,
@@ -25,5 +26,6 @@ export default combineReducers({
     estudiante,
     profesion,
     catedratico,
-    cambioPassword
+    cambioPassword,
+    nivel
 });

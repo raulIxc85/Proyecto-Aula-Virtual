@@ -36,8 +36,11 @@ export const renderField = ({
 };
 
 export const renderTextArea = ({
-                                   input, placeholder, rows, meta: { touched, error },
-                               }) => {
+                input, 
+                placeholder, 
+                rows, meta: { touched, error },
+                disabled = false,
+                }) => {
     const invalid = touched && error;
     return (
         <div>
@@ -46,6 +49,7 @@ export const renderTextArea = ({
           placeholder={placeholder}
           style={{ resize: 'none' }}
           rows={rows || 3}
+          disabled={disabled}
           className={classNames('form-control', { 'is-invalid': invalid })}
       />
             {invalid && (
@@ -58,7 +62,13 @@ export const renderTextArea = ({
 };
 
 export const renderNumber = ({
-            input, decimalScale, placeholder, meta: { touched, error }, prefix="", suffix="", numberFormat, disabled = false,
+            input, 
+            decimalScale, 
+            placeholder, 
+            meta: { touched, error }, 
+            prefix="", suffix="", 
+            numberFormat, 
+            disabled = false,
             }) => {
     const invalid = touched && error;
     return (

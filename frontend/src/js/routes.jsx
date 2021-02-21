@@ -36,7 +36,8 @@ import CatedraticoCrearContainer from './common/components/Catedratico/Catedrati
 import CatedraticoListaContainer from './common/components/Catedratico/CatedraticoListContainer';
 import CambioPasswordContainer from './common/components/LoginRegister/CambioPassword/CambioPasswordContainer';
 import EditarPasswordContainer from './common/components/LoginRegister/CambioPassword/EditarPasswordContainer';
-
+import NivelCrearContainer from './common/components/Nivel/NivelCrearContainer';
+import NivelListaContainer from './common/components/Nivel/NivelListContainer';
 
 module.exports = (
     <div>
@@ -74,6 +75,11 @@ module.exports = (
                 <ProtectedRoute exact path="/catedraticos/:id" component={CatedraticoCrearContainer} />
                 <ProtectedRoute exact path="/catedraticos/:id/editar" component={CatedraticoCrearContainer} />
                 <ProtectedRoute exact path="/catedraticos" component={CatedraticoListaContainer} />
+
+                <ProtectedRoute exact path="/niveles/crear" component={NivelCrearContainer} />
+                <ProtectedRoute exact path="/niveles/:id" component={NivelCrearContainer} />
+                <ProtectedRoute exact path="/niveles/:id/editar" component={NivelCrearContainer} />
+                <ProtectedRoute exact path="/niveles" component={NivelListaContainer} />
 
                 <Route component={NotFound} />
             </Switch>
