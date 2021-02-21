@@ -35,6 +35,7 @@ import ProfesionListaContainer from './common/components/Profesion/ProfesionList
 import CatedraticoCrearContainer from './common/components/Catedratico/CatedraticoCrearContainer';
 import CatedraticoListaContainer from './common/components/Catedratico/CatedraticoListContainer';
 import CambioPasswordContainer from './common/components/LoginRegister/CambioPassword/CambioPasswordContainer';
+import EditarPasswordContainer from './common/components/LoginRegister/CambioPassword/EditarPasswordContainer';
 
 
 module.exports = (
@@ -51,7 +52,9 @@ module.exports = (
                 <ProtectedRoute exact path="/tabs" component={ExampleTabs} />
                 
                 <ProtectedRoutePass exact path="/cambio-password" component={CambioPasswordContainer} />
+                <ProtectedRoute exact path="/cambiopassword" component={EditarPasswordContainer} />
                 
+
                 <ProtectedRoute exact path="/roles/crear" component={RolCrearContainer} />
                 <ProtectedRoute exact path="/roles/:id" component={RolCrearContainer} />
                 <ProtectedRoute exact path="/roles/:id/editar" component={RolCrearContainer} />

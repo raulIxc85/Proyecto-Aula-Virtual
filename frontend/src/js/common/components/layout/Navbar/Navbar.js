@@ -45,18 +45,12 @@ class Navbar extends Component {
                             </DropdownItem>
                             <DropdownItem>
                                 <Link tabIndex="0"
-                                   to="/file-manager-list">
+                                   to="/cambiopassword">
                                     <i className="material-icons"></i>
-                                    Files
+                                    Editar Contraseña
                                 </Link>
                             </DropdownItem>
-                            <DropdownItem>
-                                <Link tabIndex="0"
-                                   to="/transaction-history">
-                                    <i className="material-icons"></i>
-                                    Transactions
-                                </Link>
-                            </DropdownItem>
+                            
                             <DropdownItem divider />
                             <DropdownItem>
                                 <a tabIndex="0" className="text-danger" onClick={logOut} href="/">

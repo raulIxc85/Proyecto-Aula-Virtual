@@ -6,8 +6,9 @@ import { renderField } from '../../Utils/renderField';
 
 
 const Formulario = (props) => {
-    const { handleSubmit, borrar } = props;
-    
+    console.log(props);
+    const { handleSubmit, borrar, editar } = props;
+        
     return (
         <form className="form-validate mb-lg" onSubmit={handleSubmit}>
             <div className="form-group has-feedback">
@@ -32,13 +33,20 @@ const Formulario = (props) => {
             </div>
             <div className="buttons-box">
                 <button type="submit" className="btn btn-primary m-1 align-self-center">Cambiar Contraseña</button>
-                <Link to="/login" 
-                    onClick={borrar} 
-                    className="btn btn-secondary btn-sm mr-2 align-self-center"
-                >
-                    Cancelar
-                </Link>
-                
+                { editar ? 
+                    <Link to="/" 
+                        className="btn btn-secondary btn-sm mr-2 align-self-center"
+                    >
+                        Cancelar
+                    </Link>
+                :
+                    <Link to="/login" 
+                        onClick={borrar} 
+                        className="btn btn-secondary btn-sm mr-2 align-self-center"
+                    >
+                        Cancelar
+                    </Link>
+                }
             </div>
         </form>
        
