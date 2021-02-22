@@ -40,6 +40,8 @@ import NivelCrearContainer from './common/components/Nivel/NivelCrearContainer';
 import NivelListaContainer from './common/components/Nivel/NivelListContainer';
 import GradoCrearContainer from './common/components/Grado/GradoCrearContainer';
 import GradoListaContainer from './common/components/Grado/GradoListContainer';
+import SeccionCrearContainer from './common/components/Seccion/SeccionCrearContainer';
+import SeccionListaContainer from './common/components/Seccion/SeccionListContainer';
 
 module.exports = (
     <div>
@@ -87,6 +89,11 @@ module.exports = (
                 <ProtectedRoute exact path="/grados/:id" component={GradoCrearContainer} />
                 <ProtectedRoute exact path="/grados/:id/editar" component={GradoCrearContainer} />
                 <ProtectedRoute exact path="/grados" component={GradoListaContainer} />
+
+                <ProtectedRoute exact path="/secciones/crear" component={SeccionCrearContainer} />
+                <ProtectedRoute exact path="/secciones/:id" component={SeccionCrearContainer} />
+                <ProtectedRoute exact path="/secciones/:id/editar" component={SeccionCrearContainer} />
+                <ProtectedRoute exact path="/secciones" component={SeccionListaContainer} />
 
                 <Route component={NotFound} />
             </Switch>

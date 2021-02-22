@@ -6,3 +6,4 @@ from .profesion import ProfesionSerializer, ProfesionRegistroSerializer
 from .catedratico import CatedraticoSerializer, CatedraticoRegistroSerializer, ProfileSerializerCatedratico, UserSerializerCatedratico
 from .nivel import NivelSerializer, NivelRegistroSerializer
 from .grado import GradoSerializer, GradoRegistroSerializer
+from .seccion import SeccionSerializer, SeccionRegistroSerializer

@@ -14,6 +14,7 @@ import catedratico from './modules/catedratico/catedratico';
 import cambioPassword from './modules/cuenta/cambioPassword';
 import nivel from './modules/nivel/nivel';
 import grado from './modules/grado/grado';
+import seccion from './modules/seccion/seccion';
 
 export default combineReducers({
     form: formReducer,
@@ -29,5 +30,6 @@ export default combineReducers({
     catedratico,
     cambioPassword,
     nivel,
-    grado
+    grado,
+    seccion
 });
