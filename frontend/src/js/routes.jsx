@@ -38,6 +38,8 @@ import CambioPasswordContainer from './common/components/LoginRegister/CambioPas
 import EditarPasswordContainer from './common/components/LoginRegister/CambioPassword/EditarPasswordContainer';
 import NivelCrearContainer from './common/components/Nivel/NivelCrearContainer';
 import NivelListaContainer from './common/components/Nivel/NivelListContainer';
+import GradoCrearContainer from './common/components/Grado/GradoCrearContainer';
+import GradoListaContainer from './common/components/Grado/GradoListContainer';
 
 module.exports = (
     <div>
@@ -80,6 +82,11 @@ module.exports = (
                 <ProtectedRoute exact path="/niveles/:id" component={NivelCrearContainer} />
                 <ProtectedRoute exact path="/niveles/:id/editar" component={NivelCrearContainer} />
                 <ProtectedRoute exact path="/niveles" component={NivelListaContainer} />
+
+                <ProtectedRoute exact path="/grados/crear" component={GradoCrearContainer} />
+                <ProtectedRoute exact path="/grados/:id" component={GradoCrearContainer} />
+                <ProtectedRoute exact path="/grados/:id/editar" component={GradoCrearContainer} />
+                <ProtectedRoute exact path="/grados" component={GradoListaContainer} />
 
                 <Route component={NotFound} />
             </Switch>
