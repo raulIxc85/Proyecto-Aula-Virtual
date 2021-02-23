@@ -29,16 +29,24 @@ class CicloViewset(viewsets.ModelViewSet):
 
             #validacion de los datos al serializer
             serializer = CicloRegistroSerializer(data=datos)
-
+            
             if serializer.is_valid():
                 #insertar los datos luego de validar
-                ciclo = Ciclo.objects.latest('ciclo')
-                ciclo.activo = False
-                ciclo.save()
-                Ciclo.objects.create(
+                #si hay un ciclo antes lo desactiva
+                ciclo = Ciclo.objects.all()
+                if ciclo is not None:
+                    ciclo = Ciclo.objects.latest('ciclo')
+                    ciclo.activo = False
+                    ciclo.save()
+                    Ciclo.objects.create(
+                        ciclo = datos.get("ciclo"),
+                        usuario = user
+                    )
+                else:
+                    Ciclo.objects.create(
                     ciclo = datos.get("ciclo"),
                     usuario = user
-                )
+                    )
             else:
                 print("error en la validacion de datos")
             
