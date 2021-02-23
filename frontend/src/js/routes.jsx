@@ -44,6 +44,9 @@ import SeccionCrearContainer from './common/components/Seccion/SeccionCrearConta
 import SeccionListaContainer from './common/components/Seccion/SeccionListContainer';
 import CicloCrearContainer from './common/components/Ciclo/CicloCrearContainer';
 import CicloListaContainer from './common/components/Ciclo/CicloListContainer';
+import CursoCrearContainer from './common/components/Curso/CursoCrearContainer';
+import CursoListaContainer from './common/components/Curso/CursoListContainer';
+
 
 module.exports = (
     <div>
@@ -101,6 +104,11 @@ module.exports = (
                 <ProtectedRoute exact path="/ciclos/:id" component={CicloCrearContainer} />
                 <ProtectedRoute exact path="/ciclos/:id/editar" component={CicloCrearContainer} />
                 <ProtectedRoute exact path="/ciclos" component={CicloListaContainer} />
+
+                <ProtectedRoute exact path="/cursos/crear" component={CursoCrearContainer} />
+                <ProtectedRoute exact path="/cursos/:id" component={CursoCrearContainer} />
+                <ProtectedRoute exact path="/cursos/:id/editar" component={CursoCrearContainer} />
+                <ProtectedRoute exact path="/cursos" component={CursoListaContainer} />
 
                 <Route component={NotFound} />
             </Switch>

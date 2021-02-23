@@ -7,3 +7,4 @@ from .nivel import NivelViewset
 from .grado import GradoViewset
 from .seccion import SeccionViewset
 from .ciclo import CicloViewset
+from .curso import CursoViewset

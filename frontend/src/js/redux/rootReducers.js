@@ -16,6 +16,7 @@ import nivel from './modules/nivel/nivel';
 import grado from './modules/grado/grado';
 import seccion from './modules/seccion/seccion';
 import ciclo from './modules/ciclo/ciclo';
+import curso from './modules/curso/curso';
 
 export default combineReducers({
     form: formReducer,
@@ -33,5 +34,6 @@ export default combineReducers({
     nivel,
     grado,
     seccion,
-    ciclo
+    ciclo,
+    curso,
 });

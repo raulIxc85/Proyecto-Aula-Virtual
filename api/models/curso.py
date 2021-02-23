@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 class Curso(models.Model):
 
-    nombre = models.PositiveIntegerField(
+    nombre = models.CharField(
+        max_length=50,
         unique=True,
         error_messages={
             'unique': 'Ya existe el curso'
