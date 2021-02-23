@@ -3,6 +3,7 @@ from django.db import models
 from api.models.catedratico import Catedratico
 from api.models.curso import Curso
 from api.models.ciclo import Ciclo
+from api.models.grado import Grado
 from api.models.seccion import Seccion
 from django.contrib.auth.models import User
 
@@ -26,6 +27,11 @@ class AsignacionCatedraticoCurso(models.Model):
     ciclo = models.ForeignKey(
         Ciclo,
         related_name='asignacionCiclo', 
+        on_delete=models.PROTECT
+    )
+    grado = models.ForeignKey(
+        Grado, 
+        related_name='asignacionGrado',
         on_delete=models.PROTECT
     )
     seccion = models.ForeignKey(

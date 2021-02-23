@@ -1,6 +1,5 @@
 #Modelo Curso
 from django.db import models
-from api.models.grado import Grado
 from django.contrib.auth.models import User
 
 class Curso(models.Model):
@@ -21,11 +20,7 @@ class Curso(models.Model):
         related_name='usuarioCurso',
         on_delete=models.PROTECT
     )
-    grado = models.ForeignKey(
-        Grado, 
-        related_name='cursoGrado',
-        on_delete=models.PROTECT
-    )
+  
 
     def __str__(self):
         return self.nombre

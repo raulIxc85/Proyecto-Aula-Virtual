@@ -13,7 +13,7 @@ const genders = [
 ];
 
 const rol = [
-    {"label": "Estudiante", "value": 3},
+    {"label": "Estudiante", "value": 2},
 ];
 
 class Formulario extends Component{

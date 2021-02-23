@@ -21,7 +21,7 @@ class Ciclo(models.Model):
     )
 
     def __str__(self):
-        return self.ciclo
+        return str(self.ciclo)
 
 
     def delete(self, *args):
