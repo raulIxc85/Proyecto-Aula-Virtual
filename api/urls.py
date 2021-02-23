@@ -14,6 +14,7 @@ router.register(r'catedratico', viewsets.CatedraticoViewset)
 router.register(r'nivel', viewsets.NivelViewset)
 router.register(r'grado', viewsets.GradoViewset)
 router.register(r'seccion', viewsets.SeccionViewset)
+router.register(r'ciclo', viewsets.CicloViewset)
 
 urlpatterns = [
     path('api/', include(router.urls)),

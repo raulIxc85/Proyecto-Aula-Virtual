@@ -15,6 +15,7 @@ import cambioPassword from './modules/cuenta/cambioPassword';
 import nivel from './modules/nivel/nivel';
 import grado from './modules/grado/grado';
 import seccion from './modules/seccion/seccion';
+import ciclo from './modules/ciclo/ciclo';
 
 export default combineReducers({
     form: formReducer,
@@ -31,5 +32,6 @@ export default combineReducers({
     cambioPassword,
     nivel,
     grado,
-    seccion
+    seccion,
+    ciclo
 });

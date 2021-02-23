@@ -7,3 +7,4 @@ from .catedratico import CatedraticoSerializer, CatedraticoRegistroSerializer, P
 from .nivel import NivelSerializer, NivelRegistroSerializer
 from .grado import GradoSerializer, GradoRegistroSerializer
 from .seccion import SeccionSerializer, SeccionRegistroSerializer
+from .ciclo import CicloSerializer, CicloRegistroSerializer
