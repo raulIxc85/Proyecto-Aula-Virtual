@@ -17,7 +17,7 @@ class Nivel(models.Model):
     
 
     def __str__(self):
-        return self.nombre + "-" + self.descripcion 
+        return self.nombre
 
 
     def delete(self, *args):

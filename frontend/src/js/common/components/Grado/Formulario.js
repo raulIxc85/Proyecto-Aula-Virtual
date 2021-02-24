@@ -2,20 +2,13 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {
     renderField,
-    SelectField
+    AsyncSelectField,
 } from "../Utils/renderField/renderField";
 import { validate, validators } from 'validate-redux-form';
 
 class Formulario extends Component{
     render() {
-        const { handleSubmit, crear, nivelData } = this.props;
-        console.log("niveles: ",nivelData);
-        const _listaNivel = [];
-        Array.prototype.forEach.call(nivelData.results, child => {
-            _listaNivel.push({"label": child.nombre, "value": child.id})
-        
-        })
-        console.log(_listaNivel);
+        const { handleSubmit, crear, listarNiveles } = this.props;
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Grado' : 'Registrar Grado';
         let disabled = false;
@@ -33,10 +26,10 @@ class Formulario extends Component{
                             <Field name="descripcion" component={renderField} disabled={disabled} />
                             <label>Nivel</label>
                             <Field 
-                                name="nivel.id"
+                                name="nivel"
                                 placeholder="Seleccionar..." 
-                                component={SelectField} 
-                                options={_listaNivel} 
+                                component={AsyncSelectField} 
+                                loadOptions={listarNiveles} 
                                 className="form-control" 
                                 disabled={disabled}
                             />                            

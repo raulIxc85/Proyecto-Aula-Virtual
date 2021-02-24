@@ -12,7 +12,7 @@ class GradoSerializer(serializers.ModelSerializer):
             'descripcion',
             'nivel',
         )
-
+        depth = 1
 
 class GradoRegistroSerializer(serializers.ModelSerializer):
      class Meta:

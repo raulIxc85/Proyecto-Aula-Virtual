@@ -16,15 +16,14 @@ class Grado extends Component{
         listarNiveles();
     }
     render(){
-        const { registroGrado, modificarGrado, lecturaNivel } = this.props;
+        const { registroGrado, modificarGrado, listarNiveles } = this.props;
         const { crear } = this.state;
-        const nivelData  = lecturaNivel;
         const funcionEnvio = crear ? registroGrado : modificarGrado;
         
         return(
             <Formulario
                 crear = {crear} 
-                nivelData = {nivelData}
+                listarNiveles = {listarNiveles}
                 onSubmit={funcionEnvio}
             />
         );

@@ -6,7 +6,6 @@ import { api } from "api";
 
 const GUARDAR_LISTADO_GRADOS= 'GUARDAR_LISTADO_GRADOS';
 const GUARDAR_REGISTRO_GRADOS = 'GUARDAR_REGISTRO_GRADOS';
-const GUARDAR_LISTADO_NIVELES = 'GUARDAR_LISTADO_NIVELES';
 
 export const listar = () => (dispatch, getStore) => {
     api.get('/grado').then((response)=>{
@@ -23,6 +22,7 @@ export const listar = () => (dispatch, getStore) => {
 
 export const leer = (id) => (dispatch) => {
     api.get(`/grado/${id}`).then((response) => {
+        response.nivel = { value: response.nivel.id, label: response.nivel.nombre };
         dispatch({type: GUARDAR_REGISTRO_GRADOS, lectura: response });
         dispatch(initializeForm('gradoForm', response ));
     }).catch((error)=>{
@@ -39,8 +39,9 @@ export const registroGrado = () => (dispatch, getStore) => {
     const datos = getStore().form.gradoForm.values;
     const data = {
         descripcion: datos.descripcion,
-        nivel: datos.nivel.id
+        nivel: datos.nivel.value
     }
+    console.log("grado: ", data);
     api.post('/grado', data).then((response) => {
         NotificationManager.success(
             'Grado creado',
@@ -64,7 +65,7 @@ export const modificarGrado = () => (dispatch, getStore) => {
     const formData = {
         id: datos.id,
         descripcion: datos.descripcion,
-        nivel: datos.nivel.id
+        nivel: datos.nivel.value
     }
     api.put(`/grado/${id}`, formData).then((response) => {
         NotificationManager.success(
@@ -89,7 +90,7 @@ export const eliminar = (id) => (dispatch) => {
             'Grado borrado correctamente',
             'Exito',
             3000
-        );
+        );  
         dispatch(listar());
     }).catch((error) => {
         console.log("error: ", error)
@@ -101,18 +102,24 @@ export const eliminar = (id) => (dispatch) => {
     })
 }
 
-export const listarNiveles = () => (dispatch) => {
-    api.get('/nivel').then((response)=>{
-        dispatch({ type: GUARDAR_LISTADO_NIVELES, lecturaNivel: response });
-    }).catch((error)=>{
-        console.log("error: ", error)
-        NotificationManager.error(
-            'Ocurrió un error al listar los niveles',
-            'Error',
-            0
-        );
+export const listarNiveles = (search) => () => {
+    return api.get("/nivel", {search}).then(data=>{
+        console.log("datos: ",data);
+        if(data){
+            const niveles = [];
+            data.results.forEach(nivel=>{
+                niveles.push({
+                    value: nivel.id,
+                    label: nivel.nombre
+                })
+            })
+            return niveles;
+        }
+    }).catch(error=>{
+        console.log("error: ", error);
+        return [];
     })
-}
+} 
 
 
 export const actions = {
@@ -137,19 +144,14 @@ export const reducers = {
             lectura,
         };
     },
-    [GUARDAR_LISTADO_NIVELES]: (state, { lecturaNivel }) => {
-        return {
-            ...state,
-            lecturaNivel,
-        };
-    },
+   
 };
 
 export const initialState = {
     loader: false,
     data: null,
     lectura: null,
-    lecturaNivel: null,
+    
 };
 
 export default handleActions(reducers, initialState)

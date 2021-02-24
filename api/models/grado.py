@@ -29,7 +29,7 @@ class Grado(models.Model):
     )
 
     def __str__(self):
-        return self.descripcion + "-" + nivel.nombre
+        return self.descripcion
 
 
     def delete(self, *args):
