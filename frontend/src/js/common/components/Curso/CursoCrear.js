@@ -14,9 +14,9 @@ class Curso extends Component{
         }
     }
     render(){
-        const { crear, editar } = this.props;
+        const { crear, modificarCurso } = this.props;
         const { crearCurso } = this.state;
-        const funcionEnvio = crearCurso ? crear : editar;
+        const funcionEnvio = crearCurso ? crear : modificarCurso;
         return(
             <Formulario
                 crearCurso = { crearCurso }

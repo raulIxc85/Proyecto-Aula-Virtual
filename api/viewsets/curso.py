@@ -20,6 +20,8 @@ class CursoViewset(viewsets.ModelViewSet):
         """Define serializer para API"""
         if self.action == 'list' or self.action == 'retrieve':
             return CursoSerializer
+        if self.action == 'update':
+            return CursoRegistroSerializer
 
 
     def create(self, request):
