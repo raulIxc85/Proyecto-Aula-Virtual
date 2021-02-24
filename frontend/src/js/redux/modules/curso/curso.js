@@ -8,7 +8,7 @@ import { api } from "api";
 // Constants
 // ------------------------------------
 
-export const { reducers, initialState, actions } = createReducer(
+const baseReducer = createReducer(
     'curso',
     '/curso',
     'cursoForm',
@@ -35,6 +35,18 @@ export const modificarCurso = () => (dispatch, getStore) => {
     })
 }
 
-actions["modificarCurso"] = modificarCurso;
+export const actions = {
+    ...baseReducer.actions,
+    modificarCurso
+}
+
+export const initialState = {
+    ...baseReducer.initialState
+}
+
+export const reducers = {
+    ...baseReducer.reducers
+}
+
 
 export default handleActions(reducers, initialState)
