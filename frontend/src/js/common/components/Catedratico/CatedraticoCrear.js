@@ -6,26 +6,23 @@ class Catedratico extends Component{
         crear: true,
     }
     componentWillMount = () => {
-        const { leer, match, listarProfesiones } = this.props;
+        const { leer, match } = this.props;
         const id = match.params.id;
         if (id){
             this.setState({crear: false});
             leer(id);
         }
-        listarProfesiones();
         
     }
     render(){
-        console.log("PROPS: ", this.props);
-        const { registroCatedratico, modificarCatedratico, lecturaProfesion } = this.props;
+        const { registroCatedratico, modificarCatedratico, listarProfesiones } = this.props;
         const { crear } = this.state;
-        const profesion  = lecturaProfesion;
         const funcionEnvio = crear ? registroCatedratico : modificarCatedratico;
        
         return(
             <Formulario
                 crear = {crear} 
-                profesion = {profesion}
+                listarProfesiones = {listarProfesiones}
                 onSubmit={funcionEnvio}
             />
             

@@ -6,14 +6,13 @@ class Grado extends Component{
         crear: true,
     }
     componentWillMount = () => {
-        const { leer, match, listarNiveles } = this.props;
+        const { leer, match } = this.props;
         console.log(this.props);
         const id = match.params.id;
         if (id){
             this.setState({crear: false});
             leer(id);
         }
-        listarNiveles();
     }
     render(){
         const { registroGrado, modificarGrado, listarNiveles } = this.props;

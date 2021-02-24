@@ -35,7 +35,7 @@ class CatedraticoSerializer(serializers.ModelSerializer):
             'perfil',
             'profesion'
         )
-
+        depth = 1
 
 class CatedraticoRegistroSerializer(serializers.ModelSerializer):
     class Meta:

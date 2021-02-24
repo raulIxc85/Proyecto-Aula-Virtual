@@ -4,6 +4,7 @@ import {
     renderField,
     renderNumber,
     SelectField,
+    AsyncSelectField
 } from "../Utils/renderField/renderField";
 import { validate, validatorFromFunction, validators, combine } from 'validate-redux-form';
 
@@ -18,12 +19,7 @@ const rol = [
 
 class Formulario extends Component{
     render(){
-        const { handleSubmit, crear, profesion } = this.props;
-        const _listaProfesion = [];
-        Array.prototype.forEach.call(profesion.results, child => {
-            _listaProfesion.push({"label": child.descripcion, "value": child.id})
-        
-        })
+        const { handleSubmit, crear, listarProfesiones } = this.props;
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Catedrático' : 'Registrar Catedrático';
         let disabled = false;
@@ -78,8 +74,8 @@ class Formulario extends Component{
                                     <Field 
                                         name="profesion" 
                                         placeholder="Seleccionar..." 
-                                        component={SelectField} 
-                                        options={_listaProfesion} 
+                                        loadOptions={listarProfesiones} 
+                                        component={AsyncSelectField} 
                                         className="form-control" 
                                         disabled={disabled}
                                     />
@@ -126,6 +122,7 @@ class Formulario extends Component{
                                     <label>Rol</label>
                                     <Field 
                                         name="perfil.rol" 
+                                        placeholder="Seleccionar..." 
                                         component={SelectField} 
                                         options={rol} 
                                         className="form-control" 

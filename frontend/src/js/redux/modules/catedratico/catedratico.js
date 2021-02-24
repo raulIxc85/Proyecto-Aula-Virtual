@@ -6,10 +6,8 @@ import { api } from "api";
 
 const GUARDAR_LISTADO_CATEDRATICOS = 'GUARDAR_LISTADO_CATEDRATICOS';
 const GUARDAR_REGISTRO_CATEDRATICOS = 'GUARDAR_REGISTRO_CATEDRATICOS';
-const GUARDAR_LISTADO_PROFESIONES = 'GUARDAR_LISTADO_PROFESIONES';
 
 export const listar = () => (dispatch, getStore) => {
-    console.log("getStore", getStore());
     api.get('/catedratico').then((response)=>{
         dispatch({ type: GUARDAR_LISTADO_CATEDRATICOS, data: response });
     }).catch((error)=>{
@@ -24,6 +22,7 @@ export const listar = () => (dispatch, getStore) => {
 
 export const leer = (id) => (dispatch) => {
     api.get(`/catedratico/${id}`).then((response) => {
+        response.profesion = { value: response.profesion.id, label: response.profesion.descripcion };
         dispatch({type: GUARDAR_REGISTRO_CATEDRATICOS, lectura: response });
         dispatch(initializeForm('catedraticoForm', response ));
     }).catch((error)=>{
@@ -49,11 +48,10 @@ export const registroCatedratico = () => (dispatch, getStore) => {
             gender: data.perfil.gender,
             rol: data.perfil.rol,
             catedratico: {
-                profesion: data.profesion
+                profesion: data.profesion.value
             }
         }
     }
-    console.log("envio: ", formData);
     api.post('/catedratico', formData).then((response) => {
         NotificationManager.success(
             'Catedrático creado',
@@ -85,7 +83,7 @@ export const modificarCatedratico = () => (dispatch, getStore) => {
             gender: datos.perfil.gender,
             rol: datos.perfil.rol,
             catedratico: {
-                profesion: datos.profesion
+                profesion: datos.profesion.value
             }
         }
     }
@@ -125,18 +123,24 @@ export const eliminar = (id) => (dispatch) => {
     })
 }
 
-export const listarProfesiones = () => (dispatch) => {
-    api.get('/profesion').then((response)=>{
-        dispatch({ type: GUARDAR_LISTADO_PROFESIONES, lecturaProfesion: response });
-    }).catch((error)=>{
-        console.log("error: ", error)
-        NotificationManager.error(
-            'Ocurrió un error al listar las profesiones',
-            'Error',
-            0
-        );
+export const listarProfesiones = (search) => () => {
+    return api.get("/profesion", {search}).then(data=>{
+        if(data){
+            const niveles = [];
+            data.results.forEach(nivel=>{
+                niveles.push({
+                    value: nivel.id,
+                    label: nivel.descripcion
+                })
+            })
+            return niveles;
+        }
+    }).catch(error=>{
+        console.log("error: ", error);
+        return [];
     })
-}
+} 
+
 
 
 export const actions = {
@@ -160,20 +164,14 @@ export const reducers = {
             ...state,
             lectura,
         };
-    },
-    [GUARDAR_LISTADO_PROFESIONES]: (state, { lecturaProfesion }) => {
-        return {
-            ...state,
-            lecturaProfesion,
-        };
-    },
+    }
+    
 };
 
 export const initialState = {
     loader: false,
     data: null,
     lectura: null,
-    lecturaProfesion: null,
 };
 
 export default handleActions(reducers, initialState)
