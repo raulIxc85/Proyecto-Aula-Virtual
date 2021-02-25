@@ -20,7 +20,7 @@ class Formulario extends Component{
         let disabled = false;
         if (crear == false ){
             disabled = true;
-            titulo = 'Ver Asignacion';
+            titulo = 'Ver Asignación';
         }
         return (
             <form onSubmit={handleSubmit} className='w-50'>
