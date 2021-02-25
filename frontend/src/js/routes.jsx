@@ -48,6 +48,7 @@ import CursoCrearContainer from './common/components/Curso/CursoCrearContainer';
 import CursoListaContainer from './common/components/Curso/CursoListContainer';
 import AsignacionCrearContainer from './common/components/AsignacionCatedratico/AsignacionCrearContainer';
 import AsignacionListaContainer from './common/components/AsignacionCatedratico/AsignacionListContainer';
+import AsignacionCursoListaContainer from './common/components/AsignacionCurso/CursoListContainer';
 
 
 module.exports = (
@@ -117,7 +118,8 @@ module.exports = (
                 <ProtectedRoute exact path="/asignaciones-catedratico/:id/editar" component={AsignacionCrearContainer} />
                 <ProtectedRoute exact path="/asignaciones-catedratico" component={AsignacionListaContainer} />
 
-
+                <ProtectedRoute exact path="/cursos-asignados" component={AsignacionCursoListaContainer} />
+                
                 <Route component={NotFound} />
             </Switch>
         </div>

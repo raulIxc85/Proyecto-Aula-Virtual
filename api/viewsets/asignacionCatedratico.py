@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from django.db import transaction
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from api.models import AsignacionCatedraticoCurso
 from api.models import Catedratico
@@ -12,6 +13,7 @@ from api.models import Curso
 from api.models import Ciclo
 from api.models import Grado
 from api.models import Seccion
+from api.models import Profile
 from api.serializers import AsignacionCatedraticoSerializer, AsignacionCatedraticoRegistroSerializer
 
 class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
@@ -55,6 +57,18 @@ class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+
+    @action(methods=["get"], detail=False)
+    def curso(self, request, *args, **kwargs):
+        user = request.user
+        perfil = Profile.objects.get(user=user)
+        catedratico = Catedratico.objects.get(perfil=perfil.id)
+        cursos = AsignacionCatedraticoCurso.objects.filter(catedratico=catedratico.id, activo=True)
+        #paginando el resultado
+        paginator = PageNumberPagination()
+        resultado_pagina = paginator.paginate_queryset(cursos, request)
+        serializer = AsignacionCatedraticoSerializer(resultado_pagina, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
     def get_permissions(self):
