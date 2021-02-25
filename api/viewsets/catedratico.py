@@ -18,9 +18,9 @@ class CatedraticoViewset(viewsets.ModelViewSet):
     queryset = Catedratico.objects.filter(activo=True).select_related("perfil")
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_fields = ("activo",)
-    search_fields = ("activo")
-    ordering_fields = ("activo")
+    filter_fields = ("perfil__nombres", "perfil__apellidos")
+    search_fields = ("perfil__nombres","perfil__apellidos")
+    ordering_fields = ("perfil__nombres","perfil__apellidos")
 
  
     def get_serializer_class(self):

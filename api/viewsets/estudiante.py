@@ -17,9 +17,9 @@ class EstudianteViewset(viewsets.ModelViewSet):
     queryset = Estudiante.objects.filter(activo=True).select_related("perfil")
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_fields = ("carnet",)
-    search_fields = ("carnet")
-    ordering_fields = ("carnet")
+    filter_fields = ("perfil__nombres","perfil__apellidos")
+    search_fields = ("perfil__nombres","perfil__apellidos")
+    ordering_fields = ("perfil__nombres","perfil__apellidos")
 
  
     def get_serializer_class(self):
