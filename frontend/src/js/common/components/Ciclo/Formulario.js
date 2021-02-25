@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {
-    renderField,
+    renderNumber,
 } from "../Utils/renderField/renderField";
 import { validate, validators } from 'validate-redux-form';
 
@@ -22,7 +22,7 @@ class Formulario extends Component{
                     <div className="p-0 pt-3 d-flex flex-column flex-md-row">
                         <div className="d-flex flex-column flex-1 mx-3">
                             <label htmlFor="ciclo">Ciclo</label>
-                            <Field name="ciclo" component={renderField} disabled={disabled} />
+                            <Field name="ciclo" component={renderNumber} disabled={disabled} />
                             <br />
                             <div className='d-flex flex-row justify-content-end mt-3'> 
                                 <a

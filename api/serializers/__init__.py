@@ -9,3 +9,4 @@ from .grado import GradoSerializer, GradoRegistroSerializer
 from .seccion import SeccionSerializer, SeccionRegistroSerializer
 from .ciclo import CicloSerializer, CicloRegistroSerializer
 from .curso import CursoSerializer, CursoRegistroSerializer
+from .asignacionCatedratico import AsignacionCatedraticoSerializer, AsignacionCatedraticoRegistroSerializer

@@ -46,7 +46,7 @@ class ListadoCiclo extends Component{
                                 ver: "ciclos", 
                             })}
                         >
-                            Acciones
+                            Acción
                         </TableHeaderColumn>
                     </Grid>
                 }

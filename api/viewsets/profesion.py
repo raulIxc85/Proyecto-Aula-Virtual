@@ -13,8 +13,8 @@ class ProfesionViewset(viewsets.ModelViewSet):
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("descripcion",)
-    search_fields = ("descripcion")
-    ordering_fields = ("descripcion")
+    search_fields = ("descripcion",)
+    ordering_fields = ("descripcion",)
 
     def get_serializer_class(self):
         """Define serializer for API"""

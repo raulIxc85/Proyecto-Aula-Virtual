@@ -46,6 +46,8 @@ import CicloCrearContainer from './common/components/Ciclo/CicloCrearContainer';
 import CicloListaContainer from './common/components/Ciclo/CicloListContainer';
 import CursoCrearContainer from './common/components/Curso/CursoCrearContainer';
 import CursoListaContainer from './common/components/Curso/CursoListContainer';
+import AsignacionCrearContainer from './common/components/AsignacionCatedratico/AsignacionCrearContainer';
+import AsignacionListaContainer from './common/components/AsignacionCatedratico/AsignacionListContainer';
 
 
 module.exports = (
@@ -109,6 +111,12 @@ module.exports = (
                 <ProtectedRoute exact path="/cursos/:id" component={CursoCrearContainer} />
                 <ProtectedRoute exact path="/cursos/:id/editar" component={CursoCrearContainer} />
                 <ProtectedRoute exact path="/cursos" component={CursoListaContainer} />
+
+                <ProtectedRoute exact path="/asignaciones-catedratico/crear" component={AsignacionCrearContainer} />
+                <ProtectedRoute exact path="/asignaciones-catedratico/:id" component={AsignacionCrearContainer} />
+                <ProtectedRoute exact path="/asignaciones-catedratico/:id/editar" component={AsignacionCrearContainer} />
+                <ProtectedRoute exact path="/asignaciones-catedratico" component={AsignacionListaContainer} />
+
 
                 <Route component={NotFound} />
             </Switch>

@@ -13,8 +13,8 @@ class CursoViewset(viewsets.ModelViewSet):
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("nombre",)
-    search_fields = ("nombre")
-    ordering_fields = ("nombre")
+    search_fields = ("nombre",)
+    ordering_fields = ("nombre",)
 
     def get_serializer_class(self):
         """Define serializer para API"""
