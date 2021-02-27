@@ -48,8 +48,8 @@ import CursoCrearContainer from './common/components/Curso/CursoCrearContainer';
 import CursoListaContainer from './common/components/Curso/CursoListContainer';
 import AsignacionCrearContainer from './common/components/AsignacionCatedratico/AsignacionCrearContainer';
 import AsignacionListaContainer from './common/components/AsignacionCatedratico/AsignacionListContainer';
-import AsignacionCursoListaContainer from './common/components/AsignacionCurso/CursoListContainer';
-
+import AsignacionCursoListaContainer from './common/components/AsignacionEstudiante/CursoListContainer';
+import AsignacionEstudianteCrearContainer from './common/components/AsignacionEstudiante/AsignarEstudianteCrearContainer';
 
 module.exports = (
     <div>
@@ -119,7 +119,8 @@ module.exports = (
                 <ProtectedRoute exact path="/asignaciones-catedratico" component={AsignacionListaContainer} />
 
                 <ProtectedRoute exact path="/cursos-asignados" component={AsignacionCursoListaContainer} />
-                
+                <ProtectedRoute exact path="/cursos-asignados/:id/asignar-estudiante" component={AsignacionEstudianteCrearContainer} />
+               
                 <Route component={NotFound} />
             </Switch>
         </div>

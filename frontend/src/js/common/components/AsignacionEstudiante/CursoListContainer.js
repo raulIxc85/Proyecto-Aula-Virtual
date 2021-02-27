@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { actions } from '../../../redux/modules/asignacionCatedratico/asignacion';
+import { actions } from '../../../redux/modules/asignacionEstudiante/asignacionEstudiante';
 import CursoList from './CursoList';
 
 
 const ms2p = (state) => {
   return {
-    ...state.asignacion,
+    ...state.asignacionEstudiante,
   };
 };
 

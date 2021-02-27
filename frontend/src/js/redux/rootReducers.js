@@ -18,6 +18,7 @@ import seccion from './modules/seccion/seccion';
 import ciclo from './modules/ciclo/ciclo';
 import curso from './modules/curso/curso';
 import asignacion from './modules/asignacionCatedratico/asignacion';
+import asignacionEstudiante from './modules/asignacionEstudiante/asignacionEstudiante';
 
 export default combineReducers({
     form: formReducer,
@@ -37,5 +38,6 @@ export default combineReducers({
     seccion,
     ciclo,
     curso,
-    asignacion
+    asignacion,
+    asignacionEstudiante
 });

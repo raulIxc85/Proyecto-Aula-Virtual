@@ -1,5 +1,5 @@
 import React, { Component, useReducer } from 'react';
-import { listarCursosCatedratico } from '../../../redux/modules/asignacionCatedratico/asignacion';
+import { listarCursosCatedratico } from '../../../redux/modules/asignacionEstudiante/asignacionEstudiante';
 import Grid from '../Utils/Grid';
 import { standardActions } from '../Utils/Grid/StandardActions';
 
@@ -26,7 +26,7 @@ class ListadoCursosCatedratico extends Component{
                             dataField="curso"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                return cell.descripcion;
+                                return cell.nombre;
                             }}
                         >
                             Curso
@@ -55,7 +55,7 @@ class ListadoCursosCatedratico extends Component{
                             dataAlign="center"
                             dataSort
                             dataFormat={standardActions({ 
-                                ver: "asignaciones-catedratico",
+                                asignar: "cursos-asignados",
                             })} 
                             
                         >

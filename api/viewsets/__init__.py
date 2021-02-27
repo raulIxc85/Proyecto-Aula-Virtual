@@ -9,3 +9,4 @@ from .seccion import SeccionViewset
 from .ciclo import CicloViewset
 from .curso import CursoViewset
 from .asignacionCatedratico import AsignacionCatedraticoViewset
+from .asignacionEstudiante import AsignacionEstudianteViewset

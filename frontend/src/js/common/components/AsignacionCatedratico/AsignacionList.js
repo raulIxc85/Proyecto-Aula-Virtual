@@ -44,7 +44,7 @@ class ListadoAsignacion extends Component{
                             dataField="curso"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                return cell.descripcion;
+                                return cell.nombre;
                             }}
                         >
                             Curso

@@ -5,7 +5,6 @@ import { push } from "react-router-redux";
 import { initialize as initializeForm } from 'redux-form';
 import { api } from "api";
 
-const CURSOS = 'CURSOS';
 
 // ------------------------------------
 // Constants
@@ -129,21 +128,6 @@ export const obtenerSecciones = (search) => () => {
   })
 }
 
-export const listarCursosCatedratico = () => (dispatch, getStore) => {
-    api.get('/asignacion/curso').then((response)=>{
-        console.log("datos:", response);
-        dispatch({ type: CURSOS, data: response });
-    }).catch((error)=>{
-        console.log("error: ", error)
-        NotificationManager.error(
-            'Ocurrió un error al listar los cursos',
-            'Error',
-            0
-        );
-    })
-}
-
-
 export const actions = {
     ...baseReducer.actions,
     registroAsignacion,
@@ -151,8 +135,7 @@ export const actions = {
     obtenerCatedraticos,
     obtenerCursos,
     obtenerGrados,
-    obtenerSecciones,
-    listarCursosCatedratico
+    obtenerSecciones
 }
 
 export const initialState = {
@@ -161,12 +144,7 @@ export const initialState = {
 
 export const reducers = {
     ...baseReducer.reducers,
-    [CURSOS]: (state, { data }) => {
-        return {
-            ...state,
-            data,
-        };
-    },
+    
 }
 
 
