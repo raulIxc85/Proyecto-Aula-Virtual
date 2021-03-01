@@ -12,7 +12,7 @@ class Tarea(models.Model):
         }
     )
     descripcion = models.TextField()
-    documentoAdjunto = models.BinaryField()
+    documentoAdjunto = models.BinaryField(null=True,blank=True)
     fechaHoraEntrega = models.DateTimeField(auto_now_add=True)
     aceptaDocumento = models.BooleanField(default=True)
     valorTarea = models.DecimalField(max_digits=4,decimal_places=2)
@@ -29,7 +29,7 @@ class Tarea(models.Model):
     )
 
     def __str__(self):
-        return self.descripcion + "-" + self.curso
+        return self.descripcion
 
 
     def delete(self, *args):

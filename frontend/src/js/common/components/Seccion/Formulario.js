@@ -16,7 +16,7 @@ class Formulario extends Component{
             titulo = 'Ver Sección';
         }
         return (
-            <form onSubmit={handleSubmit} className='w-50'>
+            <form onSubmit={handleSubmit} className='w-25'>
                 <h3>{titulo}</h3>
                 <div className="mb-4 card card-small">
                     <div className="p-0 pt-3 d-flex flex-column flex-md-row">

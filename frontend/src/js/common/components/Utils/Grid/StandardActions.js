@@ -28,7 +28,7 @@ class Acciones extends Component {
     };
 
     render() {
-        const { id, ver, editar, eliminar, asignar } = this.props;
+        const { id, ver, editar, eliminar, asignar, gestion } = this.props;
 
         return (
             <div className="d-flex justify-content-center">
@@ -43,6 +43,9 @@ class Acciones extends Component {
                 )}
                 {(asignar !== undefined) && (
                     <Link className="text-warning" to={`${asignar}/${id}/`} ><i className="material-icons">assignment</i></Link>
+                )}
+                {(gestion !== undefined) && (
+                    <Link className="text-warning" to={`${gestion}/${id}/`} ><i className="material-icons">home</i></Link>
                 )}
             </div>
         );
