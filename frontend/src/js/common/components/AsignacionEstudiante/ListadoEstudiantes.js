@@ -50,7 +50,7 @@ class ListadoEstudiantes extends Component{
                                     })} 
                                     
                                 >
-                                    Quitar
+                                    Eliminar
                                 </TableHeaderColumn>
                             </Grid>
                         }
