@@ -42,7 +42,7 @@ class Acciones extends Component {
                     <a className="px-2" style={{cursor: "pointer", color: "#c4183c"}} onClick={this.eliminar(id)}><i className="material-icons">delete</i></a>
                 )}
                 {(asignar !== undefined) && (
-                    <Link className="text-warning" to={`${asignar}/${id}/asignar-estudiante`} ><i className="material-icons">assignment</i></Link>
+                    <Link className="text-warning" to={`${asignar}/${id}/`} ><i className="material-icons">assignment</i></Link>
                 )}
             </div>
         );

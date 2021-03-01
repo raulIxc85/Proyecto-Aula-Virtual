@@ -65,10 +65,10 @@ class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
         catedratico = Catedratico.objects.get(perfil=perfil.id)
         cursos = AsignacionCatedraticoCurso.objects.filter(catedratico=catedratico.id, activo=True)
         #paginando el resultado
-        paginator = PageNumberPagination()
-        resultado_pagina = paginator.paginate_queryset(cursos, request)
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(cursos, request)
         serializer = AsignacionCatedraticoSerializer(resultado_pagina, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        return paginador.get_paginated_response(serializer.data)
 
 
     def get_permissions(self):

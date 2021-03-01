@@ -13,7 +13,7 @@ class AsignarEstudianteCrear extends Component{
         }
     }
     render(){
-        const { registroAsignacionEstudiante, obtenerEstudiantes, listarEstudiantes, lecturaEstudiantes } = this.props;
+        const { registroAsignacionEstudiante, obtenerEstudiantes, listarEstudiantes, lecturaEstudiantes, eliminar } = this.props;
         return(
            
             <Formulario
@@ -21,6 +21,7 @@ class AsignarEstudianteCrear extends Component{
                 onSubmit={registroAsignacionEstudiante}
                 listarEstudiantes = {listarEstudiantes}
                 lecturaEstudiantes = {lecturaEstudiantes}
+                eliminar = {eliminar}
             />
            
         );

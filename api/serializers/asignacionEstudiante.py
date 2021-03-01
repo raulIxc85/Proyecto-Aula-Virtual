@@ -7,7 +7,8 @@ class AsignacionEstudianteSerializer(serializers.ModelSerializer):
         model = AsignacionCurso
         fields = (
             'id',
-            'estudiante'
+            'estudiante',
+            'asignacionCatedratico'
         )
         depth = 2
 

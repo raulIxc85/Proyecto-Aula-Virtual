@@ -4,10 +4,7 @@ import Grid from '../Utils/Grid';
 import { standardActions } from '../Utils/Grid/StandardActions';
 
 class ListadoEstudiantes extends Component{
-    componentWillMount = () => {
-        const { listarEstudiantes } = this.props;
-        listarEstudiantes();
-    }
+   
     render(){
         const { data, loader, eliminar } = this.props;
         return(
@@ -49,7 +46,7 @@ class ListadoEstudiantes extends Component{
                                     dataAlign="center"
                                     dataSort
                                     dataFormat={standardActions({ 
-                                        eliminar: "eliminar",
+                                        eliminar: eliminar,
                                     })} 
                                     
                                 >

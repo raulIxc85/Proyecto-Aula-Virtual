@@ -119,7 +119,7 @@ module.exports = (
                 <ProtectedRoute exact path="/asignaciones-catedratico" component={AsignacionListaContainer} />
 
                 <ProtectedRoute exact path="/cursos-asignados" component={AsignacionCursoListaContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/asignar-estudiante" component={AsignacionEstudianteCrearContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id" component={AsignacionEstudianteCrearContainer} />
                
                 <Route component={NotFound} />
             </Switch>

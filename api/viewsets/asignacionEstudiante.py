@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from django.db import transaction
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from api.models import AsignacionCurso
 from api.models import Estudiante
@@ -20,9 +21,18 @@ class AsignacionEstudianteViewset(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         """Define serializer for API"""
-        if self.action == 'list' or self.action == 'retrieve':
+        if self.action == 'list':
             return AsignacionEstudianteSerializer
-        
+
+
+    def retrieve(self, request, pk=None):
+        consulta = AsignacionCurso.objects.filter(activo=True, asignacionCatedratico=pk)
+        #paginando el resultado
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(consulta, request)
+        serializer = AsignacionEstudianteSerializer(consulta, many=True)
+        return paginador.get_paginated_response(serializer.data)
+       
 
     def create(self, request):
         try:

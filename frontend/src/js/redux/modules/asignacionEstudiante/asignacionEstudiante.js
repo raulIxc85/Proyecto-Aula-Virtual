@@ -25,38 +25,23 @@ export const registroAsignacionEstudiante = () => (dispatch, getStore) => {
         estudiante: datos.estudiante.value
         
     }
-    console.log("data: ", data);
     api.post('/asignacion-curso', data).then((response) => {
         NotificationManager.success(
-            'Asignacion creada',
+            'Estudiante asignado correctamente',
             'Exito',
             3000
         );
-        dispatch(push('/cursos-asignados'));
+        dispatch(leerAsignacion(datos.id));
     }).catch((error) => {
         console.log("error: ", error)
         NotificationManager.error(
-            'Ocurrió un error al registrar asignacion',
+            'Ocurrió un error al registrar la asignación',
             'Error',
             0
         );
     })
 }
 
-export const listarEstudiantes = () => (dispatch, getStore) => {
-    api.get('/asignacion-curso').then((response)=>{
-        console.log("datos redux:", response);
-        
-        dispatch({ type: LISTADO, lecturaEstudiantes: response });
-    }).catch((error)=>{
-        console.log("error: ", error)
-        NotificationManager.error(
-            'Ocurrió un error al listar los estudiantes',
-            'Error',
-            0
-        );
-    })
-}
 
 export const obtenerEstudiantes = (search) => () => {
   return api.get("/estudiante", {search}).then(data=>{
@@ -76,7 +61,7 @@ export const obtenerEstudiantes = (search) => () => {
   })
 } 
 
-export const listarCursosCatedratico = () => (dispatch, getStore) => {
+export const listarCursosCatedratico = () => (dispatch) => {
     api.get('/asignacion/curso').then((response)=>{
         dispatch({ type: CURSOS, data: response });
     }).catch((error)=>{
@@ -91,20 +76,57 @@ export const listarCursosCatedratico = () => (dispatch, getStore) => {
 
 export const leerAsignacion = id => (dispatch) => {
     api.get(`/asignacion/${id}`).then((response) => {
-        console.log("asignacion: ", response)
         dispatch(initializeForm("asignacionEstudianteForm", response));
-    }).catch(() => {
+    }).catch((error) => {
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar los estudiantes',
+            'Error',
+            0
+        );
     }).finally(() => {
     });
+    api.get(`/asignacion-curso/${id}`).then((response)=>{
+        dispatch({ type: LISTADO, lecturaEstudiantes: response });
+    }).catch((error)=>{
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar los estudiantes',
+            'Error',
+            0
+        );
+    })
 };
+
+export const eliminar = id => (dispatch, getStore) => {
+    const datos = getStore().form.asignacionEstudianteForm.values;
+    api.eliminar(`/asignacion-curso/${id}`).then(() => {
+        dispatch(leerAsignacion(datos.id));
+        NotificationManager.success(
+            'Estudiante borrado', 
+            'Éxito', 
+            3000
+        );
+    }).catch(() => {
+        NotificationManager.error(
+            'Error en el borrado de estudiante', 
+            'Error', 
+            0
+        );
+    }).finally(() => {
+        
+    });
+};
+
+
 
 export const actions = {
     ...baseReducer.actions,
     obtenerEstudiantes,
-    listarEstudiantes,
     registroAsignacionEstudiante,
     listarCursosCatedratico,
-    leerAsignacion
+    leerAsignacion,
+    eliminar
    
 }
 
