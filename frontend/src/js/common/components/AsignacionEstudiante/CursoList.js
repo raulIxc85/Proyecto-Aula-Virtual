@@ -56,10 +56,11 @@ class ListadoCursosCatedratico extends Component{
                             dataSort
                             dataFormat={standardActions({ 
                                 asignar: "cursos-asignados",
+                                gestion: "cursos-asignados",
                             })} 
                             
                         >
-                            Asignación
+                            Acciones
                         </TableHeaderColumn>
                     </Grid>
                 }

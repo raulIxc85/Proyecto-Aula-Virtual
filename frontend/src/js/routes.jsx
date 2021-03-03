@@ -50,6 +50,10 @@ import AsignacionCrearContainer from './common/components/AsignacionCatedratico/
 import AsignacionListaContainer from './common/components/AsignacionCatedratico/AsignacionListContainer';
 import AsignacionCursoListaContainer from './common/components/AsignacionEstudiante/CursoListContainer';
 import AsignacionEstudianteCrearContainer from './common/components/AsignacionEstudiante/AsignarEstudianteCrearContainer';
+import GestionCursoContainer from './common/components/GestionCursoCatedratico/GestionCursoContainer';
+import TareaCrearContainer from './common/components/GestionCursoCatedratico/Tarea/TareaCrearContainer';
+import TareaListaContainer from './common/components/GestionCursoCatedratico/Tarea/TareaListContainer';
+
 
 module.exports = (
     <div>
@@ -120,6 +124,12 @@ module.exports = (
 
                 <ProtectedRoute exact path="/cursos-asignados" component={AsignacionCursoListaContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id" component={AsignacionEstudianteCrearContainer} />
+               
+                <ProtectedRoute exact path="/cursos-asignados/:id/admin-curso" component={GestionCursoContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/crear-tarea" component={TareaCrearContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/tareas" component={TareaListaContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/ver-tarea/:id" component={TareaCrearContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/tareas/:id/editar" component={TareaCrearContainer} />
                
                 <Route component={NotFound} />
             </Switch>

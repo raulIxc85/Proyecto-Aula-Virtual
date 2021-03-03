@@ -1,12 +1,13 @@
 import { handleActions } from 'redux-actions';
 import { createReducer } from '../baseReducer/baseReducer';
 import { NotificationManager } from "react-notifications";
-import { push } from "react-router-redux";
 import { initialize as initializeForm } from 'redux-form';
 import { api } from "api";
 
 const LISTADO = 'LISTADO';
 const CURSOS = 'CURSOS';
+const CURSOADMIN = 'CURSOADMIN'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -41,7 +42,6 @@ export const registroAsignacionEstudiante = () => (dispatch, getStore) => {
         );
     })
 }
-
 
 export const obtenerEstudiantes = (search) => () => {
   return api.get("/estudiante", {search}).then(data=>{
@@ -98,6 +98,20 @@ export const leerAsignacion = id => (dispatch) => {
     })
 };
 
+export const leerAsignacionAdmin = id => (dispatch) => {
+    api.get(`/asignacion/${id}`).then((response) => {
+        dispatch({ type: CURSOADMIN, lecturaCurso: response });
+    }).catch((error) => {
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar los estudiantes',
+            'Error',
+            0
+        );
+    }).finally(() => {
+    });
+};
+
 export const eliminar = id => (dispatch, getStore) => {
     const datos = getStore().form.asignacionEstudianteForm.values;
     api.eliminar(`/asignacion-curso/${id}`).then(() => {
@@ -126,12 +140,14 @@ export const actions = {
     registroAsignacionEstudiante,
     listarCursosCatedratico,
     leerAsignacion,
-    eliminar
+    eliminar,
+    leerAsignacionAdmin
    
 }
 
 export const initialState = {
-    ...baseReducer.initialState
+    ...baseReducer.initialState,
+    lecturaCurso: null, 
 }
 
 export const reducers = {
@@ -146,6 +162,12 @@ export const reducers = {
         return {
             ...state,
             data,
+        };
+    },
+    [CURSOADMIN]: (state, { lecturaCurso }) => {
+        return {
+            ...state,
+            lecturaCurso,
         };
     },
 }

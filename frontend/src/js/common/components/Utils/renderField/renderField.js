@@ -363,7 +363,7 @@ export const renderFilePicker = ({photo, setFile, className, disabled, input, me
     )
 };
 
-export const renderDayPicker = ({className, disabled, maxDate, minDate, input, meta: { touched, error } }) => {
+export const renderDayPicker = ({className, disabled=false, maxDate, minDate, input, meta: { touched, error } }) => {
     const invalid = touched && error;
     return (
         <div className={classNames(`${className}`, { 'is-invalid': invalid })}>

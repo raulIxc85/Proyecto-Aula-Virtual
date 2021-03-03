@@ -45,7 +45,7 @@ class Acciones extends Component {
                     <Link className="text-warning" to={`${asignar}/${id}/`} ><i className="material-icons">assignment</i></Link>
                 )}
                 {(gestion !== undefined) && (
-                    <Link className="text-warning" to={`${gestion}/${id}/`} ><i className="material-icons">home</i></Link>
+                    <Link to={`${gestion}/${id}/admin-curso`} ><i className="material-icons">home</i></Link>
                 )}
             </div>
         );
