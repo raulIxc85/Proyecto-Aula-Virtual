@@ -6,10 +6,7 @@ class Tarea(models.Model):
 
     tituloTarea = models.CharField(
         unique=True,
-        max_length=50,
-        error_messages={
-            'unique': 'Titulo de la tarea ya existe'
-        }
+        max_length=50
     )
     descripcion = models.TextField()
     fechaHoraEntrega = models.DateTimeField()

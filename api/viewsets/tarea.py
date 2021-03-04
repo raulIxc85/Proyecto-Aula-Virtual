@@ -2,8 +2,10 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets, status
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
+from django.db.models import Sum
 
 from api.models import Tarea
 from api.models import AsignacionCurso
@@ -19,7 +21,7 @@ class TareaViewset(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         """Define serializer para API"""
-        if self.action == 'list' or self.action == 'retrieve':
+        if self.action == 'retrieve':
             return TareaSerializer
         
 
@@ -53,7 +55,6 @@ class TareaViewset(viewsets.ModelViewSet):
         try:
             
             datos = request.data
-            print("datos: ", datos)
             #Modificar datos
             tarea = Tarea.objects.get(pk=datos.get("id"))
             tarea.tituloTarea = datos.get("tituloTarea")
@@ -68,8 +69,25 @@ class TareaViewset(viewsets.ModelViewSet):
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 
+    def list(self, request):
+        id = request.query_params.get("id")
+        listar = Tarea.objects.filter(curso = id, activo=True)
+        #paginando resultado
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(listar, request)
+        serializer = TareaSerializer(resultado_pagina, many=True)
+        return paginador.get_paginated_response(serializer.data)
+
+
+    @action(detail=False, methods=["get"])
+    def sumarTarea(self, request):
+        id=request.query_params.get("id")
+        suma = Tarea.objects.filter(curso = id, activo=True).aggregate(Sum('valorTarea'))
+        return Response(suma, status = status.HTTP_200_OK)
+
+
     def get_permissions(self):
         """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
+        permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]
 

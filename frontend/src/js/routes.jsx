@@ -128,8 +128,8 @@ module.exports = (
                 <ProtectedRoute exact path="/cursos-asignados/:id/admin-curso" component={GestionCursoContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/crear-tarea" component={TareaCrearContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/tareas" component={TareaListaContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/ver-tarea/:id" component={TareaCrearContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/tareas/:id/editar" component={TareaCrearContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/ver-tarea/:id_tarea" component={TareaCrearContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/tareas/:id_tarea/editar" component={TareaCrearContainer} />
                
                 <Route component={NotFound} />
             </Switch>

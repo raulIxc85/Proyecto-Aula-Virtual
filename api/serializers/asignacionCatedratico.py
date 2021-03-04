@@ -12,7 +12,8 @@ class AsignacionCatedraticoSerializer(serializers.ModelSerializer):
             'curso',
             'ciclo',
             'grado',
-            'seccion'
+            'seccion',
+            'imagenPortada'
         )
         depth = 2
 

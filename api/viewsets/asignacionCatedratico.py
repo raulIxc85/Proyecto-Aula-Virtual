@@ -71,6 +71,17 @@ class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
         return paginador.get_paginated_response(serializer.data)
 
 
+    def update(self, request, pk=None):
+        try:
+            datos = request.data
+            imagen = AsignacionCatedraticoCurso.objects.get(pk = pk)
+            imagen.imagenPortada = datos.get("imagenPortada")
+            imagen.save()
+            return Response({"imagen actualizada"}, status = status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'detail': str(e)}, status = status.HTTP_400_BAD_REQUEST)
+
+
     def get_permissions(self):
         """Define permisos para este recurso"""
         permission_classes = [IsAuthenticated]

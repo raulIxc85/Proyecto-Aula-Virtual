@@ -6,8 +6,6 @@ import { initialize as initializeForm } from 'redux-form';
 import { api } from "api";
 
 const LISTADO = 'LISTADO';
-const CURSOS = 'CURSOS';
-const CURSOADMIN = 'CURSOADMIN'
 
 // ------------------------------------
 // Constants
@@ -20,7 +18,7 @@ const baseReducer = createReducer(
     '/cursos-asignados'
 );
 
-export const registroTarea = () => (dispatch, getStore) => {
+const registroTarea = () => (dispatch, getStore) => {
     const datos = getStore().form.tareaForm.values;
     let activo;
     if (datos.aceptaDocumento === undefined){
@@ -56,9 +54,10 @@ export const registroTarea = () => (dispatch, getStore) => {
     })
 }
 
-const editarTarea = (id) => (dispatch, getStore) => {
+const editarTarea = () => (dispatch, getStore) => {
     const datos = getStore().form.tareaForm.values;
-    const id = datos.id;
+    const id_asignacion = datos.curso.id
+    const idTarea = datos.id;
     const data = {
 
         tituloTarea: datos.tituloTarea,
@@ -69,14 +68,14 @@ const editarTarea = (id) => (dispatch, getStore) => {
         id: datos.id
         
     }
-    api.put(`/tarea/${id}`, data).then(() => {
+    api.put(`/tarea/${idTarea}`, data).then(() => {
         NotificationManager.success(
             'Tarea modificada correctamente', 
             'Éxito', 
             3000
         );
-        //dispatch(leerAsignacion(datos.id));
-        //dispatch(push(`/cursos-asignados/${datos.id}/tareas`));
+        dispatch(leerAsignacion(id_asignacion));
+        dispatch(push(`/cursos-asignados/${id_asignacion}/tareas`));
     }).catch(() => {
         NotificationManager.error(
             'Error en la modificación de la tarea', 
@@ -89,10 +88,8 @@ const editarTarea = (id) => (dispatch, getStore) => {
 };
 
 
-
 const leerAsignacion = id => (dispatch) => {
     api.get(`asignacion/${id}`).then((response) => {
-        console.log("asignacion: ", response);
         dispatch(initializeForm('tareaForm', response ));
     }).catch(() => {
         console.log("error: ", error)
@@ -104,10 +101,9 @@ const leerAsignacion = id => (dispatch) => {
     });
 };
 
-
+/* consulta de tarea */
 const leer = id => (dispatch) => {
     api.get(`tarea/${id}`).then((response) => {
-    console.log("consulta: ", response);
     let datos = response.fechaHoraEntrega.split('T');
     response.fecha = datos[0];
     let formatoHora = datos[1].split(':');
@@ -124,12 +120,68 @@ const leer = id => (dispatch) => {
     });
 };
 
+/* sumatoria de nota para validar */
+const sumarNota = id => (dispatch) => {
+    api.get('tarea/sumarTarea', {id}).then((response)=>{
+        response.sumaTarea = response.valorTarea__sum
+        console.log(response);
+        dispatch(initializeForm("tareaForm", response));
+    }).catch((error)=>{
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al sumar las notas',
+            'Error',
+            0
+        );
+    })
+}
+
+/* Listar tareas */
+const listar = id => (dispatch) => {
+    api.get('/tarea', {id}).then((response)=>{
+        dispatch({ type: LISTADO, data: response });
+    }).catch((error)=>{
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar las tareas',
+            'Error',
+            0
+        );
+    })
+}
+
+const eliminar = id => (dispatch) => {
+    let ruta = window.location.href;
+    let data = ruta.split('/');
+    let id_asignacion = data[5];
+    api.eliminar(`tarea/${id}`).then(() => {
+        dispatch(listar(id_asignacion));
+        NotificationManager.success(
+            'Tarea eliminada', 
+            'Éxito', 
+            3000
+        );
+    }).catch(() => {
+        NotificationManager.success(
+            'Error en el eliminar la tarea', 
+            'Éxito', 
+            3000
+        );
+    }).finally(() => {
+       
+    });
+};
+
+
 export const actions = {
     ...baseReducer.actions,
+    listar,
     registroTarea,
     leerAsignacion,
     editarTarea,
-    leer
+    leer,
+    sumarNota,
+    eliminar
    
 }
 
@@ -139,6 +191,12 @@ export const initialState = {
 
 export const reducers = {
     ...baseReducer.reducers,
+    [LISTADO]: (state, { data }) => {
+        return {
+            ...state,
+            data,
+        };
+    },
     
 }
 

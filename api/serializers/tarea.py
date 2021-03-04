@@ -13,9 +13,9 @@ class TareaSerializer(serializers.ModelSerializer):
             'descripcion',
             'fechaHoraEntrega',
             'aceptaDocumento',
-            
+            'curso'
         )
-        
+        depth = 1
 
 class TareaRegistroSerializer(serializers.ModelSerializer):
      class Meta:

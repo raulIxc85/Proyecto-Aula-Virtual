@@ -19,7 +19,7 @@ const baseReducer = createReducer(
     '/cursos-asignados'
 );
 
-export const registroAsignacionEstudiante = () => (dispatch, getStore) => {
+const registroAsignacionEstudiante = () => (dispatch, getStore) => {
     const datos = getStore().form.asignacionEstudianteForm.values;
     const data = {
         asignacionCatedratico: datos.id,
@@ -43,7 +43,7 @@ export const registroAsignacionEstudiante = () => (dispatch, getStore) => {
     })
 }
 
-export const obtenerEstudiantes = (search) => () => {
+const obtenerEstudiantes = (search) => () => {
   return api.get("/estudiante", {search}).then(data=>{
       if(data){
           const niveles = [];
@@ -61,7 +61,7 @@ export const obtenerEstudiantes = (search) => () => {
   })
 } 
 
-export const listarCursosCatedratico = () => (dispatch) => {
+const listarCursosCatedratico = () => (dispatch) => {
     api.get('/asignacion/curso').then((response)=>{
         dispatch({ type: CURSOS, data: response });
     }).catch((error)=>{
@@ -74,7 +74,7 @@ export const listarCursosCatedratico = () => (dispatch) => {
     })
 }
 
-export const leerAsignacion = id => (dispatch) => {
+const leerAsignacion = id => (dispatch) => {
     api.get(`/asignacion/${id}`).then((response) => {
         dispatch(initializeForm("asignacionEstudianteForm", response));
     }).catch((error) => {
@@ -98,13 +98,13 @@ export const leerAsignacion = id => (dispatch) => {
     })
 };
 
-export const leerAsignacionAdmin = id => (dispatch) => {
+const leerAsignacionAdmin = id => (dispatch) => {
     api.get(`/asignacion/${id}`).then((response) => {
         dispatch({ type: CURSOADMIN, lecturaCurso: response });
     }).catch((error) => {
         console.log("error: ", error)
         NotificationManager.error(
-            'Ocurrió un error al listar los estudiantes',
+            'Ocurrió un error al listar asignaciones',
             'Error',
             0
         );
@@ -112,7 +112,7 @@ export const leerAsignacionAdmin = id => (dispatch) => {
     });
 };
 
-export const eliminar = id => (dispatch, getStore) => {
+const eliminar = id => (dispatch, getStore) => {
     const datos = getStore().form.asignacionEstudianteForm.values;
     api.eliminar(`/asignacion-curso/${id}`).then(() => {
         dispatch(leerAsignacion(datos.id));
@@ -121,7 +121,8 @@ export const eliminar = id => (dispatch, getStore) => {
             'Éxito', 
             3000
         );
-    }).catch(() => {
+    }).catch((error) => {
+        console.log("error: ", error)
         NotificationManager.error(
             'Error en el borrado de estudiante', 
             'Error', 
@@ -129,6 +130,30 @@ export const eliminar = id => (dispatch, getStore) => {
         );
     }).finally(() => {
         
+    });
+};
+
+
+const actualizarPortada = () => (dispatch,getStore) => {
+    const datos = getStore().form.portadaForm.values;
+    let ruta = window.location.href;
+    let data = ruta.split('/');
+    let id_asignacion = data[5];
+    api.put(`/asignacion/${id_asignacion}`, datos).then(() => {
+        NotificationManager.success(
+            'Portada actualizada', 
+            'Éxito', 
+            3000
+        );
+        
+    }).catch(() => {
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Error en la modificación de portada', 
+            'Error', 
+            0
+        );
+    }).finally(() => {
     });
 };
 
@@ -141,7 +166,8 @@ export const actions = {
     listarCursosCatedratico,
     leerAsignacion,
     eliminar,
-    leerAsignacionAdmin
+    leerAsignacionAdmin,
+    actualizarPortada
    
 }
 

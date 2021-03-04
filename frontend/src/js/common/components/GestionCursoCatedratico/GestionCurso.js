@@ -13,10 +13,11 @@ class GestionCurso extends Component {
     }
     
     render() {
-        const { lecturaCurso } = this.props;
+        const { lecturaCurso, actualizarPortada } = this.props;
         return (
             <PortadaForm 
-                lecturaCurso={lecturaCurso} 
+                lecturaCurso = { lecturaCurso } 
+                onSubmit = { actualizarPortada }
             />
         );
     }

@@ -11,8 +11,7 @@ import {
 
 class Formulario extends Component{
     render() {
-        const { handleSubmit, crear } = this.props;
-        
+        const { handleSubmit, crear, id_asignacion } = this.props;
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Tarea' : 'Registrar Tarea';
         let disabled = false;
@@ -49,9 +48,10 @@ class Formulario extends Component{
                             <div className='w-25'>
                                 <label htmlFor="fecha">Fecha Entrega</label>
                                 <Field
+                                    disabled={disabled} 
                                     name="fecha"
                                     component={renderDayPicker}
-                                    disabled={disabled} 
+                                   
                                 />
                                 <label htmlFor="hora">Hora Entrega</label>
                                 <Field
@@ -70,12 +70,12 @@ class Formulario extends Component{
                             </div>
                             <br />
                             <div className='d-flex flex-row justify-content-end mt-3'>
-                                <button
-                                    //href='/#/cursos-asignados//tareas'
+                                <a
+                                    href={`/#/cursos-asignados/${id_asignacion}/tareas`}
                                     className='btn btn-secondary btn-sm mr-2 mb-3'
                                 >
                                     Cancelar
-                                </button>
+                                </a>
                                 {disabled == false && 
                                     <button
                                         className={`btn btn-sm mb-3 ${editar ? 'btn-success' : 'btn-primary'}`}

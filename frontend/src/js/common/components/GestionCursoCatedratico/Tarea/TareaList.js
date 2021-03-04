@@ -5,12 +5,13 @@ import { standardActions } from '../../Utils/Grid/StandardActions';
 
 class ListadoTarea extends Component{
     componentWillMount = () => {
-        const { listar } = this.props;
-        listar();
+        const { listar, match } = this.props;
+        const id = match.params.id;
+        listar(id);
         
     }
     render(){
-        const { data, loader, match } = this.props;
+        const { data, loader, match, eliminar } = this.props;
         const id = match.params.id;
        
         return(
@@ -40,6 +41,8 @@ class ListadoTarea extends Component{
                             Tarea
                         </TableHeaderColumn>
                         <TableHeaderColumn
+                            
+                            dataAlign="right"
                             dataField="valorTarea"
                             dataSort
                         >
@@ -53,6 +56,7 @@ class ListadoTarea extends Component{
                             dataFormat={standardActions({ 
                                 ver: "ver-tarea",
                                 editar: "tareas", 
+                                eliminar: eliminar
                             })}
                         >
                             Acción
