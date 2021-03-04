@@ -53,6 +53,7 @@ import AsignacionEstudianteCrearContainer from './common/components/AsignacionEs
 import GestionCursoContainer from './common/components/GestionCursoCatedratico/GestionCursoContainer';
 import TareaCrearContainer from './common/components/GestionCursoCatedratico/Tarea/TareaCrearContainer';
 import TareaListaContainer from './common/components/GestionCursoCatedratico/Tarea/TareaListContainer';
+import MaterialClaseContainer from './common/components/GestionCursoCatedratico/MaterialClase/MaterialClaseCrearContainer';
 
 
 module.exports = (
@@ -131,6 +132,9 @@ module.exports = (
                 <ProtectedRoute exact path="/cursos-asignados/:id/ver-tarea/:id_tarea" component={TareaCrearContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/tareas/:id_tarea/editar" component={TareaCrearContainer} />
                
+                <ProtectedRoute exact path="/cursos-asignados/:id/material-clase" component={MaterialClaseContainer} />
+                
+
                 <Route component={NotFound} />
             </Switch>
         </div>

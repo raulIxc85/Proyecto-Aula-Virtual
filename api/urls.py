@@ -19,6 +19,7 @@ router.register(r'curso', viewsets.CursoViewset)
 router.register(r'asignacion', viewsets.AsignacionCatedraticoViewset)
 router.register(r'asignacion-curso', viewsets.AsignacionEstudianteViewset)
 router.register(r'tarea', viewsets.TareaViewset)
+router.register(r'material', viewsets.MaterialClaseViewset)
 
 urlpatterns = [
     path('api/', include(router.urls)),

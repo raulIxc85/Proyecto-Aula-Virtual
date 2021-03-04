@@ -68,7 +68,7 @@ const PortadaForm = (props) => {
                                 Tareas
                             </a>
                             <a
-                                href='/#/'
+                                href={`/#/cursos-asignados/${id}/material-clase`}
                                 className='btn btn-secondary mb-3'
                             >
                                 Material de clase

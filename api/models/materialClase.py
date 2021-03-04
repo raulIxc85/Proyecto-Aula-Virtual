@@ -6,10 +6,7 @@ class MaterialClase(models.Model):
 
     tituloMaterial = models.CharField(
         unique=True,
-        max_length=50,
-        error_messages={
-            'unique': 'Titulo del material ya existe'
-        }
+        max_length=50
     )
     descripcionMaterial = models.TextField()
     documentoAdjunto = models.BinaryField()

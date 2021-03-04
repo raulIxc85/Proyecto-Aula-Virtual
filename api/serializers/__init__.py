@@ -12,3 +12,4 @@ from .curso import CursoSerializer, CursoRegistroSerializer
 from .asignacionCatedratico import AsignacionCatedraticoSerializer, AsignacionCatedraticoRegistroSerializer
 from .asignacionEstudiante import AsignacionEstudianteSerializer, AsignacionEstudianteRegistroSerializer
 from .tarea import TareaSerializer, TareaRegistroSerializer
+from .materialClase import MaterialClaseSerializer, MaterialClaseRegistroSerializer
