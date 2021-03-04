@@ -9,7 +9,7 @@ class MaterialClase(models.Model):
         max_length=50
     )
     descripcionMaterial = models.TextField()
-    documentoAdjunto = models.BinaryField()
+    archivo = models.FileField(upload_to='material_clase')
     activo = models.BooleanField(default=True)
     creado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
