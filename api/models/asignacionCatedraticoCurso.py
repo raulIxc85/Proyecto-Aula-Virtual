@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 class AsignacionCatedraticoCurso(models.Model):
 
     titular = models.BooleanField(default=True)
-    imagenPortada = models.FieldField(upload_to='portada_curso', blank=True, null=True)
+    imagenPortada = models.FileField(upload_to='portada_curso', blank=True, null=True)
     activo = models.BooleanField(default=True)
     creado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
