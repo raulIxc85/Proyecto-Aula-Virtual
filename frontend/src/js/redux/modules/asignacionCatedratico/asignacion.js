@@ -19,8 +19,14 @@ const baseReducer = createReducer(
 
 export const registroAsignacion = () => (dispatch, getStore) => {
     const datos = getStore().form.asignacionForm.values;
+    let activo;
+    if (datos.titular === undefined){
+        activo = false;
+    }else{
+        activo = true;
+    }
     const data = {
-        titular: datos.titular,
+        titular: datos.activo,
         catedratico: datos.catedratico.value,
         curso: datos.curso.value,
         grado: datos.grado.value,

@@ -66,16 +66,33 @@ class FileUploader extends Component {
         this.onFileChange(e, e.dataTransfer.files[0]);
     }
 
+    isValid = (file_type) => {
+        console.log("file_type: ", file_type);
+        const { accept ="-*" } = this.props;
+        const pattern = accept !== "-*" ? accept.replace('/','-') : accept;
+        const accept_type = pattern.split(",");
+        let aprobado = false;
+        accept_type.forEach( t => {
+            const regex = new RegExp(t);
+            console.log("regex: ", regex);
+            if (!!file_type.match(regex)){
+                aprobado=true;
+            }
+        });
+        return aprobado;
+    }
+
     onFileChange(e, file) {
         this.props.onFileChange(e, file);
         file = file || e.target.files[0];
-        const pattern = /-*/;
+        //const pattern = /-*/;
         const imagePattern = /image-*/;
+        console.log("¿valido?", this.isValid(file.type));
 
         const reader = new FileReader();
         if (file){
             const isImage = !!file.type.match(imagePattern);
-            if (!file.type.match(pattern)) {
+            if (!this.isValid(file.type)) {
                 alert('Formato inválido');
                 return;
             }

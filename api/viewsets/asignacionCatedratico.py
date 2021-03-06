@@ -34,7 +34,6 @@ class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
         try:
             user = request.user
             datos = request.data
-            print("data: ", datos)
             #validacion de los datos al serializer
             serializer = AsignacionCatedraticoRegistroSerializer(data=datos)
 

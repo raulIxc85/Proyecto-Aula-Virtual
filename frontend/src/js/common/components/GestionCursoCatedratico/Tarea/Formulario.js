@@ -3,24 +3,46 @@ import { Field, reduxForm } from 'redux-form';
 import {
     renderField,
     renderTextArea,
-    renderFieldCheck,
+    renderFilePicker,
     renderDayPicker,
     renderNumber
 } from "../../Utils/renderField/renderField";
 
 
 class Formulario extends Component{
+    componentWillUnmount = () => {
+        const { borrarArchivo } = this.props;
+        borrarArchivo();
+    }
     render() {
-        const { handleSubmit, crear, id_asignacion } = this.props;
+        const { handleSubmit, crear, id_asignacion, setArchivo, archivo } = this.props;
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Tarea' : 'Registrar Tarea';
         let disabled = false;
+        let ocultar = '';
+        let verLink = '';
+        let verArchivo = archivo;
+        if (!(archivo === null)) {
+            ocultar = 'd-none';
+            verArchivo = archivo.archivo;
+            if (editar == true){
+                ocultar='';
+            }
+        }else{
+            verLink = 'd-none';
+        }
+
         if (crear == false && editar == false){
             disabled = true;
             titulo = 'Ver Tarea';
-        }
+            if (verArchivo===null){
+                verLink = 'd-none';
+            } 
+        }      
+       
+        
         return (
-            <form onSubmit={handleSubmit} className='w-75'>
+            <form onSubmit={handleSubmit} className='w-50'>
                 <h3>{titulo}</h3>
                 <div className="mb-4 card card-small">
                     <div className="p-0 pt-3 d-flex flex-column flex-md-row">
@@ -37,14 +59,25 @@ class Formulario extends Component{
                                 component={renderTextArea} 
                                 disabled={disabled} 
                             />
-                            <br />
-                             <Field
-                                type="checkbox"
-                                disabled={disabled}
-                                name="aceptaDocumento"
-                                label="Documento adjunto"
-                                component={renderFieldCheck}
-                            />
+                            <div className={`form-group has-feedback flex-1 mx-2 ${ocultar}`}>
+                                <label htmlFor="archivo">Subir Archivo</label>
+                                <Field
+                                    accept=".pdf,document/*" 
+                                    name="archivo" 
+                                    setFile={setArchivo}
+                                    photo={archivo}
+                                    component={renderFilePicker} 
+                                    
+                                />
+                            </div>
+                            <div className={`${verLink}`}>
+                                <br />
+                                <div className="text-center">
+                                    <a href={verArchivo} target="_blank">Ver archivo</a>
+                                </div>
+                                <br />
+                            </div>
+                            
                             <div className='w-25'>
                                 <label htmlFor="fecha">Fecha Entrega</label>
                                 <Field

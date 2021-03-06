@@ -6,6 +6,7 @@ import { initialize as initializeForm } from 'redux-form';
 import { api } from "api";
 
 const LISTADO = 'LISTADO';
+const ARCHIVO = 'ARCHIVO';
 
 // ------------------------------------
 // Constants
@@ -18,32 +19,25 @@ const baseReducer = createReducer(
     '/cursos-asignados'
 );
 
-const registroTarea = () => (dispatch, getStore) => {
-    const datos = getStore().form.tareaForm.values;
-    let activo;
-    if (datos.aceptaDocumento === undefined){
-        activo = false;
-    }else{
-        activo = true;
-    }
+const registroTarea = (datos={}, attachments=[]) => (dispatch) => {
+    let ruta = window.location.href;
+    let url = ruta.split('/');
+    let id_asignacion = url[5];
     const data = {
         tituloTarea: datos.tituloTarea,
         descripcion: datos.descripcion,
-        aceptaDocumento: activo,
         fechaHoraEntrega: datos.fecha+'T'+datos.hora,
         valorTarea: datos.valorTarea,
-        id: datos.id
-        
+        id: id_asignacion
     }
-    
-    api.post('/tarea', data).then((response) => {
+    api.postAttachments('/tarea', data, attachments).then((response) => {
         NotificationManager.success(
             'Tarea creada correctamente',
             'Exito',
             3000
         );
-        dispatch(leerAsignacion(datos.id));
-        dispatch(push(`/cursos-asignados/${datos.id}/tareas`));
+        dispatch(leerAsignacion(id_asignacion));
+        dispatch(push(`/cursos-asignados/${id_asignacion}/tareas`));
     }).catch((error) => {
         console.log("error: ", error)
         NotificationManager.error(
@@ -54,21 +48,21 @@ const registroTarea = () => (dispatch, getStore) => {
     })
 }
 
-const editarTarea = () => (dispatch, getStore) => {
-    const datos = getStore().form.tareaForm.values;
-    const id_asignacion = datos.curso.id
-    const idTarea = datos.id;
+const editarTarea = (datos={}, attachments) => (dispatch) => {
+    let ruta = window.location.href;
+    let url = ruta.split('/');
+    let id_asignacion = url[5];
+    let idTarea = datos.id;
     const data = {
 
         tituloTarea: datos.tituloTarea,
         descripcion: datos.descripcion,
-        aceptaDocumento: datos.aceptaDocumento,
         fechaHoraEntrega: datos.fecha+'T'+datos.hora,
         valorTarea: datos.valorTarea,
-        id: datos.id
+        id: idTarea
         
     }
-    api.put(`/tarea/${idTarea}`, data).then(() => {
+    api.putAttachments(`/tarea/${idTarea}`, data, attachments).then((response) => {
         NotificationManager.success(
             'Tarea modificada correctamente', 
             'Éxito', 
@@ -76,7 +70,8 @@ const editarTarea = () => (dispatch, getStore) => {
         );
         dispatch(leerAsignacion(id_asignacion));
         dispatch(push(`/cursos-asignados/${id_asignacion}/tareas`));
-    }).catch(() => {
+    }).catch((error) => {
+        console.log("error: ", error);
         NotificationManager.error(
             'Error en la modificación de la tarea', 
             'ERROR', 
@@ -104,11 +99,12 @@ const leerAsignacion = id => (dispatch) => {
 /* consulta de tarea */
 const leer = id => (dispatch) => {
     api.get(`tarea/${id}`).then((response) => {
-    let datos = response.fechaHoraEntrega.split('T');
-    response.fecha = datos[0];
-    let formatoHora = datos[1].split(':');
-    response.hora = formatoHora[0]+":"+formatoHora[1];
-    dispatch(initializeForm("tareaForm", response));
+        let datos = response.fechaHoraEntrega.split('T');
+        response.fecha = datos[0];
+        let formatoHora = datos[1].split(':');
+        response.hora = formatoHora[0]+":"+formatoHora[1];
+        dispatch(initializeForm("tareaForm", response));
+        dispatch({ type: ARCHIVO, archivo: response });
     }).catch((error) => {
         console.log("error: ", error)
         NotificationManager.error(
@@ -124,7 +120,6 @@ const leer = id => (dispatch) => {
 const sumarNota = id => (dispatch) => {
     api.get('tarea/sumarTarea', {id}).then((response)=>{
         response.sumaTarea = response.valorTarea__sum
-        console.log(response);
         dispatch(initializeForm("tareaForm", response));
     }).catch((error)=>{
         console.log("error: ", error)
@@ -152,8 +147,8 @@ const listar = id => (dispatch) => {
 
 const eliminar = id => (dispatch) => {
     let ruta = window.location.href;
-    let data = ruta.split('/');
-    let id_asignacion = data[5];
+    let datos = ruta.split('/');
+    let id_asignacion = datos[5];
     api.eliminar(`tarea/${id}`).then(() => {
         dispatch(listar(id_asignacion));
         NotificationManager.success(
@@ -162,16 +157,19 @@ const eliminar = id => (dispatch) => {
             3000
         );
     }).catch(() => {
-        NotificationManager.success(
-            'Error en el eliminar la tarea', 
-            'Éxito', 
-            3000
+        NotificationManager.error(
+            'Ocurrió un error en eliminar la tarea', 
+            'Error', 
+            0
         );
     }).finally(() => {
        
     });
 };
 
+const borrarArchivo = () => (dispatch) => {
+    dispatch({ type: ARCHIVO, archivo: null })
+}
 
 export const actions = {
     ...baseReducer.actions,
@@ -181,12 +179,14 @@ export const actions = {
     editarTarea,
     leer,
     sumarNota,
-    eliminar
+    eliminar,
+    borrarArchivo
    
 }
 
 export const initialState = {
-    ...baseReducer.initialState
+    ...baseReducer.initialState,
+    archivo: null,
 }
 
 export const reducers = {
@@ -197,7 +197,12 @@ export const reducers = {
             data,
         };
     },
-    
+    [ARCHIVO]: (state, { archivo }) => {
+        return {
+            ...state,
+            archivo,
+        };
+    },
 }
 
 

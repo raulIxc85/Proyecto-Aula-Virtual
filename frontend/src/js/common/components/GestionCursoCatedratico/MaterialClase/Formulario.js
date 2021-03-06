@@ -8,11 +8,27 @@ import {
 
 
 class Formulario extends Component{
+    componentWillUnmount = () => {
+        const { borrarArchivo } = this.props;
+        borrarArchivo();
+    }
     render() {
-        const { handleSubmit, crear, setAvatar } = this.props;
+        const { handleSubmit, crear, archivo, setArchivo, id_asignacion } = this.props;
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Material' : 'Material de apoyo';
         let disabled = false;
+        let ocultar = '';
+        let verLink = '';
+        let verArchivo = archivo;
+        if (!(archivo === null)) {
+            ocultar = 'd-none';
+            verArchivo = archivo.archivo;
+            if (editar == true){
+                ocultar='';
+            }
+        }else{
+            verLink = 'd-none';
+        }
         if (crear == false && editar == false){
             disabled = true;
             titulo = 'Ver Material';
@@ -35,18 +51,26 @@ class Formulario extends Component{
                                 component={renderTextArea} 
                                 disabled={disabled} 
                             />
-                            <div className="form-group has-feedback flex-1 mx-3">
-                                    <label htmlFor="documentoAdjunto">Subir Documento</label>
+                            <div className={`form-group has-feedback flex-1 mx-2 ${ocultar}`}>
+                                <label htmlFor="archivo">Subir Archivo</label>
                                     <Field 
-                                        type="file"
-                                        name="documentoAdjunto" 
+                                        name="archivo" 
+                                        setFile={setArchivo}
+                                        photo={archivo}
                                         component={renderFilePicker} 
-                                    />
+                                />
+                            </div>
+                            <div className={`${verLink}`}>
+                                <br />
+                                <div className="text-center">
+                                    <a href={verArchivo} target="_blank">Ver archivo</a>
                                 </div>
+                                <br />
+                            </div>
                             <br />
                             <div className='d-flex flex-row justify-content-end mt-3'>
                                 <a
-                                    href='/#/'
+                                    href={`/#/cursos-asignados/${id_asignacion}/material`}
                                     className='btn btn-secondary btn-sm mr-2 mb-3'
                                 >
                                     Cancelar

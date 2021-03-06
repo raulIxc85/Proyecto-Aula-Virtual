@@ -1,7 +1,6 @@
 #Tarea Serializer
 from rest_framework import serializers
 from api.models import Tarea
-from api.serializers.nivel import NivelSerializer
 
 class TareaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,8 +11,8 @@ class TareaSerializer(serializers.ModelSerializer):
             'valorTarea',
             'descripcion',
             'fechaHoraEntrega',
-            'aceptaDocumento',
-            'curso'
+            'asignacion',
+            'archivo'
         )
         depth = 1
 
@@ -24,6 +23,5 @@ class TareaRegistroSerializer(serializers.ModelSerializer):
             'tituloTarea',
             'descripcion',
             'fechaHoraEntrega',
-            'aceptaDocumento',
             'valorTarea'
         )

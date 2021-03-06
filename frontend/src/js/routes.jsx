@@ -53,7 +53,8 @@ import AsignacionEstudianteCrearContainer from './common/components/AsignacionEs
 import GestionCursoContainer from './common/components/GestionCursoCatedratico/GestionCursoContainer';
 import TareaCrearContainer from './common/components/GestionCursoCatedratico/Tarea/TareaCrearContainer';
 import TareaListaContainer from './common/components/GestionCursoCatedratico/Tarea/TareaListContainer';
-import MaterialClaseContainer from './common/components/GestionCursoCatedratico/MaterialClase/MaterialClaseCrearContainer';
+import MaterialClaseCrearContainer from './common/components/GestionCursoCatedratico/MaterialClase/MaterialClaseCrearContainer';
+import MaterialClaseListaContainer from './common/components/GestionCursoCatedratico/MaterialClase/MaterialClaseListContainer';
 
 
 module.exports = (
@@ -125,15 +126,18 @@ module.exports = (
 
                 <ProtectedRoute exact path="/cursos-asignados" component={AsignacionCursoListaContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id" component={AsignacionEstudianteCrearContainer} />
-               
                 <ProtectedRoute exact path="/cursos-asignados/:id/admin-curso" component={GestionCursoContainer} />
+                
                 <ProtectedRoute exact path="/cursos-asignados/:id/crear-tarea" component={TareaCrearContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/tareas" component={TareaListaContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/ver-tarea/:id_tarea" component={TareaCrearContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/tareas/:id_tarea/editar" component={TareaCrearContainer} />
                
-                <ProtectedRoute exact path="/cursos-asignados/:id/material-clase" component={MaterialClaseContainer} />
-                
+                <ProtectedRoute exact path="/cursos-asignados/:id/crear-material-curso" component={MaterialClaseCrearContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/material" component={MaterialClaseListaContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/ver-material/:id_material" component={MaterialClaseCrearContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/material/:id_material/editar" component={MaterialClaseCrearContainer} />
+               
 
                 <Route component={NotFound} />
             </Switch>

@@ -1,4 +1,4 @@
-# AsignacionCatedratico Viewset
+# AsignacionEstudiante Viewset
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets, status
 from rest_framework.decorators import action

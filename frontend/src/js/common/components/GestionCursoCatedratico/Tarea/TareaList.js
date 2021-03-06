@@ -20,9 +20,15 @@ class ListadoTarea extends Component{
                 <div className="d-flex flex-row justify-content-start mb-2">
                     <a
                         href={`/#/cursos-asignados/${id}/crear-tarea`}
-                        className='btn btn-primary'
+                        className='btn btn-primary mr-2 mb-3'
                     >
                         Crear Tarea
+                    </a>
+                    <a
+                        href={`/#/cursos-asignados/${id}/admin-curso`}
+                        className='btn btn-secondary mb-3'
+                    >
+                        Regresar
                     </a>
                 </div>
                 {data &&

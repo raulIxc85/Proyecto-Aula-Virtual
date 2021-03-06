@@ -4,10 +4,7 @@ from api.models.asignacionCatedraticoCurso import AsignacionCatedraticoCurso
 
 class Tarea(models.Model):
 
-    tituloTarea = models.CharField(
-        unique=True,
-        max_length=50
-    )
+    tituloTarea = models.CharField(max_length=50)
     descripcion = models.TextField()
     fechaHoraEntrega = models.DateTimeField()
     archivo = models.FileField(upload_to='tareas', blank=True , null=True)

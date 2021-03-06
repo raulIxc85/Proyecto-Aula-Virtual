@@ -9,7 +9,7 @@ class MaterialClaseSerializer(serializers.ModelSerializer):
             'id',
             'tituloMaterial',
             'descripcionMaterial',
-            'documentoAdjunto'
+            'archivo'
         )
 
 
@@ -19,6 +19,5 @@ class MaterialClaseRegistroSerializer(serializers.ModelSerializer):
         fields = (
             'tituloMaterial',
             'descripcionMaterial',
-            'documentoAdjunto'
         )
 
