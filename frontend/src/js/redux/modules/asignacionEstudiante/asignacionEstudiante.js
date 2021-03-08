@@ -8,6 +8,7 @@ const LISTADO = 'LISTADO';
 const CURSOS = 'CURSOS';
 const CURSOADMIN = 'CURSOADMIN';
 const ARCHIVO_PORTADA = 'ARCHIVO_PORTADA';
+const CURSOS_ESTUDIANTE = 'CURSOS_ESTUDIANTE';
 
 // ------------------------------------
 // Constants
@@ -162,6 +163,35 @@ const borrarArchivo = () => (dispatch) => {
     dispatch({ type: ARCHIVO_PORTADA, imagenPortada: null })
 }
 
+const listarCursosEstudiante = () => (dispatch) => {
+    api.get('/asignacion-curso/curso').then((response)=>{
+        dispatch({ type: CURSOS_ESTUDIANTE, data: response });
+    }).catch((error)=>{
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar los cursos',
+            'Error',
+            0
+        );
+    })
+}
+
+const leerAsignacionPortada = id => (dispatch) => {
+    api.get('/asignacion-curso/curso_detalle',{id}).then((response) => {
+        dispatch({ type: CURSOADMIN, lecturaCurso: response });
+    }).catch((error) => {
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar asignaciones',
+            'Error',
+            0
+        );
+    }).finally(() => {
+    });
+};
+
+
+
 export const actions = {
     ...baseReducer.actions,
     obtenerEstudiantes,
@@ -171,7 +201,9 @@ export const actions = {
     eliminar,
     leerAsignacionAdmin,
     actualizarPortada,
-    borrarArchivo
+    borrarArchivo,
+    listarCursosEstudiante,
+    leerAsignacionPortada
 }
 
 export const initialState = {
@@ -204,6 +236,12 @@ export const reducers = {
         return {
             ...state,
             imagenPortada,
+        };
+    },
+    [CURSOS_ESTUDIANTE]: (state, { data }) => {
+        return {
+            ...state,
+            data,
         };
     },
 }

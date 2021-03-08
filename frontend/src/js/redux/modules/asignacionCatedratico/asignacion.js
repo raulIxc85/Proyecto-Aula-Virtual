@@ -63,75 +63,75 @@ const leerAsignacion = id => (dispatch) => {
 };
 
 const obtenerCatedraticos = (search) => () => {
-  return api.get("/catedratico", {search}).then(data=>{
-      if(data){
-          const niveles = [];
-          data.results.forEach(catedratico=>{
-              niveles.push({
-                  value: catedratico.id,
-                  label: catedratico.perfil.nombres + ' ' + catedratico.perfil.apellidos
-              })
+    return api.get("/catedratico", {search}).then(data=>{
+        if(data){
+            const niveles = [];
+            data.results.forEach(catedratico=>{
+                niveles.push({
+                    value: catedratico.id,
+                    label: catedratico.perfil.nombres + ' ' + catedratico.perfil.apellidos
+                })
           })
           return niveles;
       }
-  }).catch(error=>{
-      console.log("error: ", error);
-      return [];
-  })
+    }).catch(error=>{
+        console.log("error: ", error);
+        return [];
+    })
 } 
 
 const obtenerCursos = (search) => () => {
-  return api.get("/curso", {search}).then(data=>{
-      if(data){
-          const niveles = [];
-          data.results.forEach(curso=>{
-              niveles.push({
-                  value: curso.id,
-                  label: curso.nombre
-              })
-          })
-          return niveles;
+    return api.get("/curso", {search}).then(data=>{
+        if(data){
+            const niveles = [];
+            data.results.forEach(curso=>{
+                niveles.push({
+                    value: curso.id,
+                    label: curso.nombre
+                })
+            })
+            return niveles;
       }
-  }).catch(error=>{
-      console.log("error: ", error);
-      return [];
-  })
+    }).catch(error=>{
+        console.log("error: ", error);
+        return [];
+    })
 } 
 
 const obtenerGrados = (search) => () => {
-  return api.get("/grado", {search}).then(data=>{
-      if(data){
-          const niveles = [];
-          data.results.forEach(grado=>{
-              niveles.push({
-                  value: grado.id,
-                  label: grado.descripcion
-              })
-          })
-          return niveles;
-      }
-  }).catch(error=>{
-      console.log("error: ", error);
-      return [];
-  })
+    return api.get("/grado", {search}).then(data=>{
+        if(data){
+            const niveles = [];
+            data.results.forEach(grado=>{
+                niveles.push({
+                    value: grado.id,
+                    label: grado.descripcion
+                })
+            })
+            return niveles;
+        }
+    }).catch(error=>{
+        console.log("error: ", error);
+        return [];
+    })
 } 
 
 const obtenerSecciones = (search) => () => {
-  return api.get("/seccion", {search}).then(data=>{
-      if(data){
-          const niveles = [];
-          data.results.forEach(seccion=>{
-              niveles.push({
-                  value: seccion.id,
-                  label: seccion.descripcion
-              })
-          })
-          return niveles;
-      }
-  }).catch(error=>{
-      console.log("error: ", error);
-      return [];
-  })
+    return api.get("/seccion", {search}).then(data=>{
+        if(data){
+            const niveles = [];
+            data.results.forEach(seccion=>{
+                niveles.push({
+                    value: seccion.id,
+                    label: seccion.descripcion
+                })
+        })
+            return niveles;
+        }
+    }).catch(error=>{
+        console.log("error: ", error);
+        return [];
+    })
 }
 
 export const actions = {

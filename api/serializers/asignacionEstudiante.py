@@ -10,7 +10,7 @@ class AsignacionEstudianteSerializer(serializers.ModelSerializer):
             'estudiante',
             'asignacionCatedratico'
         )
-        depth = 2
+        depth = 3
 
 class AsignacionEstudianteRegistroSerializer(serializers.ModelSerializer):
     class Meta:

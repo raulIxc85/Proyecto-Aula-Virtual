@@ -9,6 +9,8 @@ from rest_framework.pagination import PageNumberPagination
 
 from api.models import AsignacionCurso
 from api.models import Estudiante
+from api.models import Profile
+from api.models import AsignacionCatedraticoCurso
 from api.serializers import AsignacionEstudianteSerializer, AsignacionEstudianteRegistroSerializer
 
 class AsignacionEstudianteViewset(viewsets.ModelViewSet):
@@ -59,7 +61,30 @@ class AsignacionEstudianteViewset(viewsets.ModelViewSet):
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
+    @action(methods=["get"], detail=False)
+    def curso(self, request, *args, **kwargs):
+        user = request.user
+        perfil = Profile.objects.get(user=user)
+        estudiante = Estudiante.objects.get(perfil=perfil.id)
+        cursos = AsignacionCurso.objects.filter(estudiante=estudiante.id, activo=True)
+        #paginando el resultado
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(cursos, request)
+        serializer = AsignacionEstudianteSerializer(resultado_pagina, many=True)
+        return paginador.get_paginated_response(serializer.data)
     
+
+    @action(methods=["get"], detail=False)
+    def curso_detalle(self, request):
+        id = request.query_params.get("id")
+        curso = AsignacionCurso.objects.filter(pk=id)
+        #paginando el resultado
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(curso, request)
+        serializer = AsignacionEstudianteSerializer(resultado_pagina, many=True)
+        return paginador.get_paginated_response(serializer.data)
+
+
     def get_permissions(self):
         """Define permisos para este recurso"""
         permission_classes = [IsAuthenticated]
