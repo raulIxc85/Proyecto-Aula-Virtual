@@ -6,7 +6,8 @@ import { api } from "api";
 
 const LISTADO = 'LISTADO';
 const CURSOS = 'CURSOS';
-const CURSOADMIN = 'CURSOADMIN'
+const CURSOADMIN = 'CURSOADMIN';
+const ARCHIVO_PORTADA = 'ARCHIVO_PORTADA';
 
 // ------------------------------------
 // Constants
@@ -101,6 +102,7 @@ const leerAsignacion = id => (dispatch) => {
 const leerAsignacionAdmin = id => (dispatch) => {
     api.get(`/asignacion/${id}`).then((response) => {
         dispatch({ type: CURSOADMIN, lecturaCurso: response });
+        dispatch({ type: ARCHIVO_PORTADA, imagenPortada: response });
     }).catch((error) => {
         console.log("error: ", error)
         NotificationManager.error(
@@ -134,12 +136,11 @@ const eliminar = id => (dispatch, getStore) => {
 };
 
 
-const actualizarPortada = () => (dispatch,getStore) => {
-    const datos = getStore().form.portadaForm.values;
+const actualizarPortada = (data={}, attachments) => () => {
     let ruta = window.location.href;
-    let data = ruta.split('/');
-    let id_asignacion = data[5];
-    api.put(`/asignacion/${id_asignacion}`, datos).then(() => {
+    let url = ruta.split('/');
+    let id_asignacion = url[5];
+    api.putAttachments(`/asignacion/${id_asignacion}`, data, attachments).then((response) => {
         NotificationManager.success(
             'Portada actualizada', 
             'Éxito', 
@@ -157,7 +158,9 @@ const actualizarPortada = () => (dispatch,getStore) => {
     });
 };
 
-
+const borrarArchivo = () => (dispatch) => {
+    dispatch({ type: ARCHIVO_PORTADA, imagenPortada: null })
+}
 
 export const actions = {
     ...baseReducer.actions,
@@ -167,13 +170,14 @@ export const actions = {
     leerAsignacion,
     eliminar,
     leerAsignacionAdmin,
-    actualizarPortada
-   
+    actualizarPortada,
+    borrarArchivo
 }
 
 export const initialState = {
     ...baseReducer.initialState,
     lecturaCurso: null, 
+    imagenPortada: null,
 }
 
 export const reducers = {
@@ -194,6 +198,12 @@ export const reducers = {
         return {
             ...state,
             lecturaCurso,
+        };
+    },
+    [ARCHIVO_PORTADA]: (state, { imagenPortada }) => {
+        return {
+            ...state,
+            imagenPortada,
         };
     },
 }

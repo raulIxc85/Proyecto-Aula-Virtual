@@ -17,7 +17,7 @@ const baseReducer = createReducer(
     '/asignaciones-catedratico'
 );
 
-export const registroAsignacion = () => (dispatch, getStore) => {
+const registroAsignacion = () => (dispatch, getStore) => {
     const datos = getStore().form.asignacionForm.values;
     let activo;
     if (datos.titular === undefined){
@@ -50,7 +50,7 @@ export const registroAsignacion = () => (dispatch, getStore) => {
     })
 }
 
-export const leerAsignacion = id => (dispatch) => {
+const leerAsignacion = id => (dispatch) => {
     api.get(`/asignacion/${id}`).then((response) => {
         response.catedratico = { value: response.catedratico.id, label: response.catedratico.perfil.nombres +' '+response.catedratico.perfil.apellidos };
         response.curso = { value: response.curso.id, label: response.curso.nombre };
@@ -62,7 +62,7 @@ export const leerAsignacion = id => (dispatch) => {
     });
 };
 
-export const obtenerCatedraticos = (search) => () => {
+const obtenerCatedraticos = (search) => () => {
   return api.get("/catedratico", {search}).then(data=>{
       if(data){
           const niveles = [];
@@ -80,7 +80,7 @@ export const obtenerCatedraticos = (search) => () => {
   })
 } 
 
-export const obtenerCursos = (search) => () => {
+const obtenerCursos = (search) => () => {
   return api.get("/curso", {search}).then(data=>{
       if(data){
           const niveles = [];
@@ -98,7 +98,7 @@ export const obtenerCursos = (search) => () => {
   })
 } 
 
-export const obtenerGrados = (search) => () => {
+const obtenerGrados = (search) => () => {
   return api.get("/grado", {search}).then(data=>{
       if(data){
           const niveles = [];
@@ -116,7 +116,7 @@ export const obtenerGrados = (search) => () => {
   })
 } 
 
-export const obtenerSecciones = (search) => () => {
+const obtenerSecciones = (search) => () => {
   return api.get("/seccion", {search}).then(data=>{
       if(data){
           const niveles = [];

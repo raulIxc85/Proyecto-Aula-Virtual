@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from django.db import transaction
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.core.files import File
 from rest_framework.pagination import PageNumberPagination
 
 from api.models import AsignacionCatedraticoCurso
@@ -70,11 +71,12 @@ class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
         return paginador.get_paginated_response(serializer.data)
 
 
-    def update(self, request, pk=None):
+    def update(self, request, pk):
         try:
-            datos = request.data
+            data = request.data
+            archivo = data.get("imagenPortada")
             imagen = AsignacionCatedraticoCurso.objects.get(pk = pk)
-            imagen.imagenPortada = datos.get("imagenPortada")
+            imagen.imagenPortada = File(archivo)
             imagen.save()
             return Response({"imagen actualizada"}, status = status.HTTP_200_OK)
         except Exception as e:
