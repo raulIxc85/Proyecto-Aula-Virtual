@@ -3,6 +3,7 @@ import { createReducer } from '../baseReducer/baseReducer';
 import { NotificationManager } from "react-notifications";
 import { initialize as initializeForm } from 'redux-form';
 import { api } from "api";
+import moment from 'moment';
 
 const LISTADO = 'LISTADO';
 const CURSOS = 'CURSOS';
@@ -12,6 +13,7 @@ const CURSOS_ESTUDIANTE = 'CURSOS_ESTUDIANTE';
 const MATERIAL_CURSO = 'MATERIAL_CURSO';
 const TAREA_CURSO = 'TAREA_CURSO';
 const ARCHIVO = 'ARCHIVOS';
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -224,7 +226,7 @@ const leerAsignacionPortada = id => (dispatch) => {
 const leerTarea = id => (dispatch) => {
     api.get(`tarea/${id}`).then((response) => {
         let datos = response.fechaHoraEntrega.split('T');
-        response.fecha = datos[0];
+        response.fecha = moment(datos[0]).format("DD-MM-YYYY");
         let formatoHora = datos[1].split(':');
         response.hora = formatoHora[0]+":"+formatoHora[1];
         dispatch(initializeForm("tareaEntregaForm", response));

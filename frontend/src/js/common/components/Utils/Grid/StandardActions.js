@@ -51,7 +51,7 @@ class Acciones extends Component {
                     <Link to={`${portada}/${id}/ver-curso-estudiante`} ><i className="material-icons">home</i></Link>
                 )}
                 {(tarea !== undefined) && (
-                    <Link to={`${tarea}/${id}/`} className="px-2" ><i className="material-icons">remove_red_eye</i></Link>
+                    <Link to={`${tarea}/${id}/`} className="px-2" ><i className="material-icons">check_circle</i></Link>
                 )}
             </div>
         );

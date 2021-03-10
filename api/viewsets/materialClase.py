@@ -99,7 +99,7 @@ class MaterialClaseViewset(viewsets.ModelViewSet):
     @action(methods=["get"], detail=False)
     def material_curso(self, request):
         id = request.query_params.get("id_asignacion")
-        material = MaterialClase.objects.filter(curso = id, activo = True).order_by('creado')
+        material = MaterialClase.objects.filter(curso = id, activo = True).order_by('-creado')
         
         #paginando el resultado
         paginador = PageNumberPagination()

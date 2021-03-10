@@ -1,4 +1,5 @@
 import React, { Component, useReducer } from 'react';
+import moment from 'moment';
 import Grid from '../Utils/Grid';
 import { standardActions } from '../Utils/Grid/StandardActions';
 
@@ -15,7 +16,7 @@ class TareaClaseList extends Component{
                         data={data} 
                         loading={loader} 
                         headerStyle={ { background: '#d2dbdc' } }
-                        //onPageChange={listarEstudiantes} 
+                        //onPageChange={} 
                         //onSortChange={onSortChange} 
                     >
                         <TableHeaderColumn
@@ -27,13 +28,17 @@ class TareaClaseList extends Component{
                         <TableHeaderColumn
                             dataField="fechaHoraEntrega"
                             dataSort
+                            dataFormat={(cell, row)=>{
+                                return moment(cell).format("DD-MM-YYYY");
+                            }}
                         >
                             Entrega
                         </TableHeaderColumn>
                         <TableHeaderColumn
+                            dataAlign="right"
                             dataField="valorTarea"
                             dataSort
-                        >
+                        >   
                             Valor
                         </TableHeaderColumn>
                         <TableHeaderColumn

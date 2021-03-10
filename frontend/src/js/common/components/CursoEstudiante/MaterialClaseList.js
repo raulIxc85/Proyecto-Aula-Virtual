@@ -15,7 +15,7 @@ class MaterialClaseList extends Component{
                         data={data} 
                         loading={loader} 
                         headerStyle={ { background: '#d2dbdc' } }
-                        //onPageChange={listarEstudiantes} 
+                        //onPageChange={} 
                         //onSortChange={onSortChange} 
                     >
                         <TableHeaderColumn
@@ -32,15 +32,16 @@ class MaterialClaseList extends Component{
                         </TableHeaderColumn>
                         <TableHeaderColumn
                             isKey
-                            dataField="id"
                             dataAlign="center"
+                            dataField="archivo"
                             dataSort
-                            dataFormat={standardActions({ 
-                               
-                            })} 
+                            dataFormat={(cell, row)=>{
+                                return (<div><a href={cell} target="_blank" >ver archivo</a></div>);
+                            }}
                         >
                             Ver
                         </TableHeaderColumn>
+                      
                     </Grid>
                 }
                 </div>
