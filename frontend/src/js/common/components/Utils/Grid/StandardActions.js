@@ -28,7 +28,7 @@ class Acciones extends Component {
     };
 
     render() {
-        const { id, ver, editar, eliminar, asignar, gestion, portada } = this.props;
+        const { id, ver, editar, eliminar, asignar, gestion, portada, tarea } = this.props;
 
         return (
             <div className="d-flex justify-content-center">
@@ -48,7 +48,10 @@ class Acciones extends Component {
                     <Link to={`${gestion}/${id}/admin-curso`} ><i className="material-icons">home</i></Link>
                 )}
                 {(portada !== undefined) && (
-                    <Link to={`${portada}/${id}/ver-curso`} ><i className="material-icons">home</i></Link>
+                    <Link to={`${portada}/${id}/ver-curso-estudiante`} ><i className="material-icons">home</i></Link>
+                )}
+                {(tarea !== undefined) && (
+                    <Link to={`${tarea}/${id}/`} className="px-2" ><i className="material-icons">remove_red_eye</i></Link>
                 )}
             </div>
         );

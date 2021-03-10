@@ -106,6 +106,18 @@ class TareaViewset(viewsets.ModelViewSet):
         return Response(suma, status = status.HTTP_200_OK)
 
 
+    @action(methods=["get"], detail=False)
+    def tarea_curso(self, request):
+        id = request.query_params.get("id_asignacion")
+        material = Tarea.objects.filter(asignacion = id, activo = True).order_by('-creado')
+        
+        #paginando el resultado
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(material, request)
+        serializer = TareaSerializer(resultado_pagina, many=True)
+        return paginador.get_paginated_response(serializer.data)
+
+
     def get_permissions(self):
         """Define permisos para este recurso"""
         permission_classes = [AllowAny]

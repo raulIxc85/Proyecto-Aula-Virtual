@@ -96,7 +96,18 @@ class MaterialClaseViewset(viewsets.ModelViewSet):
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     
+    @action(methods=["get"], detail=False)
+    def material_curso(self, request):
+        id = request.query_params.get("id_asignacion")
+        material = MaterialClase.objects.filter(curso = id, activo = True).order_by('creado')
+        
+        #paginando el resultado
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(material, request)
+        serializer = MaterialClaseSerializer(resultado_pagina, many=True)
+        return paginador.get_paginated_response(serializer.data)
     
+
     def get_permissions(self):
         """Define permisos para este recurso"""
         permission_classes = [IsAuthenticated]

@@ -9,7 +9,9 @@ const CURSOS = 'CURSOS';
 const CURSOADMIN = 'CURSOADMIN';
 const ARCHIVO_PORTADA = 'ARCHIVO_PORTADA';
 const CURSOS_ESTUDIANTE = 'CURSOS_ESTUDIANTE';
-
+const MATERIAL_CURSO = 'MATERIAL_CURSO';
+const TAREA_CURSO = 'TAREA_CURSO';
+const ARCHIVO = 'ARCHIVOS';
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -177,8 +179,36 @@ const listarCursosEstudiante = () => (dispatch) => {
 }
 
 const leerAsignacionPortada = id => (dispatch) => {
+    let id_asignacion;
     api.get('/asignacion-curso/curso_detalle',{id}).then((response) => {
+        response.results.forEach(datos=>{
+            id_asignacion = datos.asignacionCatedratico[0].id;
+        });
         dispatch({ type: CURSOADMIN, lecturaCurso: response });
+        //Si hay material del curso
+        api.get('/material/material_curso',{id_asignacion}).then((response) => {
+            dispatch({ type: MATERIAL_CURSO, lecturaMaterial: response });
+            //si hay tareas
+            api.get('/tarea/tarea_curso',{id_asignacion}).then((response) => {
+                dispatch({ type: TAREA_CURSO, lecturaTarea: response });
+            }).catch((error) => {
+                console.log("error: ", error)
+                NotificationManager.error(
+                    'Ocurrió un error al listar tareas',
+                    'Error',
+                    0
+                );
+            }).finally(() => {
+            });
+        }).catch((error) => {
+            console.log("error: ", error)
+            NotificationManager.error(
+                'Ocurrió un error al listar material',
+                'Error',
+                0
+            );
+        }).finally(() => {
+        });
     }).catch((error) => {
         console.log("error: ", error)
         NotificationManager.error(
@@ -188,8 +218,27 @@ const leerAsignacionPortada = id => (dispatch) => {
         );
     }).finally(() => {
     });
+    
 };
 
+const leerTarea = id => (dispatch) => {
+    api.get(`tarea/${id}`).then((response) => {
+        let datos = response.fechaHoraEntrega.split('T');
+        response.fecha = datos[0];
+        let formatoHora = datos[1].split(':');
+        response.hora = formatoHora[0]+":"+formatoHora[1];
+        dispatch(initializeForm("tareaEntregaForm", response));
+        dispatch({ type: ARCHIVO, archivo: response });
+    }).catch((error) => {
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al consultar la tarea',
+            'Error',
+            0
+        );
+    }).finally(() => {
+    });
+};
 
 
 export const actions = {
@@ -203,13 +252,17 @@ export const actions = {
     actualizarPortada,
     borrarArchivo,
     listarCursosEstudiante,
-    leerAsignacionPortada
+    leerAsignacionPortada,
+    leerTarea
 }
 
 export const initialState = {
     ...baseReducer.initialState,
     lecturaCurso: null, 
     imagenPortada: null,
+    lecturaMaterial: null,
+    lecturaTarea: null,
+    archivo: null
 }
 
 export const reducers = {
@@ -242,6 +295,24 @@ export const reducers = {
         return {
             ...state,
             data,
+        };
+    },
+    [MATERIAL_CURSO]: (state, { lecturaMaterial }) => {
+        return {
+            ...state,
+            lecturaMaterial,
+        };
+    },
+    [TAREA_CURSO]: (state, { lecturaTarea }) => {
+        return {
+            ...state,
+            lecturaTarea,
+        };
+    },
+    [ARCHIVO]: (state, { archivo }) => {
+        return {
+            ...state,
+            archivo,
         };
     },
 }

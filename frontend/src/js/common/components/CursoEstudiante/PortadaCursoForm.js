@@ -3,12 +3,13 @@ import { reduxForm } from 'redux-form';
 import Tabs, { TabPane } from 'rc-tabs';
 import TabContent from 'rc-tabs/lib/TabContent';
 import ScrollableInkTabBar from 'rc-tabs/lib/ScrollableInkTabBar';
+import MaterialClaseList from './MaterialClaseList';
+import TareaClaseList from './TareaClaseList';
 
 class PortadaCursoForm extends Component {
     
     render() {
-        const { handleSubmit, lecturaCurso, setArchivo, imagenPortada } = this.props;
-        console.log("portada: ", this.props);
+        const { handleSubmit, lecturaCurso, lecturaMaterial, lecturaTarea } = this.props;
         let nombreCurso;
         let grado;
         let seccion;
@@ -28,6 +29,7 @@ class PortadaCursoForm extends Component {
                 catedratico = "Catedrático: " + datos.asignacionCatedratico[0].catedratico.perfil.nombres +" "+ datos.asignacionCatedratico[0].catedratico.perfil.apellidos;
             })
         }
+        
         return (
             <React.Fragment>
                 <form action="" onSubmit={handleSubmit} className="py-4">
@@ -52,7 +54,7 @@ class PortadaCursoForm extends Component {
                     <div className="mb-4 card card-small">
                         <div className="p-0 px-3 pt-3">
                             <Tabs
-                                defaultActiveKey="SEGUNDO_TOP"
+                                defaultActiveKey="PRINCIPAL_TOP"
                                 tabBarPosition="top"
                                 onChange={this.callback}
                                 renderTabBar={() => <ScrollableInkTabBar />}
@@ -60,14 +62,18 @@ class PortadaCursoForm extends Component {
                             >
                                 <TabPane tab="Material Clase" key="PRINCIPAL_TOP">
                                     <div className="py-4 px-3">
-                                        
+                                        <MaterialClaseList
+                                            data = {lecturaMaterial}
+                                        />
                                     </div>
-                                    </TabPane>
-                                    <TabPane tab="Tareas" key="SEGUNDO_TOP">
-                                        <div className="py-4 px-3">
-                                        
-                                        </div>
-                                    </TabPane>
+                                </TabPane>
+                                <TabPane tab="Tareas" key="SEGUNDO_TOP">
+                                    <div className="py-4 px-3">
+                                        <TareaClaseList
+                                            data = {lecturaTarea}
+                                        />
+                                    </div>
+                                </TabPane>
                                     
                             </Tabs>
                         </div>

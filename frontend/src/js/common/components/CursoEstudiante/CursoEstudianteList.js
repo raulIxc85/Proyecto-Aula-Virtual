@@ -9,7 +9,7 @@ class CursoEstudianteList extends Component{
         listarCursosEstudiante();
     }
     render(){
-        const { data, loader, eliminar } = this.props;
+        const { data, loader } = this.props;
         return(
             <React.Fragment>
                 <center><h3>Cursos</h3></center>
@@ -61,7 +61,7 @@ class CursoEstudianteList extends Component{
                             dataAlign="center"
                             dataSort
                             dataFormat={standardActions({ 
-                                portada: "cursos-asignados",
+                                portada: "cursos-asignados-estudiante",
                             })} 
                             
                         >

@@ -130,7 +130,7 @@ class SideBar extends Component {
                                 <div className="d-inline-block item-icon-wrapper">
                                     <i className="material-icons">assignment</i>
                                 </div>
-                                <span>Mis cursos -Estudiante</span>
+                                <span>Mis cursos -Estudiante-</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
