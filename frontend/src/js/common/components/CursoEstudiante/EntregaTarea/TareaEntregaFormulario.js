@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import {
     renderTextArea,
     renderFilePicker
-} from "../Utils/renderField/renderField";
+} from "../../Utils/renderField/renderField";
 
 
 class TareaEntregaFormulario extends Component{
@@ -12,14 +12,40 @@ class TareaEntregaFormulario extends Component{
         borrarArchivo();
     }
     render() {
-        const { handleSubmit, crear, id_asignacion, setArchivo, archivo } = this.props;
+        const { handleSubmit, crear, id_asignacion, archivo, setArchivoTarea, archivo_tarea } = this.props;
         let disabled = false;
-        let ocultar = '';
         let verLink = '';
-        let verLink2 = 'd-none';
+        let verLink2 = '';
         let verArchivo = archivo;
+        let verArchivo2 = archivo_tarea;
+        let titulo, fecha, descripcion, hora, valorTarea, texto;
+        if (archivo === undefined || archivo === null) {
+            titulo = "";
+            fecha = "";
+            descripcion = "";
+            hora = "";
+            valorTarea = "";
+        }else {
+            titulo = archivo.tituloTarea;
+            fecha = archivo.fecha;
+            descripcion = archivo.descripcion;
+            hora = archivo.hora,
+            valorTarea = archivo.valorTarea;
+        }
+        if (archivo_tarea === undefined || archivo_tarea === null) {
+            texto = "";
+        }else {
+            //texto = archivo_tarea.estudiante.texto;
+        }
+        if (!(archivo_tarea === null)) {
+            
+            //verArchivo2 = archivo_tarea.estudiante.archivo;
+           
+        }else{
+            verLink2 = 'd-none';
+        }
+
         if (!(archivo === null)) {
-            ocultar = 'd-none';
             verArchivo = archivo.archivo;
            
         }else{
@@ -34,14 +60,14 @@ class TareaEntregaFormulario extends Component{
         }      
    
         return (
-            <div class="row">
-                <form className='col-sm-6'>
-                    <h3>{ archivo.tituloTarea }</h3>
+            <div className="row">
+                <div className='col-sm-6'>
+                    <h3>{ titulo }</h3>
                     <div className="mb-4 card card-small">
                         <div className="p-0 pt-3 d-flex flex-column flex-md-row">
                             <div className="d-flex flex-column flex-1 mx-3 mr-2">
                                 <label>Descripcion: </label>
-                                <p>{archivo.descripcion}</p>
+                                <p>{descripcion}</p>
                                 <div className={`${verLink}`}>
                                     <br />
                                     <div className="text-center">
@@ -52,9 +78,9 @@ class TareaEntregaFormulario extends Component{
                                 
                                 <div className='w-50'>
                                     
-                                    <label htmlFor="fecha">Fecha Entrega: {archivo.fecha} </label>
-                                    <label htmlFor="hora">Hora Entrega: {archivo.hora}</label>
-                                    <label htmlFor="valorTarea">Valor Tarea: {archivo.valorTarea}</label>
+                                    <label htmlFor="fecha">Fecha Entrega: {fecha} </label>
+                                    <label htmlFor="hora">Hora Entrega: {hora}</label>
+                                    <label htmlFor="valorTarea">Valor Tarea: {valorTarea}</label>
                                     
                                 </div>
                                 <br />
@@ -77,15 +103,15 @@ class TareaEntregaFormulario extends Component{
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
                 <form onSubmit={handleSubmit} className='col-sm-6'>
                     <h3>Entregar Tarea</h3>
                     <div className="mb-4 card card-small">
                         <div className="p-0 pt-3 d-flex flex-column flex-md-row">
                             <div className="d-flex flex-column flex-1 mx-3">
-                                <label>Descripcion</label>
+                                <label>Respuesta</label>
                                 <Field 
-                                    name="texto" 
+                                    name="estudiante.texto"
                                     component={renderTextArea} 
                                     
                                 />
@@ -94,8 +120,8 @@ class TareaEntregaFormulario extends Component{
                                     <Field
                                         accept=".pdf,document/*" 
                                         name="archivo" 
-                                        setFile={setArchivo}
-                                        //photo={archivo}
+                                        setFile={setArchivoTarea}
+                                        photo={archivo_tarea}
                                         component={renderFilePicker} 
                                         
                                     />
@@ -103,7 +129,7 @@ class TareaEntregaFormulario extends Component{
                                 <div className={`${verLink2}`}>
                                     <br />
                                     <div className="text-center">
-                                        <a href={verArchivo} target="_blank">Ver archivo</a>
+                                        <a href={verArchivo2} target="_blank">Ver archivo</a>
                                     </div>
                                     <br />
                                 </div>

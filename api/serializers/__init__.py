@@ -13,3 +13,5 @@ from .asignacionCatedratico import AsignacionCatedraticoSerializer, AsignacionCa
 from .asignacionEstudiante import AsignacionEstudianteSerializer, AsignacionEstudianteRegistroSerializer
 from .tarea import TareaSerializer, TareaRegistroSerializer
 from .materialClase import MaterialClaseSerializer, MaterialClaseRegistroSerializer
+from .entregaTarea import EntregaTareaSerializer, EntregaTareaRegistroSerializer
+from .entrega import EntregaSerializer

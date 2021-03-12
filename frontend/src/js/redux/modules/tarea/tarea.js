@@ -7,6 +7,7 @@ import { api } from "api";
 
 const LISTADO = 'LISTADO';
 const ARCHIVO = 'ARCHIVO';
+const LISTADO_TAREAS_ENTREGADAS = 'LISTADO_TAREAS_ENTREGADAS';
 
 // ------------------------------------
 // Constants
@@ -171,6 +172,23 @@ const borrarArchivo = () => (dispatch) => {
     dispatch({ type: ARCHIVO, archivo: null })
 }
 
+const listarTareasEntregadas = () => (dispatch) => {
+    let ruta = window.location.href;
+    let datos = ruta.split('/');
+    let id_tarea = datos[7];
+    api.get('/entregas', {id_tarea}).then((response)=>{
+        dispatch({ type: LISTADO_TAREAS_ENTREGADAS, data: response });
+    }).catch((error)=>{
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar las tareas',
+            'Error',
+            0
+        );
+    })
+}
+
+
 export const actions = {
     ...baseReducer.actions,
     listar,
@@ -180,13 +198,15 @@ export const actions = {
     leer,
     sumarNota,
     eliminar,
-    borrarArchivo
+    borrarArchivo,
+    listarTareasEntregadas
    
 }
 
 export const initialState = {
     ...baseReducer.initialState,
     archivo: null,
+   
 }
 
 export const reducers = {
@@ -201,6 +221,12 @@ export const reducers = {
         return {
             ...state,
             archivo,
+        };
+    },
+    [LISTADO_TAREAS_ENTREGADAS]: (state, { data }) => {
+        return {
+            ...state,
+            data,
         };
     },
 }

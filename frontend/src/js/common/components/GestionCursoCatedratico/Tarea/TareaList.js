@@ -47,7 +47,7 @@ class ListadoTarea extends Component{
                             Tarea
                         </TableHeaderColumn>
                         <TableHeaderColumn
-                            
+                            headerAlign="center"
                             dataAlign="right"
                             dataField="valorTarea"
                             dataSort
@@ -62,10 +62,21 @@ class ListadoTarea extends Component{
                             dataFormat={standardActions({ 
                                 ver: "ver-tarea",
                                 editar: "tareas", 
-                                eliminar: eliminar
+                                eliminar: eliminar,
                             })}
                         >
                             Acción
+                        </TableHeaderColumn>
+                        <TableHeaderColumn
+                            dataField="id"
+                            dataAlign="center"
+                            dataSort
+                            width="140"
+                            dataFormat={standardActions({ 
+                                adminTarea: "admin-tarea",
+                            })}
+                        >
+                            Ver Tareas
                         </TableHeaderColumn>
                     </Grid>
                 }

@@ -57,7 +57,9 @@ import MaterialClaseCrearContainer from './common/components/GestionCursoCatedra
 import MaterialClaseListaContainer from './common/components/GestionCursoCatedratico/MaterialClase/MaterialClaseListContainer';
 import CursoEstudianteListaContainer from './common/components/CursoEstudiante/CursoEstudienteListContainer';
 import CursoEstudiantePortadaContainer from './common/components/CursoEstudiante/PortadaCursoContainer';
-import TareaEntregaContainer from './common/components/CursoEstudiante/TareaEntregaContainer';
+import TareaEntregaContainer from './common/components/CursoEstudiante/EntregaTarea/TareaEntregaContainer';
+import TareaEntregadaListaContainer from './common/components/GestionCursoCatedratico/CalificarTarea/TareasEntregadasListContainer';
+import CalificarTareaContainer from './common/components/GestionCursoCatedratico/CalificarTarea/CalificarTareaContainer';
 
 
 module.exports = (
@@ -135,7 +137,9 @@ module.exports = (
                 <ProtectedRoute exact path="/cursos-asignados/:id/tareas" component={TareaListaContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/ver-tarea/:id_tarea" component={TareaCrearContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/tareas/:id_tarea/editar" component={TareaCrearContainer} />
-               
+                <ProtectedRoute exact path="/cursos-asignados/:id/admin-tarea/:id_tarea" component={TareaEntregadaListaContainer} />
+                <ProtectedRoute exact path="/cursos-asignados/:id/admin-tarea/:id_tarea/:id_entrega" component={CalificarTareaContainer} />
+                
                 <ProtectedRoute exact path="/cursos-asignados/:id/crear-material-curso" component={MaterialClaseCrearContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/material" component={MaterialClaseListaContainer} />
                 <ProtectedRoute exact path="/cursos-asignados/:id/ver-material/:id_material" component={MaterialClaseCrearContainer} />

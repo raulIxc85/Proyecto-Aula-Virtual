@@ -2,7 +2,9 @@ import { handleActions } from 'redux-actions';
 import { createReducer } from '../baseReducer/baseReducer';
 import { NotificationManager } from "react-notifications";
 import { initialize as initializeForm } from 'redux-form';
+import { push } from "react-router-redux";
 import { api } from "api";
+
 import moment from 'moment';
 
 const LISTADO = 'LISTADO';
@@ -12,7 +14,8 @@ const ARCHIVO_PORTADA = 'ARCHIVO_PORTADA';
 const CURSOS_ESTUDIANTE = 'CURSOS_ESTUDIANTE';
 const MATERIAL_CURSO = 'MATERIAL_CURSO';
 const TAREA_CURSO = 'TAREA_CURSO';
-const ARCHIVO = 'ARCHIVOS';
+const ARCHIVO = 'ARCHIVO';
+const ARCHIVO_TAREA = 'ARCHIVO_TAREA';
 
 // ------------------------------------
 // Constants
@@ -231,6 +234,17 @@ const leerTarea = id => (dispatch) => {
         response.hora = formatoHora[0]+":"+formatoHora[1];
         dispatch(initializeForm("tareaEntregaForm", response));
         dispatch({ type: ARCHIVO, archivo: response });
+        api.get(`entregas/${id}`).then((response) => {
+            dispatch(initializeForm("tareaEntregaForm", response));
+            dispatch({ type: ARCHIVO_TAREA, archivo_tarea: response });
+        }).catch((error) => {
+            console.log("error: ", error)
+            NotificationManager.error(
+                'Ocurrió un error al consultar la tarea',
+                'Error',
+                0
+            );
+        })
     }).catch((error) => {
         console.log("error: ", error)
         NotificationManager.error(
@@ -242,6 +256,31 @@ const leerTarea = id => (dispatch) => {
     });
 };
 
+const registroEntregaTarea = (datos={}, attachments=[]) => (dispatch) => {
+    let ruta = window.location.href;
+    let url = ruta.split('/');
+    let id_asignacion = url[5];
+    const data = {
+        texto: datos.texto,
+        id: datos.id,
+        fechaHora: new Date()
+    }
+    api.postAttachments('/entrega_tarea', data, attachments).then((response) => {
+        NotificationManager.success(
+            'Entrega de tarea creada correctamente',
+            'Exito',
+            3000
+        );
+        dispatch(push(`/cursos-asignados-estudiante/${id_asignacion}/ver-curso-estudiante`));
+    }).catch((error) => {
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al registrar la entrega de tarea',
+            'Error',
+            0
+        );
+    })
+}
 
 export const actions = {
     ...baseReducer.actions,
@@ -255,7 +294,8 @@ export const actions = {
     borrarArchivo,
     listarCursosEstudiante,
     leerAsignacionPortada,
-    leerTarea
+    leerTarea,
+    registroEntregaTarea
 }
 
 export const initialState = {
@@ -264,7 +304,8 @@ export const initialState = {
     imagenPortada: null,
     lecturaMaterial: null,
     lecturaTarea: null,
-    archivo: null
+    archivo: null,
+    archivo_tarea: null
 }
 
 export const reducers = {
@@ -315,6 +356,12 @@ export const reducers = {
         return {
             ...state,
             archivo,
+        };
+    },
+    [ARCHIVO_TAREA]: (state, { archivo_tarea }) => {
+        return {
+            ...state,
+            archivo_tarea,
         };
     },
 }

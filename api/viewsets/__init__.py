@@ -12,4 +12,6 @@ from .asignacionCatedratico import AsignacionCatedraticoViewset
 from .asignacionEstudiante import AsignacionEstudianteViewset
 from .tarea import TareaViewset
 from .materialClase import MaterialClaseViewset
+from .entregaTarea import EntregaTareaViewset
+from .entrega import EntregaViewset
 

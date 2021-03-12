@@ -35,6 +35,7 @@ class TareaClaseList extends Component{
                             Entrega
                         </TableHeaderColumn>
                         <TableHeaderColumn
+                            headerAlign="center"
                             dataAlign="right"
                             dataField="valorTarea"
                             dataSort
