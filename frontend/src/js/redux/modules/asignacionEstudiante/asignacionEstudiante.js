@@ -235,6 +235,11 @@ const leerTarea = id => (dispatch) => {
         dispatch(initializeForm("tareaEntregaForm", response));
         dispatch({ type: ARCHIVO, archivo: response });
         api.get(`entregas/${id}`).then((response) => {
+            response.results.forEach(datos=>{
+                response.archivo = datos.estudiante.archivo;
+                response.texto = datos.estudiante.texto;
+                response.id = datos.estudiante.id;
+            })
             dispatch(initializeForm("tareaEntregaForm", response));
             dispatch({ type: ARCHIVO_TAREA, archivo_tarea: response });
         }).catch((error) => {
@@ -260,9 +265,10 @@ const registroEntregaTarea = (datos={}, attachments=[]) => (dispatch) => {
     let ruta = window.location.href;
     let url = ruta.split('/');
     let id_asignacion = url[5];
+    let id_tarea = url[7];
     const data = {
         texto: datos.texto,
-        id: datos.id,
+        id: id_tarea,
         fechaHora: new Date()
     }
     api.postAttachments('/entrega_tarea', data, attachments).then((response) => {
@@ -282,6 +288,38 @@ const registroEntregaTarea = (datos={}, attachments=[]) => (dispatch) => {
     })
 }
 
+
+const modificarEntregaTarea = (datos={}, attachments) => (dispatch) => {
+    let ruta = window.location.href;
+    let url = ruta.split('/');
+    let id_asignacion = url[5];
+    let id_entrega = datos.id;
+    const data = {
+        texto: datos.texto,
+        fechaHora: new Date()
+    }
+    api.putAttachments(`/entrega_tarea/${id_entrega}`, data, attachments).then((response) => {
+        NotificationManager.success(
+            'Tarea modificada correctamente',
+            'Exito',
+            3000
+        );
+        dispatch(push(`/cursos-asignados-estudiante/${id_asignacion}/ver-curso-estudiante`));
+    }).catch((error) => {
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al modificar la Tarea',
+            'Error',
+            0
+        );
+    })
+}
+
+
+const borrarArchivoTarea = () => (dispatch) => {
+    dispatch({ type: ARCHIVO_TAREA, archivo_tarea: null })
+}
+
 export const actions = {
     ...baseReducer.actions,
     obtenerEstudiantes,
@@ -295,7 +333,9 @@ export const actions = {
     listarCursosEstudiante,
     leerAsignacionPortada,
     leerTarea,
-    registroEntregaTarea
+    registroEntregaTarea,
+    borrarArchivoTarea,
+    modificarEntregaTarea
 }
 
 export const initialState = {

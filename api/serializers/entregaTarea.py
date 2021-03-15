@@ -9,6 +9,7 @@ class EntregaTareaSerializer(serializers.ModelSerializer):
             'id',
             'archivo',
             'texto',
+            'notaTarea'
         )
 
 

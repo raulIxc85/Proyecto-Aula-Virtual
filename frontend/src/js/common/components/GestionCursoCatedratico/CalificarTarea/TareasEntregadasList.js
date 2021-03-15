@@ -73,6 +73,23 @@ class TareasEntregasList extends Component{
                             dataFormat={(cell, row)=>{
                                 if ( cell === undefined ){
                                     return "";
+                                }else {
+                                    if (!(cell.notaTarea === null)){
+                                        return cell.notaTarea;
+                                    }
+                                }
+                                    
+                            }}
+                        >
+                            Nota
+                        </TableHeaderColumn>
+                        <TableHeaderColumn
+                            dataField="estudiante"
+                            dataAlign="center"
+                            dataSort
+                            dataFormat={(cell, row)=>{
+                                if ( cell === undefined ){
+                                    return "";
                                 }else{
                                     let ruta = window.location.href;
                                     return (<a className='btn btn-outline-primary btn-sm' href={ruta+cell.id}>Nota</a>);

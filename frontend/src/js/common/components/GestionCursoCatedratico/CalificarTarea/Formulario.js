@@ -21,7 +21,7 @@ class Formulario extends Component{
                             <label htmlFor="notaTarea">Nota</label>
                             <Field 
                                 name="notaTarea" 
-                                decimalScale={2}
+                                decimalScale={1}
                                 component={renderNumber} 
                             />
                             <br />

@@ -8,6 +8,7 @@ from rest_framework.pagination import PageNumberPagination
 from api.models import Entrega
 from django.contrib.auth.models import User
 from api.models import Profile
+from api.models import Estudiante
 from api.serializers import EntregaSerializer
 
 class EntregaViewset(viewsets.ModelViewSet):
@@ -21,10 +22,14 @@ class EntregaViewset(viewsets.ModelViewSet):
     def retrieve(self, request, pk=None):
         user = request.user
         estudiante = User.objects.get(username=user)
-        perfil = Profile.objects.get(pk = estudiante.id)
-        tarea = Entrega.objects.filter(tarea=pk, estudiante__estudiante=perfil.id)
+        perfil = Profile.objects.get(user = estudiante.id)
+        id_estudiante = Estudiante.objects.get(perfil = perfil.id)
+        tarea = Entrega.objects.filter(tarea=pk, estudiante__estudiante=id_estudiante.id)
+        #paginando resultado
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(tarea, request)
         serializer = EntregaSerializer(tarea, many=True)
-        return Response(serializer.data, status= status.HTTP_200_OK)
+        return paginador.get_paginated_response(serializer.data)
         
     
     def list(self, request):

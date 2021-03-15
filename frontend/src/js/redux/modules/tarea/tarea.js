@@ -188,6 +188,34 @@ const listarTareasEntregadas = () => (dispatch) => {
     })
 }
 
+const calificarTarea = () => (dispatch, getStore) =>{
+    let ruta = window.location.href;
+    let datos = ruta.split('/');
+    let id_asignacion = datos[5];
+    let id_tarea = datos[7];
+    let id_entrega = datos[8];
+    const datosForm = getStore().form.calificarForm.values;
+    const data = {
+        notaTarea : datosForm.notaTarea,
+        id : id_entrega
+    }
+    api.put('/entrega_tarea/calificar', data).then((response)=>{
+        NotificationManager.success(
+            'Tarea calificada correctamente',
+            'Exito',
+            3000
+        );
+        dispatch(listarTareasEntregadas(id_tarea));
+        dispatch(push(`/cursos-asignados/${id_asignacion}/admin-tarea/${id_tarea}/`));
+    }).catch((error) => {
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al calificar la tarea',
+            'Error',
+            0
+        );
+    })
+}
 
 export const actions = {
     ...baseReducer.actions,
@@ -199,7 +227,8 @@ export const actions = {
     sumarNota,
     eliminar,
     borrarArchivo,
-    listarTareasEntregadas
+    listarTareasEntregadas,
+    calificarTarea
    
 }
 

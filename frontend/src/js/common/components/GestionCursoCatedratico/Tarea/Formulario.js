@@ -96,7 +96,7 @@ class Formulario extends Component{
                                 <label htmlFor="valorTarea">Valor Tarea</label>
                                 <Field
                                     name="valorTarea"
-                                    decimalScale={2}
+                                    decimalScale={1}
                                     component={renderNumber}
                                     disabled={disabled} 
                                 />
