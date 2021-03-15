@@ -1,13 +1,12 @@
 import React, { Component, useReducer } from 'react';
-import moment from 'moment';
 import Grid from '../Utils/Grid';
 import { standardActions } from '../Utils/Grid/StandardActions';
 
-class TareaClaseList extends Component{
-   
+class NotaTareaList extends Component{
+    
     render(){
         const { data, loader } = this.props;
-         return(
+        return(
             <div className="d-flex flex-column flex-1 mx-3">
                 {data &&    
                     <Grid 
@@ -20,39 +19,36 @@ class TareaClaseList extends Component{
                         //onSortChange={onSortChange} 
                     >
                         <TableHeaderColumn
-                            dataField="tituloTarea"
+                            isKey
+                            dataField="tarea"
                             dataSort
+                            dataFormat={(cell, row)=>{
+                                return cell.tituloTarea;
+                            }}
                         >
                             Titulo
                         </TableHeaderColumn>
                         <TableHeaderColumn
-                            dataField="fechaHoraEntrega"
-                            dataAlign="center"
+                            headerAlign="center"
+                            dataField="tarea"
+                            dataAlign="right"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                return moment(cell).format("DD-MM-YYYY");
+                                return cell.valorTarea;
                             }}
                         >
-                            Fecha Entrega
+                            Valor Tarea
                         </TableHeaderColumn>
                         <TableHeaderColumn
                             headerAlign="center"
                             dataAlign="right"
-                            dataField="valorTarea"
+                            dataField="estudiante"
                             dataSort
-                        >   
-                            Valor
-                        </TableHeaderColumn>
-                        <TableHeaderColumn
-                            isKey
-                            dataField="id"
-                            dataAlign="center"
-                            dataSort
-                            dataFormat={standardActions({ 
-                                tarea: "ver-tarea-entrega",
-                            })} 
+                            dataFormat={(cell, row)=>{
+                                return cell.notaTarea;
+                            }}
                         >
-                            Ver
+                            Nota obtenida 
                         </TableHeaderColumn>
                     </Grid>
                 }
@@ -61,4 +57,4 @@ class TareaClaseList extends Component{
     }
 }
 
-export default TareaClaseList;
+export default NotaTareaList;

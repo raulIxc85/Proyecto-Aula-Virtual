@@ -4,6 +4,7 @@ from rest_framework import filters, viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.decorators import action
 
 from api.models import Entrega
 from django.contrib.auth.models import User
@@ -41,7 +42,22 @@ class EntregaViewset(viewsets.ModelViewSet):
         serializer = EntregaSerializer(resultado_pagina, many=True)
         return paginador.get_paginated_response(serializer.data)
 
-    
+
+    @action(methods=["get"], detail=False)
+    def notas(self, request):
+        user = request.user
+        estudiante = User.objects.get(username=user)
+        perfil = Profile.objects.get(user = estudiante.id)
+        id_estudiante = Estudiante.objects.get(perfil = perfil.id)
+        listar_tarea_nota = Entrega.objects.filter(estudiante__estudiante = id_estudiante).order_by('-tarea__creado')
+        #paginando resultado
+        paginador = PageNumberPagination()
+        resultado_pagina = paginador.paginate_queryset(listar_tarea_nota, request)
+        serializer = EntregaSerializer(resultado_pagina, many=True)
+        return paginador.get_paginated_response(serializer.data)
+
+
+
     def get_permissions(self):
         """Define permisos para este recurso"""
         permission_classes = [IsAuthenticated]

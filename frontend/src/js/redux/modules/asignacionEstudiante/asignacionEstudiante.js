@@ -16,6 +16,7 @@ const MATERIAL_CURSO = 'MATERIAL_CURSO';
 const TAREA_CURSO = 'TAREA_CURSO';
 const ARCHIVO = 'ARCHIVO';
 const ARCHIVO_TAREA = 'ARCHIVO_TAREA';
+const TAREAS_NOTAS = 'TAREAS_NOTAS';
 
 // ------------------------------------
 // Constants
@@ -197,6 +198,17 @@ const leerAsignacionPortada = id => (dispatch) => {
             //si hay tareas
             api.get('/tarea/tarea_curso',{id_asignacion}).then((response) => {
                 dispatch({ type: TAREA_CURSO, lecturaTarea: response });
+                //mostrar notas de tareas enviadas
+                api.get('/entregas/notas').then((response)=>{
+                    dispatch({ type: TAREAS_NOTAS, lecturaNotas: response });
+                }).catch((error)=>{
+                    console.log("error: ", error)
+                    NotificationManager.error(
+                        'Ocurrió un error al listar las notas',
+                        'Error',
+                        0
+                    );
+                })
             }).catch((error) => {
                 console.log("error: ", error)
                 NotificationManager.error(
@@ -317,6 +329,7 @@ const modificarEntregaTarea = (datos={}, attachments) => (dispatch) => {
 }
 
 
+
 const borrarArchivoTarea = () => (dispatch) => {
     dispatch({ type: ARCHIVO_TAREA, archivo_tarea: null })
 }
@@ -351,7 +364,8 @@ export const initialState = {
     lecturaMaterial: null,
     lecturaTarea: null,
     archivo: null,
-    archivo_tarea: null
+    archivo_tarea: null,
+    lecturaNotas: null
 }
 
 export const reducers = {
@@ -408,6 +422,12 @@ export const reducers = {
         return {
             ...state,
             archivo_tarea,
+        };
+    },
+    [TAREAS_NOTAS]: (state, { lecturaNotas }) => {
+        return {
+            ...state,
+            lecturaNotas,
         };
     },
 }

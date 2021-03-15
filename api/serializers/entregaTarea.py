@@ -14,7 +14,7 @@ class EntregaTareaSerializer(serializers.ModelSerializer):
             'notaTarea',
             'estudiante'
         )
-
+    depth = 1
 
 class EntregaTareaRegistroSerializer(serializers.ModelSerializer):
     class Meta:

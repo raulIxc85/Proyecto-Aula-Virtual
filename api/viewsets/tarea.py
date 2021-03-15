@@ -110,11 +110,11 @@ class TareaViewset(viewsets.ModelViewSet):
     @action(methods=["get"], detail=False)
     def tarea_curso(self, request):
         id = request.query_params.get("id_asignacion")
-        material = Tarea.objects.filter(asignacion = id, activo = True).order_by('-creado')
+        tareas = Tarea.objects.filter(asignacion = id, activo = True).order_by('-creado')
         
         #paginando el resultado
         paginador = PageNumberPagination()
-        resultado_pagina = paginador.paginate_queryset(material, request)
+        resultado_pagina = paginador.paginate_queryset(tareas, request)
         serializer = TareaSerializer(resultado_pagina, many=True)
         return paginador.get_paginated_response(serializer.data)
 

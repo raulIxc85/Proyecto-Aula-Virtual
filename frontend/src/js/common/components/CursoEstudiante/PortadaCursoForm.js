@@ -5,11 +5,12 @@ import TabContent from 'rc-tabs/lib/TabContent';
 import ScrollableInkTabBar from 'rc-tabs/lib/ScrollableInkTabBar';
 import MaterialClaseList from './MaterialClaseList';
 import TareaClaseList from './TareaClaseList';
+import NotaTareaList from './NotaTareaList';
 
 class PortadaCursoForm extends Component {
     
     render() {
-        const { handleSubmit, lecturaCurso, lecturaMaterial, lecturaTarea } = this.props;
+        const { handleSubmit, lecturaCurso, lecturaMaterial, lecturaTarea, lecturaNotas } = this.props;
         let nombreCurso;
         let grado;
         let seccion;
@@ -74,7 +75,13 @@ class PortadaCursoForm extends Component {
                                         />
                                     </div>
                                 </TabPane>
-                                    
+                                <TabPane tab="Notas" key="TERCERO_TOP">
+                                    <div className="py-4 px-3">
+                                        <NotaTareaList
+                                            data = {lecturaNotas}
+                                        />
+                                    </div>
+                                </TabPane>
                             </Tabs>
                         </div>
                     </div>
