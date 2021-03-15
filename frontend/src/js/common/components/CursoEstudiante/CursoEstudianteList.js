@@ -26,9 +26,14 @@ class CursoEstudianteList extends Component{
                             dataField="asignacionCatedratico"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                if (cell.length>0){
-                                    return cell[0].grado.descripcion;
+                                if ( cell === undefined ){
+                                    return "";
+                                }else{
+                                    if (cell.length>0){
+                                        return cell[0].grado.descripcion;
+                                    }
                                 }
+                                
                             }}
                         >
                             Grado
@@ -37,8 +42,12 @@ class CursoEstudianteList extends Component{
                             dataField="asignacionCatedratico"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                if (cell.length>0){
-                                    return cell[0].curso.nombre;
+                                if ( cell === undefined ){
+                                    return "";
+                                }else{
+                                    if (cell.length>0){
+                                        return cell[0].curso.nombre;
+                                    }
                                 }
                             }}
                         >
@@ -48,8 +57,12 @@ class CursoEstudianteList extends Component{
                             dataField="asignacionCatedratico"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                if (cell.length>0){
-                                    return cell[0].seccion.descripcion;
+                                if ( cell === undefined ){
+                                    return "";
+                                }else{
+                                    if (cell.length>0){
+                                        return cell[0].seccion.descripcion;
+                                    }
                                 }
                             }}
                         >

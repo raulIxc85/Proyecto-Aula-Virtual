@@ -4,12 +4,12 @@ import { renderFilePicker } from '../Utils/renderField/renderField';
 
 class PortadaForm extends Component {
     componentWillUnmount = () => {
-        const { borrarArchivo } = this.props;
-        borrarArchivo();
+        const { borrarArchivoPortada } = this.props;
+        borrarArchivoPortada();
     }
     render() {
         const { handleSubmit, lecturaCurso, setArchivo, imagenPortada } = this.props;
-        console.log("imagenPortada", imagenPortada);
+        
         let nombreCurso;
         let grado;
         let seccion;
@@ -27,8 +27,11 @@ class PortadaForm extends Component {
             grado = lecturaCurso.grado.descripcion;
             seccion = "Sección: " + lecturaCurso.seccion.descripcion;
             id = lecturaCurso.id;
-            imagen = imagenPortada.imagenPortada;         
+            if (!(imagenPortada === null)){
+                imagen = imagenPortada.imagenPortada;
+            }
         }
+    
         return (
             <React.Fragment>
                 <form action="" onSubmit={handleSubmit} className="py-4">
@@ -38,16 +41,16 @@ class PortadaForm extends Component {
                     <div className="mb-4 card card-small">
                         <div className="p-0 pt-3 d-flex flex-column flex-md-row">
                             <div className="d-flex flex-column flex-1 mx-3">
-                                    
                                 <div className="form-group has-feedback flex-1 mx-3">
                                     <label htmlFor="imagenPortada">Imagen Portada</label>
                                     <Field 
                                         accept=".image/*" 
-                                        name="imagenPortada" 
+                                        name="portada" 
                                         setFile={setArchivo} 
                                         photo={imagen}
                                         component={renderFilePicker} 
                                    />
+                                    <img className="mx-auto d-block" src={imagen} height="50" />
                                 </div>
                                     
                             </div>
@@ -69,21 +72,25 @@ class PortadaForm extends Component {
                         </div>
                     </div>
                     </form>
-                    <div className="mb-4 card card-small">
-                        <div className="p-0 pt-3 d-flex flex-column flex-md-row">
-                            <div className="d-flex flex-column flex-1 mx-3">
-                                <a
-                                    href={`/#/cursos-asignados/${id}/tareas`}
-                                    className='btn btn-secondary mb-3'
-                                >
-                                    Tareas
-                                </a>
-                                <a
-                                    href={`/#/cursos-asignados/${id}/material`}
-                                    className='btn btn-secondary mb-3'
-                                >
-                                    Material de clase
-                                </a>
+                    <div className="row justify-content-center align-items-center">
+                        <div className='w-50'>
+                            <div className="mb-4 card card-small">
+                                <div className="p-0 pt-3 d-flex flex-column flex-md-row">
+                                    <div className="d-flex flex-column flex-1 mx-3">
+                                        <a
+                                            href={`/#/cursos-asignados/${id}/tareas`}
+                                            className='btn btn-secondary mb-3'
+                                        >
+                                            Tareas
+                                        </a>
+                                        <a
+                                            href={`/#/cursos-asignados/${id}/material`}
+                                            className='btn btn-secondary mb-3'
+                                        >
+                                            Material de clase
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -75,8 +75,14 @@ class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
         try:
             data = request.data
             archivo = data.get("imagenPortada")
+            print("imagen", archivo)
+            print("id", pk)
             imagen = AsignacionCatedraticoCurso.objects.get(pk = pk)
-            imagen.imagenPortada = File(archivo)
+            if archivo is not None:
+                if imagen.imagenPortada is not None:
+                    imagen.imagenPortada.delete()
+                    imagen.imagenPortada = File(archivo)
+            
             imagen.save()
             return Response({"imagen actualizada"}, status = status.HTTP_200_OK)
         except Exception as e:

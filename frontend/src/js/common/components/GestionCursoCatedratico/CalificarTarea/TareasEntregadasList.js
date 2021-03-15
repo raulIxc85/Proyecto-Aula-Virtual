@@ -35,7 +35,35 @@ class TareasEntregasList extends Component{
                         //onSortChange={onSortChange} 
                     >
                         <TableHeaderColumn
-                            isKey
+                            dataField="estudiante"
+                            dataSort
+                            width="100"
+                            dataFormat={(cell, row)=>{
+                                if ( cell === undefined ){
+                                    return "";
+                                }else{
+                                    return cell.estudiante.carnet;
+                                }
+                                
+                            }}
+                        >
+                            Carnet
+                        </TableHeaderColumn>
+                        <TableHeaderColumn
+                            dataField="estudiante"
+                            dataSort
+                            dataFormat={(cell, row)=>{
+                                if ( cell === undefined ){
+                                    return "";
+                                }else{
+                                    return cell.estudiante.perfil.nombres + " " + cell.estudiante.perfil.apellidos;
+                                }
+                                
+                            }}
+                        >
+                            Nombre
+                        </TableHeaderColumn>
+                        <TableHeaderColumn
                             dataField="estudiante"
                             dataSort
                             dataFormat={(cell, row)=>{
@@ -70,6 +98,7 @@ class TareasEntregasList extends Component{
                             dataField="estudiante"
                             dataAlign="center"
                             dataSort
+                            width="150"
                             dataFormat={(cell, row)=>{
                                 if ( cell === undefined ){
                                     return "";
@@ -84,6 +113,7 @@ class TareasEntregasList extends Component{
                             Nota
                         </TableHeaderColumn>
                         <TableHeaderColumn
+                            isKey
                             dataField="estudiante"
                             dataAlign="center"
                             dataSort

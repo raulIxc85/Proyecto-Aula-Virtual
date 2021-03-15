@@ -144,10 +144,11 @@ const eliminar = id => (dispatch, getStore) => {
 };
 
 
-const actualizarPortada = (data={}, attachments) => () => {
+const actualizarPortada = ( data={} , attachments) => (dispatch) => {
     let ruta = window.location.href;
     let url = ruta.split('/');
     let id_asignacion = url[5];
+    dispatch(push('/cursos-asignados'));
     api.putAttachments(`/asignacion/${id_asignacion}`, data, attachments).then((response) => {
         NotificationManager.success(
             'Portada actualizada', 
@@ -320,6 +321,10 @@ const borrarArchivoTarea = () => (dispatch) => {
     dispatch({ type: ARCHIVO_TAREA, archivo_tarea: null })
 }
 
+const borrarArchivoPortada = () => (dispatch) => {
+    dispatch({ type: ARCHIVO_PORTADA, imagenPortada: null })
+}
+
 export const actions = {
     ...baseReducer.actions,
     obtenerEstudiantes,
@@ -335,7 +340,8 @@ export const actions = {
     leerTarea,
     registroEntregaTarea,
     borrarArchivoTarea,
-    modificarEntregaTarea
+    modificarEntregaTarea,
+    borrarArchivoPortada
 }
 
 export const initialState = {

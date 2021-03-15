@@ -3,7 +3,9 @@ import PortadaForm from "./PortadaForm";
 
 
 class GestionCurso extends Component {
-     
+    state = {
+        imagenPortada: null,
+    }
     componentWillMount = () => {
         const { match, leerAsignacionAdmin } = this.props;
         const id = match.params.id;
@@ -13,6 +15,7 @@ class GestionCurso extends Component {
     }
     
     setArchivo = (imagenPortada) => {
+        console.log("imagen portada: ", imagenPortada);
         this.setState({ imagenPortada });
     }
 
@@ -23,14 +26,14 @@ class GestionCurso extends Component {
     }
 
     render() {
-        const { lecturaCurso, imagenPortada, borrarArchivo } = this.props;
+        const { lecturaCurso, imagenPortada, borrarArchivoPortada } = this.props;
         return (
             <PortadaForm 
                 lecturaCurso = { lecturaCurso }
                 onSubmit = { this.actualizar }
                 setArchivo = { this.setArchivo }
                 imagenPortada = { imagenPortada }
-                borrarArchivo = { borrarArchivo }
+                borrarArchivoPortada = { borrarArchivoPortada }
             />
         );
     }

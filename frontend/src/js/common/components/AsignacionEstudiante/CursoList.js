@@ -26,7 +26,12 @@ class ListadoCursosCatedratico extends Component{
                             dataField="curso"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                return cell.nombre;
+                                if ( cell === undefined ){
+                                    return "";
+                                }else{
+                                    return cell.nombre;
+                                }
+                                
                             }}
                         >
                             Curso
@@ -35,7 +40,12 @@ class ListadoCursosCatedratico extends Component{
                             dataField="grado"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                return cell.descripcion;
+                                if ( cell === undefined ){
+                                    return "";
+                                }else{
+                                    return cell.descripcion;
+                                }
+                                
                             }}
                         >
                             Grado
@@ -44,7 +54,11 @@ class ListadoCursosCatedratico extends Component{
                             dataField="seccion"
                             dataSort
                             dataFormat={(cell, row)=>{
-                                return cell.descripcion;
+                                if ( cell === undefined ){
+                                    return "";
+                                }else{
+                                    return cell.descripcion;
+                                }
                             }}
                         >
                             Seccion
