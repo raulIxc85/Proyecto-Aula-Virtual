@@ -60,12 +60,13 @@ class MaterialClaseViewset(viewsets.ModelViewSet):
 
             #Modificar datos
             material = MaterialClase.objects.get(pk=pk)
-            if material.archivo is not None:
-                material.archivo.delete()
+            if archivo is not None:
+                if material.archivo is not None:
+                    material.archivo.delete()
+                    material.archivo = File(archivo)
             
             material.tituloMateria = datos.get("tituloMaterial")
             material.descripcionMaterial = datos.get("descripcionMaterial")
-            material.archivo = File(archivo)
             material.save()
 
             return Response({'registro modificado'}, status=status.HTTP_200_OK)

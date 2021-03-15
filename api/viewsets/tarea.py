@@ -63,12 +63,13 @@ class TareaViewset(viewsets.ModelViewSet):
 
             #Modificar datos
             tarea = Tarea.objects.get(pk=pk)
-            if tarea.archivo is not None:
-                tarea.archivo.delete()
+            if archivo is not None:
+                if tarea.archivo is not None:
+                    tarea.archivo.delete()
+                    tarea.archivo = File(archivo)
             
             tarea.tituloTarea = datos.get("tituloTarea")
             tarea.descripcion = datos.get("descripcion")
-            tarea.archivo = File(archivo)
             tarea.fechaHoraEntrega = datos.get("fechaHoraEntrega")
             tarea.valorTarea = datos.get("valorTarea")
             tarea.save()
