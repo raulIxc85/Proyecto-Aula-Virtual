@@ -7,7 +7,8 @@ import {
 import { NotificationContainer } from 'react-notifications';
 
 import {Login, Profile, Registro} from './common/components/LoginRegister';
-import Demo from './common/components/Demo/Demo';
+//import Demo from './common/components/Demo/Demo';
+
 import ProtectedRoute from './ProtectedRoute';
 //cambio de password
 import ProtectedRoutePass from './ProtectedRoutePass';
@@ -60,7 +61,7 @@ import CursoEstudiantePortadaContainer from './common/components/CursoEstudiante
 import TareaEntregaContainer from './common/components/CursoEstudiante/EntregaTarea/TareaEntregaContainer';
 import TareaEntregadaListaContainer from './common/components/GestionCursoCatedratico/CalificarTarea/TareasEntregadasListContainer';
 import CalificarTareaContainer from './common/components/GestionCursoCatedratico/CalificarTarea/CalificarTareaContainer';
-
+import DashboardAdminContainer from './common/components/DashboardAdmin/DashboardAdminContainer';
 
 module.exports = (
     <div>
@@ -68,7 +69,7 @@ module.exports = (
             <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/registro" component={Registro} />
-                <ProtectedRoute exact path="/" component={Demo} />
+                <ProtectedRoute exact path="/" component={DashboardAdminContainer} />
                 <ProtectedRoute exact path="/page2" component={Examples} />
                 <ProtectedRoute exact path="/edit-user-profile" component={Profile} />
                 <ProtectedRoute exact path="/grids" component={Grids} />

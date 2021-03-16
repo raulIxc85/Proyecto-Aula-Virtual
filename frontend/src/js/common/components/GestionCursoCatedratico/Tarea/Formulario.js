@@ -15,6 +15,7 @@ class Formulario extends Component{
         borrarArchivo();
     }
     render() {
+        
         const { handleSubmit, crear, id_asignacion, setArchivo, archivo } = this.props;
         const editar = window.location.href.includes('editar');
         let titulo = editar ? 'Modificar Tarea' : 'Registrar Tarea';
@@ -39,8 +40,7 @@ class Formulario extends Component{
                 verLink = 'd-none';
             } 
         }      
-       
-        
+                
         return (
             <form onSubmit={handleSubmit} className='w-50'>
                 <h3>{titulo}</h3>
@@ -52,6 +52,7 @@ class Formulario extends Component{
                                 name="tituloTarea" 
                                 component={renderField} 
                                 disabled={disabled} 
+                                
                             />
                             <label>Descripcion</label>
                             <Field 
@@ -99,6 +100,8 @@ class Formulario extends Component{
                                     decimalScale={1}
                                     component={renderNumber}
                                     disabled={disabled} 
+                                    onChange={(e,value) => {console.log(value)}}
+                                    
                                 />
                             </div>
                             <br />
