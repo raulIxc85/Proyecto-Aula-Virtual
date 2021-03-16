@@ -17,6 +17,7 @@ const TAREA_CURSO = 'TAREA_CURSO';
 const ARCHIVO = 'ARCHIVO';
 const ARCHIVO_TAREA = 'ARCHIVO_TAREA';
 const TAREAS_NOTAS = 'TAREAS_NOTAS';
+const TOTAL_TAREAS = 'TOTAL_TAREAS';
 
 // ------------------------------------
 // Constants
@@ -201,6 +202,18 @@ const leerAsignacionPortada = id => (dispatch) => {
                 //mostrar notas de tareas enviadas
                 api.get('/entregas/notas').then((response)=>{
                     dispatch({ type: TAREAS_NOTAS, lecturaNotas: response });
+                    //mostrar la sumatoria de las notas obtenidas de las tareas
+                    api.get('/entregas/sumarNotas').then((response)=>{
+                        response.nota = response.estudiante__notaTarea__sum;
+                        dispatch({ type: TOTAL_TAREAS, lecturaNota: response });
+                    }).catch((error)=>{
+                        console.log("error: ", error)
+                        NotificationManager.error(
+                            'Ocurrió un error al mostrar sumatoria',
+                            'Error',
+                            0
+                        );
+                    })
                 }).catch((error)=>{
                     console.log("error: ", error)
                     NotificationManager.error(
@@ -365,7 +378,8 @@ export const initialState = {
     lecturaTarea: null,
     archivo: null,
     archivo_tarea: null,
-    lecturaNotas: null
+    lecturaNotas: null,
+    lecturaNota: null
 }
 
 export const reducers = {
@@ -428,6 +442,12 @@ export const reducers = {
         return {
             ...state,
             lecturaNotas,
+        };
+    },
+    [TOTAL_TAREAS]: (state, { lecturaNota }) => {
+        return {
+            ...state,
+            lecturaNota,
         };
     },
 }

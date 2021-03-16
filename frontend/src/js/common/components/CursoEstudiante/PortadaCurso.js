@@ -13,7 +13,7 @@ class PortadaCurso extends Component {
     }
     
     render() {
-        const { lecturaCurso, lecturaMaterial, lecturaTarea, lecturaNotas } = this.props;
+        const { lecturaCurso, lecturaMaterial, lecturaTarea, lecturaNotas, lecturaNota } = this.props;
         return (
             <PortadaCursoForm 
                 lecturaCurso = { lecturaCurso }
@@ -22,6 +22,7 @@ class PortadaCurso extends Component {
                 lecturaMaterial = { lecturaMaterial }
                 lecturaTarea = { lecturaTarea }
                 lecturaNotas = { lecturaNotas }
+                lecturaNota = { lecturaNota } 
             />
         );
     }

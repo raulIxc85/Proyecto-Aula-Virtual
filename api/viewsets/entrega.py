@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import action
+from django.db.models import Sum
 
 from api.models import Entrega
 from django.contrib.auth.models import User
@@ -55,6 +56,16 @@ class EntregaViewset(viewsets.ModelViewSet):
         resultado_pagina = paginador.paginate_queryset(listar_tarea_nota, request)
         serializer = EntregaSerializer(resultado_pagina, many=True)
         return paginador.get_paginated_response(serializer.data)
+
+
+    @action(methods=["get"], detail=False)
+    def sumarNotas(self, request):
+        user = request.user
+        estudiante = User.objects.get(username=user)
+        perfil = Profile.objects.get(user = estudiante.id)
+        id_estudiante = Estudiante.objects.get(perfil = perfil.id)
+        totalNota = Entrega.objects.filter(estudiante__estudiante = id_estudiante).aggregate(Sum('estudiante__notaTarea'))
+        return Response(totalNota, status = status.HTTP_200_OK)
 
 
 

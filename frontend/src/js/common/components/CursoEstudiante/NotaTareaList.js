@@ -5,7 +5,7 @@ import { standardActions } from '../Utils/Grid/StandardActions';
 class NotaTareaList extends Component{
     
     render(){
-        const { data, loader } = this.props;
+        const { data, loader, lecturaNota } = this.props;
         return(
             <div className="d-flex flex-column flex-1 mx-3">
                 {data &&    
@@ -52,6 +52,7 @@ class NotaTareaList extends Component{
                         </TableHeaderColumn>
                     </Grid>
                 }
+                <label className="text-primary text-right">Zona acumulada: {lecturaNota.nota === null ? '0.00' : `${lecturaNota.nota}`}</label>
                 </div>
             );
     }

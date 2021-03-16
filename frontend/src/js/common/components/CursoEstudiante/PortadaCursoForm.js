@@ -10,7 +10,7 @@ import NotaTareaList from './NotaTareaList';
 class PortadaCursoForm extends Component {
     
     render() {
-        const { handleSubmit, lecturaCurso, lecturaMaterial, lecturaTarea, lecturaNotas } = this.props;
+        const { handleSubmit, lecturaCurso, lecturaMaterial, lecturaTarea, lecturaNotas, lecturaNota } = this.props;
         let nombreCurso;
         let grado;
         let seccion;
@@ -64,21 +64,22 @@ class PortadaCursoForm extends Component {
                                 <TabPane tab="Material Clase" key="PRINCIPAL_TOP">
                                     <div className="py-4 px-3">
                                         <MaterialClaseList
-                                            data = {lecturaMaterial}
+                                            data = { lecturaMaterial }
                                         />
                                     </div>
                                 </TabPane>
                                 <TabPane tab="Tareas" key="SEGUNDO_TOP">
                                     <div className="py-4 px-3">
                                         <TareaClaseList
-                                            data = {lecturaTarea}
+                                            data = { lecturaTarea }
                                         />
                                     </div>
                                 </TabPane>
                                 <TabPane tab="Notas" key="TERCERO_TOP">
                                     <div className="py-4 px-3">
                                         <NotaTareaList
-                                            data = {lecturaNotas}
+                                            data = { lecturaNotas } 
+                                            lecturaNota = { lecturaNota }
                                         />
                                     </div>
                                 </TabPane>
