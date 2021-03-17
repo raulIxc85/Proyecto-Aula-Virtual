@@ -62,6 +62,9 @@ import TareaEntregaContainer from './common/components/CursoEstudiante/EntregaTa
 import TareaEntregadaListaContainer from './common/components/GestionCursoCatedratico/CalificarTarea/TareasEntregadasListContainer';
 import CalificarTareaContainer from './common/components/GestionCursoCatedratico/CalificarTarea/CalificarTareaContainer';
 import DashboardAdminContainer from './common/components/DashboardAdmin/DashboardAdminContainer';
+import EventoCrearContainer from './common/components/Evento/EventoCrearContainer';
+import EventoListaContainer from './common/components/Evento/EventoListContainer';
+
 
 module.exports = (
     <div>
@@ -150,6 +153,11 @@ module.exports = (
                 <ProtectedRoute exact path="/cursos-asignados-estudiante/:id/ver-curso-estudiante" component={CursoEstudiantePortadaContainer} />
                 <ProtectedRoute exact path="/cursos-asignados-estudiante/:id/ver-tarea-entrega/:id_tarea" component={TareaEntregaContainer} />
                 
+                <ProtectedRoute exact path="/eventos/crear" component={EventoCrearContainer} />
+                <ProtectedRoute exact path="/eventos/:id" component={EventoCrearContainer} />
+                <ProtectedRoute exact path="/eventos/:id/editar" component={EventoCrearContainer} />
+                <ProtectedRoute exact path="/eventos" component={EventoListaContainer} />
+
                 <Route component={NotFound} />
             </Switch>
         </div>

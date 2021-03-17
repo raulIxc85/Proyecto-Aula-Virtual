@@ -15,4 +15,5 @@ from .materialClase import MaterialClaseViewset
 from .entregaTarea import EntregaTareaViewset
 from .entrega import EntregaViewset
 from .dashboard import DashboardViewset
+from .evento import EventoViewset
 

@@ -22,6 +22,7 @@ import asignacionEstudiante from './modules/asignacionEstudiante/asignacionEstud
 import tarea from './modules/tarea/tarea';
 import material from './modules/materialClase/materialClase';
 import dashboardAdmin from './modules/dashboardAdmin/dashboardAdmin';
+import evento from './modules/evento/evento';
 
 export default combineReducers({
     form: formReducer,
@@ -45,5 +46,6 @@ export default combineReducers({
     asignacionEstudiante,
     tarea,
     material,
-    dashboardAdmin
+    dashboardAdmin,
+    evento
 });

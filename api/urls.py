@@ -23,6 +23,8 @@ router.register(r'material', viewsets.MaterialClaseViewset)
 router.register(r'entrega_tarea', viewsets.EntregaTareaViewset)
 router.register(r'entregas', viewsets.EntregaViewset)
 router.register(r'dashboard', viewsets.DashboardViewset)
+router.register(r'evento', viewsets.EventoViewset)
+
 
 urlpatterns = [
     path('api/', include(router.urls)),

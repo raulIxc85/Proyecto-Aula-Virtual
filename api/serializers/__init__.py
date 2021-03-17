@@ -15,3 +15,4 @@ from .tarea import TareaSerializer, TareaRegistroSerializer
 from .materialClase import MaterialClaseSerializer, MaterialClaseRegistroSerializer
 from .entregaTarea import EntregaTareaSerializer, EntregaTareaRegistroSerializer
 from .entrega import EntregaSerializer
+from .evento import EventoSerializer, EventoRegistroSerializer
