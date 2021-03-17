@@ -200,10 +200,10 @@ const leerAsignacionPortada = id => (dispatch) => {
             api.get('/tarea/tarea_curso',{id_asignacion}).then((response) => {
                 dispatch({ type: TAREA_CURSO, lecturaTarea: response });
                 //mostrar notas de tareas enviadas
-                api.get('/entregas/notas').then((response)=>{
+                api.get('/entregas/notas',{id_asignacion}).then((response)=>{
                     dispatch({ type: TAREAS_NOTAS, lecturaNotas: response });
                     //mostrar la sumatoria de las notas obtenidas de las tareas
-                    api.get('/entregas/sumarNotas').then((response)=>{
+                    api.get('/entregas/sumarNotas',{id_asignacion}).then((response)=>{
                         response.nota = response.estudiante__notaTarea__sum;
                         dispatch({ type: TOTAL_TAREAS, lecturaNota: response });
                     }).catch((error)=>{

@@ -32,7 +32,7 @@ class SideBar extends Component {
                         <li className="nav-item">
                             <NavLink to="/" exact className="nav-link " activeClassName={'active'}>
                                 <div className="d-inline-block item-icon-wrapper">
-                                    <i className="material-icons">edit</i>
+                                    <i className="material-icons">dashboard</i>
                                 </div>
                                 <span>Home</span>
                             </NavLink>

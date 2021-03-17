@@ -47,10 +47,11 @@ class EntregaViewset(viewsets.ModelViewSet):
     @action(methods=["get"], detail=False)
     def notas(self, request):
         user = request.user
+        id = request.query_params.get("id_asignacion")
         estudiante = User.objects.get(username=user)
         perfil = Profile.objects.get(user = estudiante.id)
         id_estudiante = Estudiante.objects.get(perfil = perfil.id)
-        listar_tarea_nota = Entrega.objects.filter(estudiante__estudiante = id_estudiante).order_by('-tarea__creado')
+        listar_tarea_nota = Entrega.objects.filter(estudiante__estudiante = id_estudiante,tarea__asignacion = id).order_by('-tarea__creado')
         #paginando resultado
         paginador = PageNumberPagination()
         resultado_pagina = paginador.paginate_queryset(listar_tarea_nota, request)
@@ -61,10 +62,11 @@ class EntregaViewset(viewsets.ModelViewSet):
     @action(methods=["get"], detail=False)
     def sumarNotas(self, request):
         user = request.user
+        id = request.query_params.get("id_asignacion")
         estudiante = User.objects.get(username=user)
         perfil = Profile.objects.get(user = estudiante.id)
         id_estudiante = Estudiante.objects.get(perfil = perfil.id)
-        totalNota = Entrega.objects.filter(estudiante__estudiante = id_estudiante).aggregate(Sum('estudiante__notaTarea'))
+        totalNota = Entrega.objects.filter(estudiante__estudiante = id_estudiante, tarea__asignacion = id).aggregate(Sum('estudiante__notaTarea'))
         return Response(totalNota, status = status.HTTP_200_OK)
 
 

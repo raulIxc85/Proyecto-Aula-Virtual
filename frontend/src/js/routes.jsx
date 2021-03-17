@@ -70,6 +70,7 @@ import DashboardAdminContainer from './common/components/DashboardAdmin/Dashboar
 import EventoCrearContainer from './common/components/Evento/EventoCrearContainer';
 import EventoListaContainer from './common/components/Evento/EventoListContainer';
 import DashboardCatedraticoContainer from './common/components/DashboardCatedratico/DashboardCatedraticoContainer';
+import DashboardEstudianteContainer from './common/components/DashboardEstudiante/DashboardEstudianteContainer';
 
 
 module.exports = (
@@ -80,7 +81,7 @@ module.exports = (
                 <Route exact path="/registro" component={Registro} />
                 <ProtectedRoute exact path="/" component={DashboardAdminContainer} />
                 <ProtectedRouteCatedratico exact path="/home" component={DashboardCatedraticoContainer} />
-                <ProtectedRouteEstudiante exact path="/home-estudiante" component={Demo} />
+                <ProtectedRouteEstudiante exact path="/home-estudiante" component={DashboardEstudianteContainer} />
                 
                 <ProtectedRoute exact path="/page2" component={Examples} />
                 <ProtectedRoute exact path="/edit-user-profile" component={Profile} />

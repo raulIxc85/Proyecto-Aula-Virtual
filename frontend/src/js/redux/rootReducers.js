@@ -24,6 +24,7 @@ import material from './modules/materialClase/materialClase';
 import dashboardAdmin from './modules/dashboardAdmin/dashboardAdmin';
 import evento from './modules/evento/evento';
 import dashboardCatedratico from './modules/dashboardCatedratico/dashboardCatedratico';
+import dashboardEstudiante from './modules/dashboardEstudiante/dashboardEstudiante';
 
 export default combineReducers({
     form: formReducer,
@@ -49,5 +50,6 @@ export default combineReducers({
     material,
     dashboardAdmin,
     evento,
-    dashboardCatedratico
+    dashboardCatedratico,
+    dashboardEstudiante
 });
