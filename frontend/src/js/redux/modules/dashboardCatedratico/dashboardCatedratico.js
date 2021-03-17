@@ -2,19 +2,19 @@ import { handleActions } from 'redux-actions';
 import { NotificationManager } from "react-notifications";
 import { api } from "api";
 
-const DATOS = 'DATOS';
-const NIVELES = 'NIVELES';
+const LISTADO_CURSOS = 'LISTADO_CURSOS';
+const EVENTOS = 'EVENTOS';
 
 export const mostrar = () => (dispatch) => {
-    api.get('/dashboard/datos_admin').then((response)=>{
-        dispatch({ type: DATOS, lecturaDatos: response });
-        api.get('/dashboard/niveles').then((response)=>{
-            console.log("niveles", response)
-            dispatch({ type: NIVELES, lecturaNiveles: response });
+    api.get('/dashboard_catedratico/curso').then((response)=>{
+        dispatch({ type: LISTADO_CURSOS, lecturaCursos: response });
+        api.get('/dashboard_catedratico/eventos').then((response)=>{
+            console.log("eventos", response)
+            dispatch({ type: EVENTOS, lecturaEventos: response });
         }).catch((error)=>{
             console.log("error: ", error)
             NotificationManager.error(
-                'Ocurrió un error al mostrar ciclo',
+                'Ocurrió un error al listar eventos',
                 'Error',
                 0
             );
@@ -22,7 +22,7 @@ export const mostrar = () => (dispatch) => {
     }).catch((error)=>{
         console.log("error: ", error)
         NotificationManager.error(
-            'Ocurrió un error al mostrar ciclo',
+            'Ocurrió un error al listar los cursos',
             'Error',
             0
         );
@@ -34,23 +34,23 @@ export const actions = {
 };
 
 export const reducers = {
-    [DATOS]: (state, { lecturaDatos } ) => {
+    [LISTADO_CURSOS]: (state, { lecturaCursos } ) => {
         return {
             ...state,
-            lecturaDatos
+            lecturaCursos
         };
     },
-    [NIVELES]: (state, { lecturaNiveles } ) => {
+    [EVENTOS]: (state, { lecturaEventos } ) => {
         return {
             ...state,
-            lecturaNiveles
+            lecturaEventos
         };
     },
 };
 
 export const initialState = {
-    lecturaNiveles: '',
-    lecturaDatos: ''
+    lecturaCursos: '',
+    lecturaEventos: ''
 };
 
 export default handleActions(reducers, initialState)

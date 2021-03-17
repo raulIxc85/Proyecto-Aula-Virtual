@@ -12,6 +12,7 @@ from api.models import Grado
 from api.models import Seccion
 from api.models import Nivel
 from api.serializers import NivelSerializer
+
 class DashboardViewset(viewsets.ModelViewSet):
     queryset = Ciclo.objects.filter(activo=True)
 

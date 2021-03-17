@@ -16,4 +16,6 @@ from .entregaTarea import EntregaTareaViewset
 from .entrega import EntregaViewset
 from .dashboard import DashboardViewset
 from .evento import EventoViewset
+from .dashboardCatedratico import DashboardCatedraticoViewset
+
 

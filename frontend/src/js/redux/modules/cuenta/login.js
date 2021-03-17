@@ -40,9 +40,20 @@ export const onSubmit = (data = {}) => (dispatch, getStore) => {
             dispatch(setMe(response.user))
             dispatch(push("/cambio-password"));
         }else{
-            dispatch(initializeForm('profile', response.user));
-            dispatch(setMe(response.user));
-            dispatch(push("/"));
+            console.log("login:", response);
+            if (response.user.is_superuser === true){
+                dispatch(initializeForm('profile', response.user));
+                dispatch(setMe(response.user));
+                dispatch(push("/"));
+            }else if (response.user.profile.rol === 1){
+                dispatch(initializeForm('profile', response.user));
+                dispatch(setMe(response.user));
+                dispatch(push("/home"));
+            }else if (response.user.profile.rol === 2){
+                dispatch(initializeForm('profile', response.user));
+                dispatch(setMe(response.user));
+                dispatch(push("/home-estudiante"));
+            }
         }
         
     }).catch(() => {

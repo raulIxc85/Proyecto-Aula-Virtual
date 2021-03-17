@@ -89,7 +89,8 @@ class DashboardAdmin extends Component {
                                     <label>Niveles</label>
                                     <div className="p-0 px-3 pt-3">
                                     <Grid 
-                                        data={lecturaNiveles} 
+                                        data={lecturaNiveles}
+                                        headerStyle={ { background: '#d2dbdc' } } 
                                     >
                                         <TableHeaderColumn
                                             isKey

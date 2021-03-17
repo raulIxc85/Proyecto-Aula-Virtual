@@ -7,11 +7,16 @@ import {
 import { NotificationContainer } from 'react-notifications';
 
 import {Login, Profile, Registro} from './common/components/LoginRegister';
-//import Demo from './common/components/Demo/Demo';
+import Demo from './common/components/Demo/Demo';
 
 import ProtectedRoute from './ProtectedRoute';
 //cambio de password
 import ProtectedRoutePass from './ProtectedRoutePass';
+//catedratico
+import ProtectedRouteCatedratico from './ProtectedRouteCatedratico';
+//estudiante
+import ProtectedRouteEstudiante from './ProtectedRouteEstudiante';
+
 
 import Examples from './common/components/Examples/Basic';
 import NotFound from './common/components/layout/NotFound/NotFound';
@@ -64,6 +69,7 @@ import CalificarTareaContainer from './common/components/GestionCursoCatedratico
 import DashboardAdminContainer from './common/components/DashboardAdmin/DashboardAdminContainer';
 import EventoCrearContainer from './common/components/Evento/EventoCrearContainer';
 import EventoListaContainer from './common/components/Evento/EventoListContainer';
+import DashboardCatedraticoContainer from './common/components/DashboardCatedratico/DashboardCatedraticoContainer';
 
 
 module.exports = (
@@ -73,6 +79,9 @@ module.exports = (
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/registro" component={Registro} />
                 <ProtectedRoute exact path="/" component={DashboardAdminContainer} />
+                <ProtectedRouteCatedratico exact path="/home" component={DashboardCatedraticoContainer} />
+                <ProtectedRouteEstudiante exact path="/home-estudiante" component={Demo} />
+                
                 <ProtectedRoute exact path="/page2" component={Examples} />
                 <ProtectedRoute exact path="/edit-user-profile" component={Profile} />
                 <ProtectedRoute exact path="/grids" component={Grids} />
@@ -133,25 +142,25 @@ module.exports = (
                 <ProtectedRoute exact path="/asignaciones-catedratico/:id/editar" component={AsignacionCrearContainer} />
                 <ProtectedRoute exact path="/asignaciones-catedratico" component={AsignacionListaContainer} />
 
-                <ProtectedRoute exact path="/cursos-asignados" component={AsignacionCursoListaContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id" component={AsignacionEstudianteCrearContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/admin-curso" component={GestionCursoContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados" component={AsignacionCursoListaContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id" component={AsignacionEstudianteCrearContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/admin-curso" component={GestionCursoContainer} />
                 
-                <ProtectedRoute exact path="/cursos-asignados/:id/crear-tarea" component={TareaCrearContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/tareas" component={TareaListaContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/ver-tarea/:id_tarea" component={TareaCrearContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/tareas/:id_tarea/editar" component={TareaCrearContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/admin-tarea/:id_tarea" component={TareaEntregadaListaContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/admin-tarea/:id_tarea/:id_entrega" component={CalificarTareaContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/crear-tarea" component={TareaCrearContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/tareas" component={TareaListaContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/ver-tarea/:id_tarea" component={TareaCrearContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/tareas/:id_tarea/editar" component={TareaCrearContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/admin-tarea/:id_tarea" component={TareaEntregadaListaContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/admin-tarea/:id_tarea/:id_entrega" component={CalificarTareaContainer} />
                 
-                <ProtectedRoute exact path="/cursos-asignados/:id/crear-material-curso" component={MaterialClaseCrearContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/material" component={MaterialClaseListaContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/ver-material/:id_material" component={MaterialClaseCrearContainer} />
-                <ProtectedRoute exact path="/cursos-asignados/:id/material/:id_material/editar" component={MaterialClaseCrearContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/crear-material-curso" component={MaterialClaseCrearContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/material" component={MaterialClaseListaContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/ver-material/:id_material" component={MaterialClaseCrearContainer} />
+                <ProtectedRouteCatedratico exact path="/cursos-asignados/:id/material/:id_material/editar" component={MaterialClaseCrearContainer} />
                 
-                <ProtectedRoute exact path="/cursos-asignados-estudiante" component={CursoEstudianteListaContainer} />
-                <ProtectedRoute exact path="/cursos-asignados-estudiante/:id/ver-curso-estudiante" component={CursoEstudiantePortadaContainer} />
-                <ProtectedRoute exact path="/cursos-asignados-estudiante/:id/ver-tarea-entrega/:id_tarea" component={TareaEntregaContainer} />
+                <ProtectedRouteEstudiante exact path="/cursos-asignados-estudiante" component={CursoEstudianteListaContainer} />
+                <ProtectedRouteEstudiante exact path="/cursos-asignados-estudiante/:id/ver-curso-estudiante" component={CursoEstudiantePortadaContainer} />
+                <ProtectedRouteEstudiante exact path="/cursos-asignados-estudiante/:id/ver-tarea-entrega/:id_tarea" component={TareaEntregaContainer} />
                 
                 <ProtectedRoute exact path="/eventos/crear" component={EventoCrearContainer} />
                 <ProtectedRoute exact path="/eventos/:id" component={EventoCrearContainer} />
