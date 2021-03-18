@@ -372,7 +372,7 @@ export const actions = {
 
 export const initialState = {
     ...baseReducer.initialState,
-    lecturaCurso: null, 
+    lecturaCurso: '', 
     imagenPortada: null,
     lecturaMaterial: null,
     lecturaTarea: null,

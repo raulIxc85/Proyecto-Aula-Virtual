@@ -52,7 +52,13 @@ class DashboardCatedraticoViewset(viewsets.ModelViewSet):
         user = request.user
         perfil = Profile.objects.get(user=user)
         catedratico = Catedratico.objects.get(perfil=perfil.id)
-        detalle_tareas = Entrega.objects.values('tarea__asignacion__curso__nombre').annotate(Count('tarea__asignacion__curso')).filter(estudiante__calificado=0)
+        detalle_tareas = Entrega.objects.values(
+            'tarea__asignacion__curso__nombre'
+        ).annotate(Count(
+            'tarea__asignacion__curso'
+        )).filter(estudiante__calificado=0)
+        
+        #paginando el resultado
         paginador = PageNumberPagination()
         resultado_pagina = paginador.paginate_queryset(detalle_tareas, request)
         serializer = resultado_pagina
