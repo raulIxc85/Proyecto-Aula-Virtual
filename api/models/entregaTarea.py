@@ -9,6 +9,7 @@ class EntregaTarea(models.Model):
     texto = models.TextField(blank=True, null=True)
     fechaEntrega = models.DateTimeField()
     activo = models.BooleanField(default=True)
+    calificado = models.BooleanField(default=False)
     creado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
     

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { listar } from '../../../redux/modules/evento/evento';
 import Grid from '../Utils/Grid';
 import { standardActions } from '../Utils/Grid/StandardActions';
 
@@ -9,7 +8,7 @@ class ListadoEvento extends Component{
         listar();
     }
     render(){
-        const { data, loader, eliminar } = this.props;
+        const { data, loader, eliminar, listar } = this.props;
         return(
             <React.Fragment>
                 <center><h3>Eventos Registrados</h3></center>
@@ -28,7 +27,7 @@ class ListadoEvento extends Component{
                         data={data} 
                         loading={loader} 
                         onPageChange={listar} 
-                        //onSortChange={onSortChange} 
+                       
                     >
                         <TableHeaderColumn
                             isKey
