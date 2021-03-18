@@ -7,7 +7,7 @@ class DashboardCatedratico extends Component {
         mostrar();
     }
     render() {
-        const { lecturaCursos, lecturaEventos } = this.props;
+        const { lecturaCursos, lecturaEventos, lecturaTareas, lecturaCantidad } = this.props;
 
         return (
             
@@ -82,10 +82,11 @@ class DashboardCatedratico extends Component {
                             <div className="p-0 pt-3 d-flex flex-column flex-md-row">
                                 <div className="d-flex flex-column flex-1 mx-3">
                                     <label>Eventos Próximos</label>
-                                    <div className="p-0 px-3 pt-3">
+                                    <div className="p-0 px-3 pt-3 mb-4">
                                     <Grid 
                                         data={lecturaEventos} 
                                         headerStyle={ { background: '#d2dbdc' } }
+                                        pagination={false}
                                     >
                                         <TableHeaderColumn
                                             isKey
@@ -103,14 +104,41 @@ class DashboardCatedratico extends Component {
                         </div>
                     </div>
                     
-                    <div className="col-sm-4">
+                    <div className="col-sm-6">
                         <div className="mb-4 card card-small">
                             <div className="p-0 pt-3 d-flex flex-column flex-md-row">
                                 <div className="d-flex flex-column flex-1 mx-3">
                                     <label>Tareas Pendientes de calificar</label>
                                     <div className="p-0 px-3 pt-3">
-                                    
-                            </div>
+                                        <table className="table">
+                                            <tr>
+                                                <td><label className="text-primary">Total tareas sin calificar: </label> </td>
+                                                <td><label >{lecturaCantidad.tareas}</label></td>
+                                            </tr>
+                                        </table>
+                                        <Grid 
+                                            data={lecturaTareas} 
+                                            headerStyle={ { background: '#d2dbdc' } }
+                                        >   
+                                            <TableHeaderColumn
+                                                isKey
+                                                dataAlign="center"
+                                                dataField="tarea__asignacion__curso__count"
+                                                dataSort
+                                            >
+                                                Cantidad
+                                            </TableHeaderColumn>
+                                            <TableHeaderColumn
+                                                
+                                                dataAlign="center"
+                                                dataField="tarea__asignacion__curso__nombre"
+                                                dataSort
+                                            >
+                                                Curso
+                                            </TableHeaderColumn>
+                                            
+                                        </Grid>
+                                    </div>
                                 </div>
                             </div>
                         </div>

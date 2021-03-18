@@ -86,6 +86,7 @@ class EntregaTareaViewset(viewsets.ModelViewSet):
             datos = request.data
             tarea = EntregaTarea.objects.get(pk=datos.get("id"))
             tarea.notaTarea = datos.get("notaTarea")
+            tarea.calificado = True
             tarea.save()
             return Response({'Tarea calificada'}, status=status.HTTP_200_OK)
         except Exception as e:

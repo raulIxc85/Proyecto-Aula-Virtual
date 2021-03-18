@@ -50,7 +50,7 @@ class DashboardEstudianteViewset(viewsets.ModelViewSet):
         perfil = Profile.objects.get(user=user)
         estudiante = Estudiante.objects.get(perfil=perfil.id)
         cursos = AsignacionCurso.objects.filter(estudiante=estudiante.id, activo=True)
-        tareas = Tarea.objects.filter(activo=True).select_related('asignacion').order_by('-fechaHoraEntrega')[:7]
+        tareas = Tarea.objects.filter(activo=True).select_related('asignacion').order_by('-fechaHoraEntrega','-creado')[:7]
         #paginando el resultado
         paginador = PageNumberPagination()
         resultado_pagina = paginador.paginate_queryset(tareas, request)
