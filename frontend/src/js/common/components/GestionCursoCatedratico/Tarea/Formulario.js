@@ -7,7 +7,7 @@ import {
     renderDayPicker,
     renderNumber
 } from "../../Utils/renderField/renderField";
-
+import { validate, validators, validatorFromFunction, combine } from 'validate-redux-form';
 
 class Formulario extends Component{
     componentWillUnmount = () => {
@@ -40,7 +40,7 @@ class Formulario extends Component{
                 verLink = 'd-none';
             } 
         }      
-                
+        
         return (
             <form onSubmit={handleSubmit} className='w-50'>
                 <h3>{titulo}</h3>
@@ -100,8 +100,11 @@ class Formulario extends Component{
                                     decimalScale={1}
                                     component={renderNumber}
                                     disabled={disabled} 
-                                    onChange={(e,value) => {console.log(value)}}
-                                    
+                                />
+                                <Field 
+                                    name="sumaTarea" 
+                                    component={renderField} 
+                                    type="hidden"
                                 />
                             </div>
                             <br />
@@ -129,7 +132,21 @@ class Formulario extends Component{
     }
 }
 
+export const revisarNota = (notaTarea, suma) => validatorFromFunction(value => {
+    let notaFinal=0.00;
+    notaFinal = parseFloat(notaTarea) + parseFloat(suma);
+    return notaFinal<=100;
+});
+
 export default reduxForm({
     form: 'tareaForm', //identificador unico
-   
+    validate: (data) => {
+        return validate(data, {
+            valorTarea: combine(
+                validators.exists()('Este campo es requerido'),
+                revisarNota(data.valorTarea, data.sumaTarea)()(`La nota que ingresó sobrepasa los 100 puntos. Acumulado: ${data.sumaTarea} puntos`)
+            ),
+            tituloTarea: validators.exists()('Este campo es requerido'),
+        });
+    },
 })(Formulario)

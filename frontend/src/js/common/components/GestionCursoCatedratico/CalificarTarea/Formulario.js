@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {
     renderNumber,
+    renderField
 } from "../../Utils/renderField/renderField";
-import { validate, validators } from 'validate-redux-form';
+import { validate, validators, validatorFromFunction, combine } from 'validate-redux-form';
 
 class Formulario extends Component{
     render(){
@@ -23,6 +24,11 @@ class Formulario extends Component{
                                 name="notaTarea" 
                                 decimalScale={1}
                                 component={renderNumber} 
+                            />
+                            <Field 
+                                name="nota" 
+                                component={renderField}
+                                type="hidden"
                             />
                             <br />
                             <div className='d-flex flex-row justify-content-end mt-3'> 
@@ -49,11 +55,20 @@ class Formulario extends Component{
     }
 }
 
+export const revisarNota = (notaTarea, nota) => validatorFromFunction(value => {
+    return notaTarea<=nota;
+});
+
+
 export default reduxForm({
     form: 'calificarForm', //identificador unico del formulario
     validate: (data) => {
         return validate(data, {
-            notaTarea: validators.exists()('Este campo es requerido'),
+            notaTarea: combine(
+                validators.exists()('Este campo es requerido'),
+                revisarNota(data.notaTarea, data.nota)()('La nota que ingresó sobrepasa al valor establecido')
+            ),
+            tituloTarea: validators.exists()('Este campo es requerido'),
         });
     },
 })(Formulario)

@@ -121,7 +121,7 @@ const leer = id => (dispatch) => {
 const sumarNota = id => (dispatch) => {
     api.get('tarea/sumarTarea', {id}).then((response)=>{
         response.sumaTarea = response.valorTarea__sum
-        dispatch(initializeForm("tareaForm", response));
+        dispatch(initializeForm('tareaForm', response ));
     }).catch((error)=>{
         console.log("error: ", error)
         NotificationManager.error(
@@ -217,6 +217,21 @@ const calificarTarea = () => (dispatch, getStore) =>{
     })
 }
 
+/* obtener nota de tarea */
+const obtenerNota = id_tarea => (dispatch) => {
+    api.get('/tarea/nota_tarea', {id_tarea}).then((response)=>{
+        dispatch(initializeForm('calificarForm', response));
+    }).catch((error)=>{
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al buscar nota de la tarea',
+            'Error',
+            0
+        );
+    })
+}
+
+
 export const actions = {
     ...baseReducer.actions,
     listar,
@@ -228,14 +243,14 @@ export const actions = {
     eliminar,
     borrarArchivo,
     listarTareasEntregadas,
-    calificarTarea
+    calificarTarea,
+    obtenerNota
    
 }
 
 export const initialState = {
     ...baseReducer.initialState,
     archivo: null,
-   
 }
 
 export const reducers = {
@@ -258,6 +273,7 @@ export const reducers = {
             data,
         };
     },
+ 
 }
 
 

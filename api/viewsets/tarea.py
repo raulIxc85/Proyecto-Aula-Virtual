@@ -119,6 +119,16 @@ class TareaViewset(viewsets.ModelViewSet):
         return paginador.get_paginated_response(serializer.data)
 
 
+    @action(methods=["get"], detail=False)
+    def nota_tarea(self, request):
+        id = request.query_params.get("id_tarea")
+        nota = Tarea.objects.get(pk=id)
+        dato = {
+            'nota': nota.valorTarea
+        }
+        return Response(dato, status=status.HTTP_200_OK)
+
+
     def get_permissions(self):
         """Define permisos para este recurso"""
         permission_classes = [IsAuthenticated]
