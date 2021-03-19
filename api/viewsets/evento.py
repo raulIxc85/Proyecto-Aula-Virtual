@@ -4,6 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from api.permisos import Administrador
 
 from api.models import Evento
 from api.models import Ciclo
@@ -11,6 +12,8 @@ from api.serializers import EventoSerializer, EventoRegistroSerializer
 
 class EventoViewset(viewsets.ModelViewSet):
     queryset = Evento.objects.filter(activo=True)
+    #define permiso para este recurso
+    permission_classes = (Administrador,)
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("titulo",)
@@ -49,12 +52,4 @@ class EventoViewset(viewsets.ModelViewSet):
             return Response({'registro creado'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-  
-    
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
-
 

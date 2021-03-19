@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.core.files import File
 from rest_framework.pagination import PageNumberPagination
+from api.permisos import CatedraticoUser, EstudianteUser
 
 from api.models import MaterialClase
 from api.models import AsignacionCatedraticoCurso
@@ -14,6 +15,8 @@ from api.serializers import MaterialClaseSerializer, MaterialClaseRegistroSerial
 
 class MaterialClaseViewset(viewsets.ModelViewSet):
     queryset = MaterialClase.objects.filter(activo=True)
+    #define permiso para este recurso
+    permission_classes = [CatedraticoUser | EstudianteUser]
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("tituloMaterial",)
@@ -107,11 +110,4 @@ class MaterialClaseViewset(viewsets.ModelViewSet):
         resultado_pagina = paginador.paginate_queryset(material, request)
         serializer = MaterialClaseSerializer(resultado_pagina, many=True)
         return paginador.get_paginated_response(serializer.data)
-    
-
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
-
 

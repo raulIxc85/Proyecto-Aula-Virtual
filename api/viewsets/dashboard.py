@@ -1,9 +1,10 @@
-#Dashboard View
+#Dashboard Administrador View
 from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from api.permisos import Administrador
 
 from api.models import Ciclo
 from django.contrib.auth.models import User
@@ -15,6 +16,9 @@ from api.serializers import NivelSerializer
 
 class DashboardViewset(viewsets.ModelViewSet):
     queryset = Ciclo.objects.filter(activo=True)
+    #define permiso para este recurso
+    permission_classes = (Administrador,)
+
 
     @action(methods=["get"], detail=False)
     def datos_admin(self, request):
@@ -51,9 +55,3 @@ class DashboardViewset(viewsets.ModelViewSet):
         serializer = NivelSerializer(resultado_pagina, many=True)
         return paginador.get_paginated_response(serializer.data)
 
-
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
-    

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from api.permisos import Administrador
 
 from api.models import Catedratico
 from api.models import Profile
@@ -16,6 +17,8 @@ from api.serializers import UserSerializerCatedratico
 
 class CatedraticoViewset(viewsets.ModelViewSet):
     queryset = Catedratico.objects.filter(activo=True).select_related("perfil")
+    #define permiso para este recurso
+    permission_classes = (Administrador,)
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("perfil__nombres", "perfil__apellidos")
@@ -110,10 +113,4 @@ class CatedraticoViewset(viewsets.ModelViewSet):
             return Response({'registro borrado'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    
-
-
-    def get_permissions(self):
-        """" Define permisos para este recurso """
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
+ 

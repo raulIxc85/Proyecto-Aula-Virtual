@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.core.files import File
 from django.db import transaction
+from api.permisos import EstudianteUser
 
 from api.models import EntregaTarea
 from api.models import Entrega
@@ -18,6 +19,8 @@ from api.serializers import EntregaTareaSerializer, EntregaTareaRegistroSerializ
 
 class EntregaTareaViewset(viewsets.ModelViewSet):
     queryset = EntregaTarea.objects.filter(activo=True)
+    #define permiso para este recurso
+    permission_classes = (EstudianteUser,)
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("texto",)
@@ -91,9 +94,3 @@ class EntregaTareaViewset(viewsets.ModelViewSet):
             return Response({'Tarea calificada'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    
-
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]

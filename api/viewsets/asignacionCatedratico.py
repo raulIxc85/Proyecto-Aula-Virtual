@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.core.files import File
 from rest_framework.pagination import PageNumberPagination
+from api.permisos import Administrador, CatedraticoUser 
 
 from api.models import AsignacionCatedraticoCurso
 from api.models import Catedratico
@@ -19,7 +20,9 @@ from api.serializers import AsignacionCatedraticoSerializer, AsignacionCatedrati
 
 class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
     queryset = AsignacionCatedraticoCurso.objects.filter(activo=True)
-
+    #define permiso para este recurso
+    permission_classes = [ Administrador | CatedraticoUser ]
+    
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("catedratico", "curso")
     search_fields = ("catedratico", "curso")
@@ -87,11 +90,4 @@ class AsignacionCatedraticoViewset(viewsets.ModelViewSet):
             return Response({"imagen actualizada"}, status = status.HTTP_200_OK)
         except Exception as e:
             return Response({'detail': str(e)}, status = status.HTTP_400_BAD_REQUEST)
-
-
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
-    
 

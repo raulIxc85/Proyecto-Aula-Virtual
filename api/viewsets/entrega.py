@@ -1,4 +1,4 @@
-#EntregaTarea View
+#Entrega View
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets, status
 from rest_framework.permissions import IsAuthenticated
@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import action
 from django.db.models import Sum
+from api.permisos import CatedraticoUser,EstudianteUser
 
 from api.models import Entrega
 from django.contrib.auth.models import User
@@ -15,6 +16,8 @@ from api.serializers import EntregaSerializer
 
 class EntregaViewset(viewsets.ModelViewSet):
     queryset = Entrega.objects.filter()
+    #definer permisos para este recurso
+    permission_classes = [CatedraticoUser | EstudianteUser ]
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("estudiante",)
@@ -69,10 +72,4 @@ class EntregaViewset(viewsets.ModelViewSet):
         totalNota = Entrega.objects.filter(estudiante__estudiante = id_estudiante, tarea__asignacion = id).aggregate(Sum('estudiante__notaTarea'))
         return Response(totalNota, status = status.HTTP_200_OK)
 
-
-
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
 

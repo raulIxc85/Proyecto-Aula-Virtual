@@ -1,15 +1,15 @@
-#Dashboard View
+#Dashboard Catedratico View
 from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
+from api.permisos import CatedraticoUser
 
 from api.models import Catedratico
 from api.models import AsignacionCatedraticoCurso
 from api.models import Profile
-from api.models import Catedratico
 from api.models import Evento
 from api.models import Ciclo
 from api.models import EntregaTarea
@@ -21,6 +21,8 @@ from api.serializers import AsignacionCatedraticoSerializer, EventoSerializer
 
 class DashboardCatedraticoViewset(viewsets.ModelViewSet):
     queryset = Catedratico.objects.filter(activo=True)
+    #define permiso para este recurso
+    permission_classes = (CatedraticoUser,)
 
 
     @action(methods=["get"], detail=False)
@@ -73,9 +75,3 @@ class DashboardCatedraticoViewset(viewsets.ModelViewSet):
         }
         return Response(datos, status=status.HTTP_200_OK) 
 
-
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
-    

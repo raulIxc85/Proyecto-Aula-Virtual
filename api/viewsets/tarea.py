@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Sum
 from django.core.files import File
+from api.permisos import CatedraticoUser, EstudianteUser
 
 from api.models import Tarea
 from api.models import AsignacionCatedraticoCurso
@@ -15,6 +16,8 @@ from api.serializers import TareaSerializer, TareaRegistroSerializer
 
 class TareaViewset(viewsets.ModelViewSet):
     queryset = Tarea.objects.filter(activo=True)
+    #definer permisos para este recurso
+    permission_classes = [CatedraticoUser | EstudianteUser ]
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("tituloTarea",)
@@ -127,10 +130,4 @@ class TareaViewset(viewsets.ModelViewSet):
             'nota': nota.valorTarea
         }
         return Response(dato, status=status.HTTP_200_OK)
-
-
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
 

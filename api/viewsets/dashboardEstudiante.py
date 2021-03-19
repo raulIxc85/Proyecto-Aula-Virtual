@@ -1,9 +1,10 @@
-#Dashboard View
+#Dashboard Estudiante View
 from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from api.permisos import EstudianteUser
 
 from api.models import Estudiante
 from api.models import AsignacionCatedraticoCurso
@@ -18,8 +19,10 @@ from api.serializers import AsignacionEstudianteSerializer, EventoSerializer, Ta
 
 class DashboardEstudianteViewset(viewsets.ModelViewSet):
     queryset = Estudiante.objects.filter(activo=True)
+    #define permiso para este recurso
+    permission_classes = (EstudianteUser,)
 
-
+    
     @action(methods=["get"], detail=False)
     def curso(self, request, *args, **kwargs):
         user = request.user
@@ -56,11 +59,3 @@ class DashboardEstudianteViewset(viewsets.ModelViewSet):
         resultado_pagina = paginador.paginate_queryset(tareas, request)
         serializer = TareaSerializer(resultado_pagina, many=True)
         return paginador.get_paginated_response(serializer.data)
-
-
-
-    def get_permissions(self):
-        """Define permisos para este recurso"""
-        permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
-    
