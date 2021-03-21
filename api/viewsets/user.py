@@ -10,6 +10,13 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from datetime import datetime
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.core import mail
 
 from api.models import Profile
 from api.serializers import UserSerializer, UserReadSerializer
@@ -32,11 +39,12 @@ class UserViewset(viewsets.ModelViewSet):
 
     def get_permissions(self):
         """" Define permisos para este recurso """
-        if self.action == "create" or self.action == "token":
+        if self.action == "create" or self.action == "token" or self.action =="verificar_correo" or self.action=="cambiar_pass_token":
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
+
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -124,4 +132,68 @@ class UserViewset(viewsets.ModelViewSet):
         except KeyError as e:
             return Response({"detail": "session not found"}, status=status.HTTP_404_NOT_FOUND)
 
+
+    #verificar si existe el correo
+    @action(methods=["put"], detail=False)
+    def verificar_correo(self, request):
+        try:
+            datos = request.data
+            correo = User.objects.get(username=datos.get("correo"))
+            if correo is not None:
+                self.enviar_email_confirmacion(correo, request)
+            
+            return Response({'detail','correo verificado'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'detail', str(e)}, status = status.HTTP_400_BAD_REQUEST)
+
+
+    def enviar_email_confirmacion(self, user, request):
+        """Envio de link para cambiar contraseña"""
+        datos = request.data
+        generar_token_recuperacion = self.generar_token(user)
+       
+        html_content = render_to_string(
+            'email/recuperar.html',
+            {   'token': generar_token_recuperacion, 
+                'user':user, 
+                'url': datos.get("url"),
+                'id': user.id
+            }
+            
+        )
+        subject =  'Cambio de password'
+        from_email = 'Administrador <noreply>@colegio.com'
+        usuario = user.username
+        send_mail( 
+            subject, 
+            html_content, 
+            from_email,
+            [ usuario ,],            
+            fail_silently=False,
+        )
         
+
+    def generar_token(self, user):
+        token_generator = PasswordResetTokenGenerator()
+        token = token_generator.make_token(user)
+        return token
+  
+
+    #cambiar password utilizando Token
+    @action(methods=["put"], detail=False)
+    def cambiar_pass_token(self, request):
+        try:
+            datos = request.data
+            token_generator = PasswordResetTokenGenerator()
+            usuario = User.objects.get(pk=datos.get("id"))
+            #validar si pertenece token al usuario
+            is_valid = token_generator.check_token(usuario, datos.get("token") )
+            if is_valid:
+                #cambiar contraseña
+                usuario = User.objects.get(pk=datos.get("id"))
+                usuario.set_password(request.data["password"])
+                usuario.last_login = datetime.now()
+                usuario.save()
+            return Response({"detail","registro modificado"}, status=status.HTTP_200_OK)
+        except KeyError as e:
+            return Response({"detail": "session not found"}, status=status.HTTP_404_NOT_FOUND)

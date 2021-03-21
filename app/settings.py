@@ -66,7 +66,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -150,6 +150,25 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+#tiempo de vida link para cambio de contraseña
+PASSWORD_RESET_TIMEOUT_DAYS = 1
+
+# EMAIL
+# ------------------------------------------------------------------------------
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_FILE_PATH = '/tmp/'
+
+EMAIL_TIMEOUT = 5
+
+# Host for sending email.
+EMAIL_HOST = 'localhost'
+
+# Port for sending email.
+EMAIL_PORT = 1025
 
 
 # Static files (CSS, JavaScript, Images)

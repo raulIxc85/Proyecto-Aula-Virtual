@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
 
-import {Login, Profile, Registro} from './common/components/LoginRegister';
+import {Login, Profile } from './common/components/LoginRegister';
 import Demo from './common/components/Demo/Demo';
 
 import ProtectedRoute from './ProtectedRoute';
@@ -71,14 +71,19 @@ import EventoCrearContainer from './common/components/Evento/EventoCrearContaine
 import EventoListaContainer from './common/components/Evento/EventoListContainer';
 import DashboardCatedraticoContainer from './common/components/DashboardCatedratico/DashboardCatedraticoContainer';
 import DashboardEstudianteContainer from './common/components/DashboardEstudiante/DashboardEstudianteContainer';
-
+import EnviarCorreoContainer from './common/components/LoginRegister/CambiarPassword/EnviarCorreoContainer';
+import ConfirmacionEnvio from './common/components/LoginRegister/CambiarPassword/ConfirmacionEnvio';
+import CambiarPasswordContainer from './common/components/LoginRegister/CambiarPassword/CambiarPasswordContainer';
 
 module.exports = (
     <div>
         <div className="container__content">
             <Switch>
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/registro" component={Registro} />
+                <Route exact path="/cambiar-password" component={EnviarCorreoContainer} />
+                <Route exact path="/confirmacion-envio" component={ConfirmacionEnvio} />
+                <Route exact path="/validar_token/:id/:token" component={CambiarPasswordContainer} />
+                
                 <ProtectedRoute exact path="/" component={DashboardAdminContainer} />
                 <ProtectedRouteCatedratico exact path="/home" component={DashboardCatedraticoContainer} />
                 <ProtectedRouteEstudiante exact path="/home-estudiante" component={DashboardEstudianteContainer} />

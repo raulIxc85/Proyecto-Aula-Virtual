@@ -25,6 +25,7 @@ import dashboardAdmin from './modules/dashboardAdmin/dashboardAdmin';
 import evento from './modules/evento/evento';
 import dashboardCatedratico from './modules/dashboardCatedratico/dashboardCatedratico';
 import dashboardEstudiante from './modules/dashboardEstudiante/dashboardEstudiante';
+import cambiarPass from './modules/cuenta/cambiarPassword';
 
 export default combineReducers({
     form: formReducer,
@@ -45,11 +46,12 @@ export default combineReducers({
     ciclo,
     curso,
     asignacion,
-    asignacionEstudiante,
+    asignacionEstudiante,   
     tarea,
     material,
     dashboardAdmin,
     evento,
     dashboardCatedratico,
-    dashboardEstudiante
+    dashboardEstudiante,
+    cambiarPass
 });
