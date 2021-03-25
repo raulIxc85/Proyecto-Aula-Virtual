@@ -52,4 +52,3 @@ class EventoViewset(viewsets.ModelViewSet):
             return Response({'registro creado'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-

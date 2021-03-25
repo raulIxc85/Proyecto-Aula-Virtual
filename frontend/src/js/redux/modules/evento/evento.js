@@ -4,6 +4,14 @@ import { NotificationManager } from "react-notifications";
 import { push } from "react-router-redux";
 import { api } from "api";
 
+const LISTADO_EVENTOS = 'LISTADO_EVENTOS';
+const PAGE = 'PAGE';
+
+const setPage = page => ({
+    type: PAGE,
+    page,
+});
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -64,10 +72,26 @@ export const modificarEvento = () => (dispatch, getStore) => {
     })
 }
 
+export const listar = (page=1) => (dispatch) => {
+    const params = { page };
+    api.get('/evento',params).then((response)=>{
+        dispatch({ type: LISTADO_EVENTOS, data: response });
+        dispatch(setPage(page));
+    }).catch((error)=>{
+        console.log("error: ", error)
+        NotificationManager.error(
+            'Ocurrió un error al listar los roles',
+            'Error',
+            0
+        );
+    })
+}
+
 export const actions = {
     ...baseReducer.actions,
     crearEvento,
-    modificarEvento
+    modificarEvento,
+    listar
 }
 
 export const initialState = {
@@ -75,7 +99,13 @@ export const initialState = {
 }
 
 export const reducers = {
-    ...baseReducer.reducers
+    ...baseReducer.reducers,
+    [LISTADO_EVENTOS]: (state , { data }) => {
+        return {
+            ...state,
+            data
+        };
+    },
 }
 
 
